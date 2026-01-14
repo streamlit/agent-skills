@@ -45,7 +45,19 @@ Most AI coding assistants support custom instructions. Copy the relevant `SKILL.
 
 ## Skill Format
 
-Each skill requires a `SKILL.md` file with YAML frontmatter:
+Each skill is a directory containing a required `SKILL.md` file and optional supporting directories:
+
+```
+skill-name/
+├── SKILL.md          # Required - skill instructions
+├── scripts/          # Optional - executable code (Python, Bash, JavaScript)
+├── references/       # Optional - additional documentation
+└── assets/           # Optional - static resources (templates, images, data files)
+```
+
+### SKILL.md
+
+The `SKILL.md` file contains YAML frontmatter and markdown instructions:
 
 ```yaml
 ---
@@ -57,6 +69,16 @@ description: A clear description of what this skill does and when to use it.
 
 Your instructions here...
 ```
+
+### Optional Directories
+
+| Directory | Purpose | Contents |
+|-----------|---------|----------|
+| `scripts/` | Executable code that agents can run | Python, Bash, JavaScript files |
+| `references/` | Additional documentation loaded on-demand | Markdown files, domain-specific docs |
+| `assets/` | Static resources | Templates, images, data files, schemas |
+
+These directories support progressive disclosure—files are loaded only when needed, keeping context usage efficient.
 
 ### Required Fields
 

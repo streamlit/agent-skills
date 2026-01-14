@@ -13,15 +13,33 @@ This is a collection of Agent Skills for building Streamlit applications. Skills
 
 ## Skill Structure
 
-Each skill is a directory containing a `SKILL.md` file:
+Each skill is a directory containing a required `SKILL.md` file and optional supporting directories:
 
 ```
 skills/
 └── skill-name/
-    └── SKILL.md    # Required: Instructions for the AI agent
+    ├── SKILL.md          # Required: Instructions for the AI agent
+    ├── scripts/          # Optional: Executable code
+    ├── references/       # Optional: Additional documentation
+    └── assets/           # Optional: Static resources
 ```
 
-Skills are instruction-only—no executable scripts or additional files are required.
+### Optional Directories
+
+Skills can include additional files and scripts as defined in the [Agent Skills Specification](https://agentskills.io/specification):
+
+| Directory | Purpose | Example Contents |
+|-----------|---------|------------------|
+| `scripts/` | Executable code that agents can run directly | `extract.py`, `process.sh`, `transform.js` |
+| `references/` | Supplementary documentation loaded on-demand | `REFERENCE.md`, `FORMS.md`, domain-specific docs |
+| `assets/` | Non-executable static resources | Templates, images, lookup tables, schemas |
+
+**Best practices for additional files:**
+- Keep scripts self-contained or clearly document dependencies
+- Include helpful error messages in scripts
+- Keep individual reference files focused (smaller files use less context)
+- Reference files using relative paths from the skill root
+- Keep file references one level deep from `SKILL.md`
 
 ## Creating a New Skill
 
