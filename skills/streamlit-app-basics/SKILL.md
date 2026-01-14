@@ -1,5 +1,5 @@
 ---
-name: streamlit-app
+name: streamlit-app-basics
 description: Build Streamlit applications following best practices. Use when creating dashboards, data apps, interactive visualizations, or any Python web application with Streamlit. Covers layout, state management, caching, forms, and deployment patterns.
 license: Apache-2.0
 ---

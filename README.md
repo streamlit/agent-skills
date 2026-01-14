@@ -10,7 +10,7 @@ Agent Skills are specialized instruction sets that enhance AI coding assistants'
 
 | Skill | Description |
 |-------|-------------|
-| [streamlit-app](skills/streamlit-app/) | Build Streamlit applications following best practices |
+| [streamlit-app-basics](skills/streamlit-app-basics/) | Build Streamlit applications following best practices |
 
 ## Installation
 
@@ -19,7 +19,7 @@ Agent Skills are specialized instruction sets that enhance AI coding assistants'
 Copy a skill folder to your Claude Code skills directory:
 
 ```bash
-cp -r skills/streamlit-app ~/.claude/skills/
+cp -r skills/streamlit-app-basics ~/.claude/skills/
 ```
 
 Or reference skills directly in your project by adding them to your `.claude/skills/` directory.
