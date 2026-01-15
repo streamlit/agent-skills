@@ -26,7 +26,7 @@ pip install uv
 ```bash
 uv init my-streamlit-app
 cd my-streamlit-app
-uv add streamlit pandas
+uv add streamlit
 ```
 
 This creates:
@@ -37,7 +37,7 @@ This creates:
 ## Run the App
 
 ```bash
-uv run streamlit run streamlit_app.py
+uv run streamlit run
 ```
 
 **What happens:**
@@ -49,8 +49,8 @@ uv run streamlit run streamlit_app.py
 ## With Options
 
 ```bash
-uv run streamlit run streamlit_app.py --server.port 8502
-uv run streamlit run streamlit_app.py --server.headless true
+uv run streamlit run --server.port 8502
+uv run streamlit run --server.headless true
 ```
 
 ## Add Dependencies

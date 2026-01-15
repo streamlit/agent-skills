@@ -1,5 +1,5 @@
 ---
-name: streamlit-charts
+name: streamlit-charts-and-data
 description: Streamlit charts and data display patterns. Use when displaying charts, dataframes, or metrics. Covers native charts, Altair, column configuration, and sparklines in metrics.
 license: Apache-2.0
 ---
@@ -13,10 +13,10 @@ Present data clearly.
 Prefer Streamlit's native charts for simple cases.
 
 ```python
-st.line_chart(df, x="date", y="revenue")
-st.bar_chart(df, x="category", y="count")
-st.scatter_chart(df, x="age", y="salary")
-st.area_chart(df, x="date", y="value")
+st.line_chart(df, x="date", y="revenue", x_label="Date", y_label="Revenue")
+st.bar_chart(df, x="category", y="count", x_label="Category", y_label="Count")
+st.scatter_chart(df, x="age", y="salary", x_label="Age", y_label="Salary")
+st.area_chart(df, x="date", y="value", x_label="Date", y_label="Value")
 ```
 
 ## Human-Readable Labels
@@ -43,7 +43,7 @@ chart = alt.Chart(df).mark_line().encode(
     y=alt.Y("revenue:Q", title="Revenue ($)"),
     color="region:N"
 )
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(chart, width="stretch")
 ```
 
 **When to use Altair:**
@@ -89,6 +89,9 @@ st.dataframe(
 - `DatetimeColumn` → Dates with formatting
 - `CheckboxColumn` → Boolean as checkbox
 - `SelectboxColumn` → Editable dropdown
+- `LineChartColumn` → Sparkline charts
+- `BarChartColumn` → Bar sparklines
+- `AreaChartColumn` → Area sparklines
 
 ## Sparklines in Metrics
 
