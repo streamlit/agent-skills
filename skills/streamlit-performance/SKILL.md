@@ -1,0 +1,122 @@
+---
+name: streamlit-performance
+description: Streamlit performance optimization patterns. Use when apps are slow, rerunning too often, or loading heavy content. Covers caching, fragments, and static vs dynamic widget choices.
+license: Apache-2.0
+---
+
+# Streamlit Performance
+
+Performance is the biggest win. Without caching and fragments, your app reruns everything on every interaction.
+
+## Caching
+
+### @st.cache_data for Data
+
+Use for any function that loads or computes data.
+
+```python
+# BAD: Recomputes on every rerun
+def load_data(path):
+    return pd.read_csv(path)
+
+# GOOD: Cached
+@st.cache_data
+def load_data(path):
+    return pd.read_csv(path)
+```
+
+### @st.cache_resource for Connections
+
+Use for connections, API clients, ML models—objects that can't be serialized.
+
+```python
+@st.cache_resource
+def get_connection():
+    return snowflake.connector.connect(...)
+
+@st.cache_resource
+def load_model():
+    return torch.load("model.pt")
+```
+
+### TTL for Fresh Data
+
+```python
+@st.cache_data(ttl=300)  # 5 minutes
+def get_metrics():
+    return api.fetch()
+
+@st.cache_data(ttl=3600)  # 1 hour
+def load_reference_data():
+    return pd.read_csv("large_reference.csv")
+```
+
+**Guidelines:**
+- Real-time → `ttl=60` or less
+- Metrics/reports → `ttl=300`
+- Reference data → `ttl=3600` or more
+- Static data → No TTL
+
+## Fragments
+
+Use `@st.fragment` to isolate reruns for self-contained UI pieces.
+
+```python
+# BAD: Full app reruns
+st.metric("Users", get_count())
+if st.button("Refresh"):
+    st.rerun()
+
+# GOOD: Only fragment reruns
+@st.fragment
+def live_metrics():
+    st.metric("Users", get_count())
+    st.button("Refresh")
+
+live_metrics()
+```
+
+Use for: live metrics, refresh buttons, interactive charts that don't affect global state.
+
+## Static vs Dynamic Widgets
+
+**This is critical and often missed.**
+
+**Static widgets** load ALL content even when hidden:
+- `st.tabs` - All tab content loads
+- `st.expander` - Content loads even when collapsed
+- `st.popover` - Content loads even when closed
+
+**Dynamic widgets** only load content when shown:
+- `st.segmented_control` + `if` statements
+- `st.toggle` + `if` statements
+- `@st.dialog` - Content loads only when dialog opens
+
+```python
+# BAD: Heavy content loads even when tab not visible
+tab1, tab2 = st.tabs(["Light", "Heavy"])
+with tab2:
+    expensive_chart()  # Always computed!
+
+# GOOD: Content only loads when selected
+view = st.segmented_control("View", ["Light", "Heavy"])
+if view == "Heavy":
+    expensive_chart()  # Only computed when selected
+```
+
+```python
+# BAD: Expander content always loads
+with st.expander("Advanced options"):
+    heavy_computation()  # Runs even when collapsed!
+
+# GOOD: Toggle controls loading
+if st.toggle("Show advanced options"):
+    heavy_computation()  # Only runs when toggled on
+```
+
+## Pre-computation
+
+Move expensive work outside the main flow:
+- Compute aggregations in SQL/dbt, not Python
+- Pre-compute metrics in scheduled jobs
+- Use materialized views for complex queries
