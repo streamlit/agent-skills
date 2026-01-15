@@ -10,7 +10,7 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 | 2 | [streamlit-widgets](skills/streamlit-widgets/) | HIGH | Choosing the right widget for the job |
 | 3 | [streamlit-layout](skills/streamlit-layout/) | HIGH | Sidebar, columns, containers, structure |
 | 4 | [streamlit-visual-design](skills/streamlit-visual-design/) | MEDIUM | Icons, badges, spacing, text styling |
-| 5 | [streamlit-charts](skills/streamlit-charts/) | MEDIUM | Charts, dataframes, metrics with sparklines |
+| 5 | [streamlit-charts-and-data](skills/streamlit-charts-and-data/) | MEDIUM | Charts, dataframes, metrics with sparklines |
 | 6 | [streamlit-multipage](skills/streamlit-multipage/) | MEDIUM | Multi-page app structure and navigation |
 | 7 | [streamlit-error-handling](skills/streamlit-error-handling/) | MEDIUM | Global exception handlers, logging, alerts |
 | 8 | [streamlit-theming](skills/streamlit-theming/) | LOW | Custom colors via config.toml, avoiding CSS |

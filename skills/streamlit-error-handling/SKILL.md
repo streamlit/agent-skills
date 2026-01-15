@@ -41,7 +41,7 @@ def custom_exception_handler(exception: Exception) -> None:
 set_global_exception_handler(custom_exception_handler)
 ```
 
-**Install:** `pip install streamlit-extras`
+**Install:** `uv add streamlit-extras`
 
 ## Logging to Database
 

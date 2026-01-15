@@ -68,13 +68,13 @@ Generated CSS classes:
 
 Apply styles:
 ```python
-st.markdown("""
+st.html("""
 <style>
 .st-key-login_submit button {
     width: 100%;
 }
 </style>
-""", unsafe_allow_html=True)
+""")
 ```
 
 **Only use this as a last resort.**
@@ -84,3 +84,10 @@ st.markdown("""
 Streamlit automatically supports dark mode based on user system preferences. Your `config.toml` colors apply to light mode; Streamlit derives dark mode colors automatically.
 
 To test dark mode: Change your system appearance settings.
+
+To detect the current theme in code:
+```python
+if st.context.theme.type == "dark":
+    # Dark mode specific logic
+    pass
+```

@@ -28,9 +28,6 @@ import streamlit as st
 if "api_client" not in st.session_state:
     st.session_state.api_client = init_api_client()
 
-if "user" not in st.session_state:
-    st.session_state.user = get_current_user()
-
 # Define navigation
 page = st.navigation([
     st.Page("app_pages/home.py", title="Home", icon=":material/home:"),
@@ -39,6 +36,9 @@ page = st.navigation([
 ])
 
 page.run()
+
+# Common pattern: display page title with icon
+st.title(f"{page.icon} {page.title}")
 ```
 
 ## Navigation Position

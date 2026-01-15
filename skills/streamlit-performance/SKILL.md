@@ -46,7 +46,7 @@ def load_model():
 def get_metrics():
     return api.fetch()
 
-@st.cache_data(ttl=3600)  # 1 hour
+@st.cache_data(ttl="1h")  # 1 hour
 def load_reference_data():
     return pd.read_csv("large_reference.csv")
 ```
@@ -74,6 +74,15 @@ def live_metrics():
     st.button("Refresh")
 
 live_metrics()
+```
+
+For auto-refreshing metrics, use `run_every`:
+```python
+@st.fragment(run_every="30s")
+def auto_refresh_metrics():
+    st.metric("Users", get_count())
+
+auto_refresh_metrics()
 ```
 
 Use for: live metrics, refresh buttons, interactive charts that don't affect global state.

@@ -98,9 +98,7 @@ st.dataframe(
 Add `chart_data` and `chart_type` to metrics for visual context.
 
 ```python
-import numpy as np
-
-values = np.random.randint(700, 800, size=28)
+values = [700, 720, 715, 740, 762, 755, 780]
 
 st.metric(
     label="Developers",

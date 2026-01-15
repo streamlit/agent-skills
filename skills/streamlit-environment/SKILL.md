@@ -80,6 +80,10 @@ my-streamlit-app/
 
 Name your main file `streamlit_app.py` for consistency. This is what Streamlit expects by default.
 
+**What goes in the main module:**
+- When using navigation: it's a router that defines pages and runs them
+- When there's no navigation: it's the home page with your main content
+
 ## pyproject.toml Example
 
 ```toml

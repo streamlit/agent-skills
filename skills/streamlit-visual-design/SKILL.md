@@ -29,6 +29,14 @@ Find icons: https://fonts.google.com/icons
 
 ## Badges for Status
 
+For standalone badges:
+```python
+st.badge("Active", icon=":material/check:", color="green")
+st.badge("Pending", icon=":material/schedule:", color="orange")
+st.badge("Deprecated", color="red")
+```
+
+For inline badges in text:
 ```python
 st.markdown(":green-badge[Active]")
 st.markdown(":orange-badge[Pending]")

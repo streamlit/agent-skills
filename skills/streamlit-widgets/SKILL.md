@@ -25,6 +25,8 @@ status = st.radio("Status", ["Draft", "Published"], horizontal=True)
 status = st.segmented_control("Status", ["Draft", "Published"])
 ```
 
+For vertical layouts, `st.radio(..., horizontal=False)` is still a great choice.
+
 Cleaner, more modern look than horizontal radio buttons.
 
 ## Pills (2-5 options, multi-select)
@@ -36,6 +38,11 @@ selected = st.pills(
     ["Python", "SQL", "dbt", "Streamlit"],
     selection_mode="multi"
 )
+```
+
+Can also be used to mimic an "example" widget, especially with `label_visibility="collapsed"`:
+```python
+st.pills("Examples", ["Show me sales data", "Top customers"], label_visibility="collapsed")
 ```
 
 More visual and easier to use than `st.multiselect` for small option sets.
