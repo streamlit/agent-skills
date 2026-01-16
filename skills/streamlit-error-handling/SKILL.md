@@ -43,4 +43,3 @@ set_global_exception_handler(custom_exception_handler)
 
 **Install:** `uv add streamlit-extras`
 
-## Logging to Database
