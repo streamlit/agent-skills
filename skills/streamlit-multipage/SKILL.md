@@ -18,6 +18,8 @@ app_pages/
     settings.py
 ```
 
+**Important:** Name your pages directory `app_pages/` (not `pages/`). Using `pages/` conflicts with Streamlit's old auto-discovery API and can cause unexpected behavior.
+
 ## Main Module
 
 ```python
