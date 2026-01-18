@@ -61,7 +61,7 @@ with st.container(horizontal=True, horizontal_alignment="center"):
     st.button("Submit")
 ```
 
-Alignment options: `"left"` (default), `"center"`, `"right"`
+Alignment options: `"left"` (default), `"center"`, `"right"`, `"distribute"`
 
 ## Centering Elements
 
