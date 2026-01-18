@@ -15,31 +15,26 @@ Catch unhandled exceptions and respond to them.
 ```python
 # streamlit_app.py
 import streamlit as st
-import traceback
-from datetime import datetime
 from streamlit_extras.exception_handler import set_global_exception_handler
+
 
 def custom_exception_handler(exception: Exception) -> None:
     """Handle uncaught exceptions."""
-    
-    # Still show error to user (default behavior)
+    # Show error to user (default behavior)
     st.exception(exception)
-    
-    # Collect context
-    exception_data = {
-        "exception_name": str(exception),
-        "traceback": traceback.format_exc().strip(),
-        "user_name": getattr(st.user, "user_name", "unknown"),
-        "timestamp": datetime.now().isoformat(),
-        "app_name": "your_app_name",
-    }
-    
-    # Log and notify
-    log_exception(exception_data)
-    send_notification(exception_data)
+
+    # Notify that the error was logged
+    st.toast("Error logged. Our team has been notified.", icon=":material/error:")
+
 
 set_global_exception_handler(custom_exception_handler)
 ```
 
 **Install:** `uv add streamlit-extras`
+
+This is a minimal example. In production, you can extend the handler to:
+- Log exceptions to a database or file
+- Send alerts via Slack, email, or PagerDuty
+- Capture user context (username, session info)
+- Track error frequency with telemetry
 
