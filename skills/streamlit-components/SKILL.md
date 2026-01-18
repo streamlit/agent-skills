@@ -116,10 +116,10 @@ selection = image_selector(image, selections=["Region A", "Region B"])
 ```
 
 ```python
-from streamlit_extras.markdownlit import mdlit
+from streamlit_extras.vertical_slider import vertical_slider
 
-# Extended markdown with colors and formatting
-mdlit("This is [blue]colored[/blue] and **bold**")
+# A vertical slider widget
+value = vertical_slider("Volume", min_value=0, max_value=100, default_value=50)
 ```
 
 ## Discover More
