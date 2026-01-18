@@ -73,19 +73,29 @@ with st.container(horizontal_alignment="center"):
 
 ## Bordered Containers for Dashboard Cards
 
-Wrap metrics in `st.container(border=True)` for clear visual separation.
+Use `border=True` directly in metrics for clear visual separation.
 
 ```python
 cols = st.columns(4)
 with cols[0]:
-    with st.container(border=True):
-        st.metric("Revenue", "$1.2M", "-7%",
-                  chart_data=data, chart_type="line")
+    st.metric(
+        "Revenue",
+        "$1.2M",
+        "-7%",
+        border=True,
+        chart_data=data,
+        chart_type="line",
+    )
 
 with cols[1]:
-    with st.container(border=True):
-        st.metric("Users", "762k", "+12%",
-                  chart_data=data, chart_type="line")
+    st.metric(
+        "Users",
+        "762k",
+        "+12%",
+        border=True,
+        chart_data=data,
+        chart_type="line",
+    )
 ```
 
 **Why bordered containers work:**
