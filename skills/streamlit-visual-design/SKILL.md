@@ -8,6 +8,11 @@ license: Apache-2.0
 
 Small touches that make apps feel polished.
 
+**Related skills:** Visual design works hand-in-hand with other skills:
+- `streamlit-widgets` → Choosing the right widget (segmented control, pills, toggle)
+- `streamlit-charts-and-data` → Column config, sparklines, bordered metrics
+- `streamlit-layout` → Containers, alignment, dashboard cards
+
 ## Icons Over Emojis
 
 Use Material icons for a cleaner, more professional look.
