@@ -37,25 +37,29 @@ if prompt := st.chat_input("Ask a question"):
 
 ## Streaming Responses
 
-Use `st.write_stream` for token-by-token display:
+Use `st.write_stream` for token-by-token display. Pass any generator that yields strings:
 
 ```python
+def get_streaming_response(prompt):
+    # Replace with your LLM client (OpenAI, Anthropic, Cortex, etc.)
+    for chunk in your_llm_client.stream(prompt):
+        yield chunk
+
 with st.chat_message("assistant"):
     response = st.write_stream(get_streaming_response(prompt))
 
 st.session_state.messages.append({"role": "assistant", "content": response})
 ```
-```
 
 ## Chat Message Avatars
 
-Customize avatars with icons or images:
+Customize avatars with icons:
 
 ```python
 with st.chat_message("user", avatar=":material/person:"):
     st.write(user_message)
 
-with st.chat_message("assistant", avatar="logo.png"):
+with st.chat_message("assistant", avatar=":material/robot:"):
     st.write(assistant_message)
 ```
 
@@ -71,17 +75,6 @@ SUGGESTIONS = {
 
 if not st.session_state.messages:
     st.pills("Try asking:", list(SUGGESTIONS.keys()), label_visibility="collapsed")
-```
-
-## Limiting History Length
-
-Keep context manageable for LLM calls:
-
-```python
-HISTORY_LENGTH = 10
-
-recent_history = st.session_state.messages[-HISTORY_LENGTH:]
-prompt = build_prompt(question=user_input, history=recent_history)
 ```
 
 ## Related Skills
