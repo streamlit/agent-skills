@@ -12,12 +12,13 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 | 4 | [streamlit-visual-design](skills/streamlit-visual-design/) | MEDIUM | Icons, badges, spacing, text styling |
 | 5 | [streamlit-charts-and-data](skills/streamlit-charts-and-data/) | MEDIUM | Charts, dataframes, metrics with sparklines |
 | 6 | [streamlit-multipage](skills/streamlit-multipage/) | MEDIUM | Multi-page app structure and navigation |
-| 7 | [streamlit-environment](skills/streamlit-environment/) | MEDIUM | Python environment with uv |
-| 8 | [streamlit-error-handling](skills/streamlit-error-handling/) | MEDIUM | Global exception handlers, logging, alerts |
-| 9 | [streamlit-chat](skills/streamlit-chat/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
-| 10 | [streamlit-theming](skills/streamlit-theming/) | LOW | Custom colors via config.toml, avoiding CSS |
-| 11 | [streamlit-testing](skills/streamlit-testing/) | LOW | AppTest framework, pytest integration |
-| 12 | [streamlit-snowflake-connection](skills/streamlit-snowflake-connection/) | LOW | Connecting to Snowflake with st.connection |
+| 7 | [streamlit-code-organization](skills/streamlit-code-organization/) | MEDIUM | Separating UI from business logic, modules |
+| 8 | [streamlit-environment](skills/streamlit-environment/) | MEDIUM | Python environment with uv |
+| 9 | [streamlit-error-handling](skills/streamlit-error-handling/) | MEDIUM | Global exception handlers, logging, alerts |
+| 10 | [streamlit-chat](skills/streamlit-chat/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
+| 11 | [streamlit-theming](skills/streamlit-theming/) | LOW | Custom colors via config.toml, avoiding CSS |
+| 12 | [streamlit-testing](skills/streamlit-testing/) | LOW | AppTest framework, pytest integration |
+| 13 | [streamlit-snowflake-connection](skills/streamlit-snowflake-connection/) | LOW | Connecting to Snowflake with st.connection |
 
 ## How to Route
 
@@ -34,6 +35,8 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 **Customizing appearance?** → `streamlit-theming`
 
 **Setting up a project?** → `streamlit-environment`
+
+**App getting complex?** → `streamlit-code-organization`
 
 **Connecting to Snowflake?** → `streamlit-snowflake-connection`
 

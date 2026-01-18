@@ -163,19 +163,3 @@ uv run streamlit run streamlit_app.py
 Default: `http://localhost:8501`
 
 If port busy: Try 8502, 8503, etc.
-
-## Avoid if __name__ == "__main__"
-
-Streamlit apps should not use the `if __name__ == "__main__"` pattern. Just put your code directly in the file.
-
-```python
-# BAD - don't do this
-if __name__ == "__main__":
-    main()
-
-# GOOD - just put the code directly
-import streamlit as st
-
-st.title("My App")
-# ... rest of your app
-```
