@@ -1,6 +1,6 @@
 ---
 name: streamlit-code-organization
-description: Streamlit code organization patterns. Use when structuring apps with separate modules, utilities, and classes. Covers separation of concerns, keeping UI code clean, and avoiding common pitfalls.
+description: Streamlit code organization patterns. Use when structuring apps with separate modules and utilities. Covers separation of concerns, keeping UI code clean, and import patterns.
 license: Apache-2.0
 ---
 
@@ -8,22 +8,17 @@ license: Apache-2.0
 
 Keep your Streamlit apps maintainable by separating UI from business logic.
 
-## Separation of Concerns
-
-Streamlit files should focus on UI. Move business logic to separate modules.
+## Directory Structure
 
 ```
 my-app/
-├── streamlit_app.py      # UI only
+├── streamlit_app.py      # Main entry point
 ├── app_pages/            # Page UI modules
 │   ├── dashboard.py
 │   └── settings.py
-├── lib/                  # Business logic
-│   ├── data.py           # Data loading/processing
-│   ├── models.py         # Data classes
-│   └── api.py            # External API clients
-└── utils/
-    └── helpers.py        # Shared utilities
+└── utils/                # Business logic & helpers
+    ├── data.py
+    └── api.py
 ```
 
 ## UI Files Stay Clean
@@ -33,21 +28,17 @@ Your Streamlit files should read like a description of the UI, not contain compl
 ```python
 # streamlit_app.py - GOOD: UI-focused
 import streamlit as st
-from lib.data import load_sales_data, compute_metrics
-from lib.models import DateRange
+from utils.data import load_sales_data, compute_metrics
 
 st.title("Sales Dashboard")
 
-date_range = DateRange(
-    start=st.date_input("Start"),
-    end=st.date_input("End"),
-)
+start = st.date_input("Start")
+end = st.date_input("End")
 
-data = load_sales_data(date_range)
+data = load_sales_data(start, end)
 metrics = compute_metrics(data)
 
-st.metric("Revenue", metrics.revenue)
-st.metric("Orders", metrics.orders)
+st.metric("Revenue", f"${metrics['revenue']:,.0f}")
 st.dataframe(data)
 ```
 
@@ -70,91 +61,62 @@ total_revenue = df["revenue"].sum()
 # ... 50 more lines of data processing
 ```
 
-## Data Classes for State
+## Utility Modules
 
-Use dataclasses to structure your app's data instead of loose dictionaries.
-
-```python
-# lib/models.py
-from dataclasses import dataclass
-from datetime import date
-
-@dataclass
-class DateRange:
-    start: date
-    end: date
-
-@dataclass
-class SalesMetrics:
-    revenue: float
-    orders: int
-    avg_order_value: float
-```
+Keep reusable logic in `utils/`.
 
 ```python
-# streamlit_app.py
-from lib.models import DateRange, SalesMetrics
-
-# Clear, typed data structures
-range = DateRange(start=start_date, end=end_date)
-metrics = compute_metrics(range)  # Returns SalesMetrics
-```
-
-## Utility Functions
-
-Keep reusable logic in utility modules.
-
-```python
-# utils/formatting.py
-def format_currency(value: float) -> str:
-    return f"${value:,.2f}"
-
-def format_percent(value: float) -> str:
-    return f"{value:.1%}"
-```
-
-```python
-# streamlit_app.py
-from utils.formatting import format_currency
-
-st.metric("Revenue", format_currency(metrics.revenue))
-```
-
-## API Clients as Classes
-
-Wrap external services in classes for cleaner usage.
-
-```python
-# lib/api.py
+# utils/data.py
+import pandas as pd
 import streamlit as st
 
-class SalesAPI:
-    def __init__(self, api_key: str):
-        self.api_key = api_key
 
-    def get_orders(self, start: date, end: date) -> list[dict]:
-        # API call logic here
-        ...
+@st.cache_data(ttl="10m")
+def load_sales_data(start, end):
+    df = pd.read_csv("sales.csv")
+    df["date"] = pd.to_datetime(df["date"])
+    return df[(df["date"] >= start) & (df["date"] <= end)]
 
-@st.cache_resource
-def get_api_client() -> SalesAPI:
-    return SalesAPI(st.secrets["API_KEY"])
+
+def compute_metrics(df):
+    return {
+        "revenue": df["revenue"].sum(),
+        "orders": len(df),
+    }
 ```
+
+## Imports from Pages
+
+When importing from page files in `app_pages/`, always import from the root directory perspective. This works because `streamlit_app.py` is the main module.
 
 ```python
-# streamlit_app.py
-from lib.api import get_api_client
+# app_pages/dashboard.py - GOOD
+from utils.data import load_sales_data
 
-api = get_api_client()
-orders = api.get_orders(start, end)
+# app_pages/dashboard.py - BAD (don't use relative imports)
+from ..utils.data import load_sales_data
 ```
+
+## Running the App
+
+```bash
+uv run streamlit run streamlit_app.py
+```
+
+Or simply:
+
+```bash
+uv run streamlit run
+```
+
+Streamlit defaults to `streamlit_app.py` if no file is specified.
 
 ## Avoid if __name__ == "__main__"
 
-Streamlit apps run the entire file on each interaction. Don't use the main guard.
+Streamlit apps run the entire file on each interaction. Don't use the main guard in Streamlit files.
 
 ```python
-# BAD - don't do this
+# BAD - don't do this in streamlit_app.py or pages
 if __name__ == "__main__":
     main()
 
@@ -162,42 +124,18 @@ if __name__ == "__main__":
 import streamlit as st
 
 st.title("My App")
-# ... rest of your app
 ```
 
-The main guard is useful for utility modules that you might want to test independently:
+The main guard is fine in utility modules for quick testing:
 
 ```python
-# lib/data.py
-import pandas as pd
-
-def load_data(path: str) -> pd.DataFrame:
-    return pd.read_csv(path)
-
-def process_data(df: pd.DataFrame) -> pd.DataFrame:
-    # Processing logic
+# utils/data.py
+def load_data(path):
     ...
 
-# Optional: allows running this file directly for quick testing
+# Optional: test this module directly with `python utils/data.py`
 if __name__ == "__main__":
-    df = load_data("test_data.csv")
-    print(process_data(df))
-```
-
-## Imports at the Top
-
-Keep imports organized: standard library, third-party, then local modules.
-
-```python
-# streamlit_app.py
-import streamlit as st
-from datetime import date
-
-import pandas as pd
-
-from lib.data import load_data
-from lib.models import DateRange
-from utils.formatting import format_currency
+    print(load_data("test.csv"))
 ```
 
 ## When to Split
@@ -208,7 +146,6 @@ from utils.formatting import format_currency
 - Prototypes
 
 **Split into modules when:**
-- Data processing is complex (> 20 lines)
-- You have reusable utilities
+- Data processing is complex
 - Multiple pages share logic
-- You want to unit test business logic separately
+- You want to test business logic separately
