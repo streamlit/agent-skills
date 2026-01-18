@@ -103,3 +103,52 @@ with cols[1]:
 - Makes dashboards feel organized
 - Helps users scan information
 - Great for KPI cards
+
+## Shareable URLs with st.query_params
+
+Use `st.query_params` to make app state shareable via URL.
+
+```python
+# Read from URL on load
+if "tickers" not in st.session_state:
+    st.session_state.tickers = st.query_params.get("stocks", "AAPL,MSFT").split(",")
+
+# Update URL when state changes
+def on_change():
+    st.query_params["stocks"] = ",".join(st.session_state.tickers)
+
+st.multiselect("Stocks", options=STOCKS, key="tickers", on_change=on_change)
+```
+
+Great for dashboards where users want to bookmark or share specific views.
+
+## Tight Layouts with gap=None
+
+Remove default spacing between elements in containers:
+
+```python
+with st.container(gap=None, border=True):
+    for item in items:
+        with st.container(horizontal=True):
+            st.checkbox(item.text)
+            st.button(":material/delete:", type="tertiary")
+```
+
+Useful for list-like UIs where default spacing feels too loose.
+
+## Stretch to Fill Available Space
+
+Use `height="stretch"` to make containers fill available vertical space:
+
+```python
+cols = st.columns(2)
+with cols[0].container(border=True, height="stretch"):
+    st.subheader("Chart")
+    st.altair_chart(chart)
+
+with cols[1].container(border=True, height="stretch"):
+    st.subheader("Data")
+    st.dataframe(df)
+```
+
+Both columns will have equal height regardless of content.

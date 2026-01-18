@@ -100,3 +100,28 @@ with st.form("signup"):
     agree = st.checkbox("I agree to the terms")
     st.form_submit_button("Sign up")
 ```
+
+## Forms with border=False
+
+Remove the default form border for cleaner inline forms:
+
+```python
+with st.form(key="add_item", border=False):
+    with st.container(horizontal=True, vertical_alignment="bottom"):
+        st.text_input("New item", label_visibility="collapsed", placeholder="Add item")
+        st.form_submit_button("Add", icon=":material/add:")
+```
+
+## Multiselect with Custom Options
+
+Allow users to add their own options with `accept_new_options`:
+
+```python
+tickers = st.multiselect(
+    "Stock tickers",
+    options=["AAPL", "MSFT", "GOOGL", "NVDA"],
+    default=["AAPL"],
+    accept_new_options=True,  # Users can type custom values
+    placeholder="Choose stocks or type your own"
+)
+```

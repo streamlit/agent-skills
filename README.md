@@ -14,9 +14,10 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 | 6 | [streamlit-multipage](skills/streamlit-multipage/) | MEDIUM | Multi-page app structure and navigation |
 | 7 | [streamlit-environment](skills/streamlit-environment/) | MEDIUM | Python environment with uv |
 | 8 | [streamlit-error-handling](skills/streamlit-error-handling/) | MEDIUM | Global exception handlers, logging, alerts |
-| 9 | [streamlit-theming](skills/streamlit-theming/) | LOW | Custom colors via config.toml, avoiding CSS |
-| 10 | [streamlit-testing](skills/streamlit-testing/) | LOW | AppTest framework, pytest integration |
-| 11 | [streamlit-snowflake-connection](skills/streamlit-snowflake-connection/) | LOW | Connecting to Snowflake with st.connection |
+| 9 | [streamlit-chat](skills/streamlit-chat/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
+| 10 | [streamlit-theming](skills/streamlit-theming/) | LOW | Custom colors via config.toml, avoiding CSS |
+| 11 | [streamlit-testing](skills/streamlit-testing/) | LOW | AppTest framework, pytest integration |
+| 12 | [streamlit-snowflake-connection](skills/streamlit-snowflake-connection/) | LOW | Connecting to Snowflake with st.connection |
 
 ## How to Route
 
@@ -35,6 +36,8 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 **Setting up a project?** → `streamlit-environment`
 
 **Connecting to Snowflake?** → `streamlit-snowflake-connection`
+
+**Building a chatbot or AI assistant?** → `streamlit-chat`
 
 ## Quick Wins Checklist
 

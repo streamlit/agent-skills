@@ -100,6 +100,22 @@ st.dataframe(
 - `LineChartColumn` → Sparkline charts
 - `BarChartColumn` → Bar sparklines
 - `AreaChartColumn` → Area sparklines
+- `TextColumn(pinned=True)` → Sticky column that stays visible when scrolling
+
+## Pinned Columns
+
+Keep important columns visible while scrolling horizontally:
+
+```python
+st.dataframe(
+    df,
+    column_config={
+        "Title": st.column_config.TextColumn(pinned=True),  # Always visible
+        "Rating": st.column_config.ProgressColumn(min_value=0, max_value=10),
+    },
+    hide_index=True,
+)
+```
 
 ## Sparklines in Metrics
 

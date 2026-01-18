@@ -87,6 +87,41 @@ auto_refresh_metrics()
 
 Use for: live metrics, refresh buttons, interactive charts that don't affect global state.
 
+## Forms to Batch Interactions
+
+By default, every widget interaction triggers a full rerun. Use `st.form` to batch multiple inputs and only rerun on submit.
+
+```python
+# BAD: Reruns on every keystroke and selection
+name = st.text_input("Name")
+email = st.text_input("Email")
+role = st.selectbox("Role", ["Admin", "User"])
+
+# GOOD: Single rerun when user clicks Submit
+with st.form("user_form"):
+    name = st.text_input("Name")
+    email = st.text_input("Email")
+    role = st.selectbox("Role", ["Admin", "User"])
+    submitted = st.form_submit_button("Submit")
+
+if submitted:
+    save_user(name, email, role)
+```
+
+Use `border=False` for seamless inline forms that don't look like forms:
+
+```python
+with st.form("search", border=False):
+    with st.container(horizontal=True):
+        query = st.text_input("Search", label_visibility="collapsed")
+        st.form_submit_button(":material/search:")
+```
+
+**When to use forms:**
+- Multiple related inputs (signup, filters, settings)
+- Text inputs where typing triggers expensive operations
+- Any UI where "submit" semantics make sense
+
 ## Static vs Dynamic Widgets
 
 **This is critical and often missed.**
