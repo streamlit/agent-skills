@@ -56,21 +56,21 @@ st.markdown("""
 If you absolutely need custom styling, use the `key=` parameter to create targetable CSS classes.
 
 ```python
-st.text_input("Username", key="login_username")
-st.button("Submit", key="login_submit")
+st.text_input("Username", key="username")
+st.button("Submit", key="submit")
 ```
 
 Generated CSS classes:
 ```css
-.st-key-login_username { ... }
-.st-key-login_submit { ... }
+.st-key-username { ... }
+.st-key-submit { ... }
 ```
 
 Apply styles:
 ```python
 st.html("""
 <style>
-.st-key-login_submit button {
+.st-key-submit button {
     width: 100%;
 }
 </style>
