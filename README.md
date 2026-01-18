@@ -18,7 +18,8 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 | 10 | [streamlit-chat](skills/streamlit-chat/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
 | 11 | [streamlit-theming](skills/streamlit-theming/) | LOW | Custom colors via config.toml, avoiding CSS |
 | 12 | [streamlit-testing](skills/streamlit-testing/) | LOW | AppTest framework, pytest integration |
-| 13 | [streamlit-snowflake-connection](skills/streamlit-snowflake-connection/) | LOW | Connecting to Snowflake with st.connection |
+| 13 | [streamlit-components](skills/streamlit-components/) | LOW | Third-party components from the community |
+| 14 | [streamlit-snowflake-connection](skills/streamlit-snowflake-connection/) | LOW | Connecting to Snowflake with st.connection |
 
 ## How to Route
 
@@ -41,6 +42,8 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 **Connecting to Snowflake?** → `streamlit-snowflake-connection`
 
 **Building a chatbot or AI assistant?** → `streamlit-chat`
+
+**Need features not in core Streamlit?** → `streamlit-components`
 
 ## Quick Wins Checklist
 
