@@ -157,7 +157,7 @@ jobs:
 For quick visual verification:
 
 ```bash
-streamlit run streamlit_app.py
+uv run streamlit run streamlit_app.py
 ```
 
 Default: `http://localhost:8501`
