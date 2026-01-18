@@ -40,14 +40,11 @@ if prompt := st.chat_input("Ask a question"):
 Use `st.write_stream` for token-by-token display:
 
 ```python
-from snowflake.cortex import complete
-
 with st.chat_message("assistant"):
-    response = st.write_stream(
-        complete("claude-3-5-sonnet", prompt, stream=True)
-    )
+    response = st.write_stream(get_streaming_response(prompt))
 
 st.session_state.messages.append({"role": "assistant", "content": response})
+```
 ```
 
 ## Chat Message Avatars
@@ -87,43 +84,7 @@ recent_history = st.session_state.messages[-HISTORY_LENGTH:]
 prompt = build_prompt(question=user_input, history=recent_history)
 ```
 
-## Chat with Cortex
-
-Complete example using Snowflake Cortex:
-
-```python
-import streamlit as st
-from snowflake.cortex import complete
-
-st.set_page_config(page_title="AI Assistant", page_icon=":sparkles:")
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        st.write(msg["content"])
-
-if prompt := st.chat_input("Ask anything"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-
-    with st.chat_message("user"):
-        st.write(prompt)
-
-    with st.chat_message("assistant"):
-        response = st.write_stream(
-            complete(
-                "claude-3-5-sonnet",
-                prompt,
-                session=st.connection("snowflake").session(),
-                stream=True,
-            )
-        )
-
-    st.session_state.messages.append({"role": "assistant", "content": response})
-```
-
 ## Related Skills
 
-- `streamlit-snowflake-connection`: Database queries with caching
+- `streamlit-snowflake-connection`: Database queries and Cortex chat example
 - `streamlit-performance`: Caching strategies for LLM calls

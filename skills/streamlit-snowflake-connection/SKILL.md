@@ -134,3 +134,41 @@ account = "staging_account"
 prod_conn = st.connection("snowflake")
 staging_conn = st.connection("snowflake_staging")
 ```
+
+## Chat with Cortex
+
+Build a chat interface using Snowflake Cortex LLMs:
+
+```python
+import streamlit as st
+from snowflake.cortex import complete
+
+st.set_page_config(page_title="AI Assistant", page_icon=":sparkles:")
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.write(msg["content"])
+
+if prompt := st.chat_input("Ask anything"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    with st.chat_message("user"):
+        st.write(prompt)
+
+    with st.chat_message("assistant"):
+        response = st.write_stream(
+            complete(
+                "claude-3-5-sonnet",
+                prompt,
+                session=st.connection("snowflake").session(),
+                stream=True,
+            )
+        )
+
+    st.session_state.messages.append({"role": "assistant", "content": response})
+```
+
+See `streamlit-chat` for more chat patterns (avatars, suggestions, history management).
