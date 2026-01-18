@@ -63,7 +63,7 @@ total_revenue = df["revenue"].sum()
 
 ## Utility Modules
 
-Keep reusable logic in `utils/`.
+Keep reusable logic in `utils/`. Bonus: isolated functions naturally lead to caching.
 
 ```python
 # utils/data.py
