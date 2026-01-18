@@ -156,6 +156,24 @@ with placeholder.container():
     st.write("Line 2")
 ```
 
+### Space
+
+Add vertical or horizontal spacing:
+
+```python
+st.write("Section 1")
+st.space("medium")  # Add medium vertical space
+st.write("Section 2")
+
+# Inside horizontal containers, adds horizontal space
+with st.container(horizontal=True):
+    st.button("Left")
+    st.space("large")
+    st.button("Right")
+```
+
+**Size options:** `"xxsmall"`, `"xsmall"`, `"small"` (default), `"medium"`, `"large"`, `"xlarge"`, `"xxlarge"`
+
 ## Dialogs
 
 Modal overlays for focused interactions:

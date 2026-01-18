@@ -42,6 +42,17 @@ def load_model():
     return torch.load("model.pt")
 ```
 
+**Cleanup with `on_release`:** Use to clean up resources when evicted from cache:
+
+```python
+def cleanup_connection(conn):
+    conn.close()
+
+@st.cache_resource(on_release=cleanup_connection)
+def get_database():
+    return create_connection()
+```
+
 **Critical warning:** Never mutate `@st.cache_resource` returns—changes affect all users:
 
 ```python

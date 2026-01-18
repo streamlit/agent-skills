@@ -140,6 +140,29 @@ col3.metric("Conversion", "2.4%", "0.1%")
 - `"inverse"`: Red for positive, green for negative
 - `"off"`: No color
 
+### Advanced Metric Options
+
+```python
+# With border
+st.metric("Revenue", "$1.2M", "+12%", border=True)
+
+# With sparkline chart
+st.metric(
+    "Stock Price",
+    "$142.50",
+    "+2.3%",
+    chart_data=[100, 120, 115, 130, 142],
+    chart_type="line",  # or "bar", "area"
+)
+
+# Custom number formatting
+st.metric(
+    "Large Number",
+    1234567,
+    format="$,.0f",  # Formats as "$1,234,567"
+)
+```
+
 ## Charts
 
 ### Built-in Charts (Quick & Simple)
