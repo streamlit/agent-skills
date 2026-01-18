@@ -118,15 +118,30 @@ Use horizontal containers for responsive dashboard cards:
 
 ```python
 with st.container(horizontal=True):
-    with st.container(border=True):
-        st.metric("Revenue", "$1.2M", "-7%",
-                  chart_data=data, chart_type="line")
-    with st.container(border=True):
-        st.metric("Users", "762k", "+12%",
-                  chart_data=data, chart_type="line")
-    with st.container(border=True):
-        st.metric("Orders", "1.4k", "+5%",
-                  chart_data=data, chart_type="bar")
+    st.metric(
+        "Revenue",
+        "$1.2M",
+        "-7%",
+        border=True,
+        chart_data=data,
+        chart_type="line",
+    )
+    st.metric(
+        "Users",
+        "762k",
+        "+12%",
+        border=True,
+        chart_data=data,
+        chart_type="line",
+    )
+    st.metric(
+        "Orders",
+        "1.4k",
+        "+5%",
+        border=True,
+        chart_data=data,
+        chart_type="bar",
+    )
 ```
 
 This is preferred over `st.columns` because horizontal containers are more responsive on different screen sizes.
@@ -136,7 +151,5 @@ Alternative with columns (less responsive):
 cols = st.columns(4)
 for col, (label, value, delta, data) in zip(cols, metrics):
     with col:
-        with st.container(border=True):
-            st.metric(label, value, delta,
-                      chart_data=data, chart_type="line")
+        st.metric(label, value, delta, border=True, chart_data=data, chart_type="line")
 ```
