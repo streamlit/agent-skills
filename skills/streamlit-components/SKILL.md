@@ -15,18 +15,16 @@ Components are standalone Python libraries that add features not in Streamlit's 
 ## Installation
 
 ```bash
-uv add streamlit-extras
+uv add streamlit-keyup
 ```
 
 Then import and use:
 
 ```python
-import streamlit as st
-from streamlit_extras.add_vertical_space import add_vertical_space
+from st_keyup import st_keyup
 
-st.title("My App")
-add_vertical_space(3)
-st.write("Content below some space")
+# Unlike st.text_input, this updates on every keystroke
+query = st_keyup("Search", debounce=300)
 ```
 
 ## Use with Caution
@@ -42,27 +40,25 @@ Components can break when Streamlit updates, so prefer core features when possib
 
 ## Popular Components
 
-### streamlit-extras
+### streamlit-keyup
 
-A collection of useful utilities and widgets.
+Text input that fires on every keystroke instead of waiting for enter/blur. Useful for live search.
 
 ```bash
-uv add streamlit-extras
+uv add streamlit-keyup
 ```
 
 ```python
-from streamlit_extras.switch_page_button import switch_page_button
-from streamlit_extras.add_vertical_space import add_vertical_space
-from streamlit_extras.colored_header import colored_header
+from st_keyup import st_keyup
 
-colored_header("Section Title", description="A nice header")
-add_vertical_space(2)
-switch_page_button("Go to Settings")
+query = st_keyup("Search", debounce=300)  # 300ms debounce
+filtered = df[df["name"].str.contains(query, case=False)]
+st.dataframe(filtered)
 ```
 
 ### streamlit-aggrid
 
-Interactive dataframes with sorting, filtering, and editing.
+Interactive dataframes with sorting, filtering, and cell editing.
 
 ```bash
 uv add streamlit-aggrid
@@ -76,7 +72,7 @@ AgGrid(df, editable=True, filter=True)
 
 ### streamlit-folium
 
-Interactive maps with Folium.
+Interactive maps powered by Folium.
 
 ```bash
 uv add streamlit-folium
@@ -92,7 +88,7 @@ st_folium(m, width=700)
 
 ### pygwalker
 
-Tableau-like data exploration interface.
+Tableau-like drag-and-drop data exploration.
 
 ```bash
 uv add pygwalker
@@ -104,18 +100,26 @@ import pygwalker as pyg
 pyg.walk(df, env="Streamlit")
 ```
 
-### streamlit-keyup
+### streamlit-extras
 
-Text input that updates on every keystroke (not just on enter).
+A collection of community utilities. Cherry-pick what you need.
 
 ```bash
-uv add streamlit-keyup
+uv add streamlit-extras
 ```
 
 ```python
-from st_keyup import st_keyup
+from streamlit_extras.image_selector import image_selector
 
-value = st_keyup("Search", debounce=300)
+# Let users click on regions of an image
+selection = image_selector(image, selections=["Region A", "Region B"])
+```
+
+```python
+from streamlit_extras.markdownlit import mdlit
+
+# Extended markdown with colors and formatting
+mdlit("This is [blue]colored[/blue] and **bold**")
 ```
 
 ## Discover More
