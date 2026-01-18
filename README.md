@@ -24,7 +24,7 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 
 **Building a new UI?** → Start with `streamlit-widgets` + `streamlit-layout`
 
-**Making it look good?** → `streamlit-visual-design` + `streamlit-charts`
+**Making it look good?** → `streamlit-visual-design` + `streamlit-widgets` + `streamlit-charts-and-data` + `streamlit-layout`
 
 **Multi-page architecture?** → `streamlit-multipage`
 
