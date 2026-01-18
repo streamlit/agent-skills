@@ -28,6 +28,27 @@ st.dataframe(df)
 - Handles reconnection
 - Works with st.secrets
 
+## Cached Query Helper
+
+Wrap queries in a cached function for better control:
+
+```python
+import streamlit as st
+
+
+@st.cache_data(ttl="10m")
+def query(sql: str, **params):
+    conn = st.connection("snowflake")
+    return conn.query(sql, params=params)
+
+
+# Usage
+df = query("SELECT * FROM users WHERE region = :region", region="US")
+st.dataframe(df)
+```
+
+This gives you a reusable pattern with consistent caching across your app.
+
 ## Configure with st.secrets
 
 Store credentials in `.streamlit/secrets.toml` (never commit this file).
