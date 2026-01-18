@@ -134,14 +134,3 @@ account = "staging_account"
 prod_conn = st.connection("snowflake")
 staging_conn = st.connection("snowflake_staging")
 ```
-
-## Snowflake in Streamlit (SiS)
-
-When running in Snowflake's native Streamlit environment, connections are automatic:
-
-```python
-conn = st.connection("snowflake")
-# No secrets needed - uses session context
-```
-
-The connection inherits the user's Snowflake session and permissions.
