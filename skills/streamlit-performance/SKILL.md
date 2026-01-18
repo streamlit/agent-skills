@@ -32,7 +32,7 @@ Use for connections, API clients, ML models—objects that can't be serialized.
 ```python
 @st.cache_resource
 def get_connection():
-    return snowflake.connector.connect(...)
+    return st.connection("snowflake")
 
 @st.cache_resource
 def load_model():

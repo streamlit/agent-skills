@@ -88,12 +88,15 @@ Dialogs reduce sidebar clutter and keep the main UI focused.
 
 ## Toggle vs Checkbox
 
-Prefer `st.toggle` for on/off settings—more modern look.
+Use `st.toggle` for settings that trigger changes in the app. Reserve `st.checkbox` for forms.
 
 ```python
-# GOOD
+# GOOD: Toggle for app settings
 dark_mode = st.toggle("Dark mode")
+show_advanced = st.toggle("Show advanced options")
 
-# FINE (but looks older)
-dark_mode = st.checkbox("Dark mode")
+# GOOD: Checkbox in forms
+with st.form("signup"):
+    agree = st.checkbox("I agree to the terms")
+    st.form_submit_button("Sign up")
 ```

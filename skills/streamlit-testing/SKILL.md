@@ -6,7 +6,7 @@ license: Apache-2.0
 
 # Streamlit Testing
 
-Automated testing with the AppTest framework.
+Optional automated testing with the AppTest framework. Most Streamlit apps don't need extensive testing, but it can be useful for complex apps or CI pipelines.
 
 ## AppTest Basics
 
@@ -118,6 +118,24 @@ def test_filtering():
 
 ## CI Integration
 
+For GitHub Actions, use the official [Streamlit App Action](https://github.com/streamlit/streamlit-app-action):
+
+```yaml
+# .github/workflows/test.yml
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: streamlit/streamlit-app-action@v0.0.3
+        with:
+          app-path: streamlit_app.py
+```
+
+Or manually with pytest:
+
 ```yaml
 # .github/workflows/test.yml
 name: Test
@@ -146,9 +164,18 @@ Default: `http://localhost:8501`
 
 If port busy: Try 8502, 8503, etc.
 
-**Don't add this to your app:**
+## Avoid if __name__ == "__main__"
+
+Streamlit apps should not use the `if __name__ == "__main__"` pattern. Just put your code directly in the file.
+
 ```python
-# BAD
+# BAD - don't do this
 if __name__ == "__main__":
-    st.run()  # App is likely already running
+    main()
+
+# GOOD - just put the code directly
+import streamlit as st
+
+st.title("My App")
+# ... rest of your app
 ```

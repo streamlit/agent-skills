@@ -28,7 +28,7 @@ Always use clear labels—not column names or abbreviations.
 st.line_chart(df, x="dt", y="rev")
 
 # GOOD
-st.line_chart(df, x="date", y="revenue")
+st.line_chart(df, x="date", y="revenue", x_label="Date", y_label="Revenue")
 ```
 
 ## Altair for Complex Charts
@@ -110,10 +110,28 @@ st.metric(
 )
 ```
 
+**Note:** Sparklines only show y-values and ignore x-axis spacing. Use them for evenly-spaced data (like daily or weekly snapshots). For irregularly-spaced time series, use a proper chart instead.
+
 ## Dashboard Layout
 
-Combine bordered containers with metrics:
+Use horizontal containers for responsive dashboard cards:
 
+```python
+with st.container(horizontal=True):
+    with st.container(border=True):
+        st.metric("Revenue", "$1.2M", "-7%",
+                  chart_data=data, chart_type="line")
+    with st.container(border=True):
+        st.metric("Users", "762k", "+12%",
+                  chart_data=data, chart_type="line")
+    with st.container(border=True):
+        st.metric("Orders", "1.4k", "+5%",
+                  chart_data=data, chart_type="bar")
+```
+
+This is preferred over `st.columns` because horizontal containers are more responsive on different screen sizes.
+
+Alternative with columns (less responsive):
 ```python
 cols = st.columns(4)
 for col, (label, value, delta, data) in zip(cols, metrics):

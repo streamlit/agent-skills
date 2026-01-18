@@ -10,6 +10,8 @@ Use uv for dependency management. It's fast, reliable, and creates isolated envi
 
 ## Install uv
 
+See [official installation guide](https://docs.astral.sh/uv/getting-started/installation/) for all options.
+
 ```bash
 # macOS/Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh

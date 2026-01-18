@@ -15,9 +15,8 @@ The sidebar should only contain navigation and app-level filters. Main content g
 ```python
 # GOOD
 with st.sidebar:
-    st.page_link("pages/home.py", label="Home")
-    st.page_link("pages/analytics.py", label="Analytics")
     date_range = st.date_input("Date range")
+    region = st.selectbox("Region", ["All", "US", "EU", "APAC"])
     st.caption("App v1.2.3")
 ```
 
@@ -30,8 +29,7 @@ with st.sidebar:
 ```
 
 **What goes in sidebar:**
-- Page navigation
-- Global filters (date range, user selection)
+- Global filters (date range, user selection, region)
 - App info (version, feedback link)
 
 **What stays out:**

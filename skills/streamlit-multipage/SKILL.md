@@ -35,11 +35,14 @@ page = st.navigation([
     st.Page("app_pages/settings.py", title="Settings", icon=":material/settings:"),
 ])
 
-page.run()
-
-# Common pattern: display page title with icon
+# App-level UI runs before page content
+# Useful for shared elements like titles
 st.title(f"{page.icon} {page.title}")
+
+page.run()
 ```
+
+**Note:** When you handle titles in `streamlit_app.py`, individual pages should NOT use `st.title` again.
 
 ## Navigation Position
 
@@ -66,6 +69,22 @@ page = st.navigation({
 }, position="sidebar")
 ```
 
+**Mixed: Some pages ungrouped:**
+
+Use an empty string key `""` for pages that shouldn't be in a section:
+
+```python
+page = st.navigation({
+    "": [
+        st.Page("app_pages/home.py", title="Home"),
+    ],
+    "Analytics": [
+        st.Page("app_pages/dashboard.py", title="Dashboard"),
+        st.Page("app_pages/reports.py", title="Reports"),
+    ],
+}, position="top")
+```
+
 ## Page Modules
 
 ```python
@@ -76,9 +95,7 @@ import streamlit as st
 api = st.session_state.api_client
 user = st.session_state.user
 
-st.title("Analytics Dashboard")
-
-# Page-specific content
+# Page-specific content (title is handled in streamlit_app.py)
 data = api.fetch_analytics(user.id)
 st.line_chart(data)
 ```

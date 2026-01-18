@@ -27,6 +27,17 @@ Format: `:material/icon_name:`
 
 Find icons: https://fonts.google.com/icons
 
+**Popular icons by category:**
+
+| Category | Icons |
+|----------|-------|
+| Navigation | `home`, `arrow_back`, `menu`, `settings`, `search` |
+| Actions | `send`, `play_arrow`, `refresh`, `download`, `upload`, `save`, `delete`, `edit` |
+| Status | `check_circle`, `error`, `warning`, `info`, `pending` |
+| Data | `table_chart`, `bar_chart`, `analytics`, `query_stats`, `database` |
+| Content | `chat`, `code`, `description`, `article`, `folder` |
+| UI | `visibility`, `build`, `tune`, `filter_list` |
+
 ## Badges for Status
 
 For standalone badges:
@@ -109,6 +120,7 @@ st.info("Data last updated 5 minutes ago")
 - `st.warning` → Caution, potential issues
 - `st.error` → Errors that block progress
 - `st.success` → Confirmation of action
+- `st.toast` → Lightweight confirmation that auto-dismisses
 
 ## Text Alignment
 
