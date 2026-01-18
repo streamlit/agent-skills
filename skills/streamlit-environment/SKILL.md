@@ -58,7 +58,7 @@ uv run streamlit run --server.headless true
 ## Add Dependencies
 
 ```bash
-uv add altair plotly
+uv add plotly
 uv add snowflake-connector-python
 uv add streamlit-extras
 ```
@@ -95,8 +95,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
     "streamlit>=1.40.0",
-    "pandas>=2.0.0",
-    "altair>=5.0.0",
+    "plotly>=5.0.0",
     "snowflake-connector-python>=3.0.0",
 ]
 
