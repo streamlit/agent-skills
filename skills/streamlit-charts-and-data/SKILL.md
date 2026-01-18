@@ -54,7 +54,7 @@ st.altair_chart(chart, width="stretch")
 
 ## Dataframe Column Configuration
 
-Use `column_config` to format columns properly.
+**Always use `column_config`** to make dataframes readable. Raw dataframes with cryptic column names and unformatted numbers look unprofessional.
 
 ```python
 st.dataframe(
@@ -74,12 +74,20 @@ st.dataframe(
         "created_at": st.column_config.DatetimeColumn(
             "Created",
             format="MMM DD, YYYY"
-        )
+        ),
+        "internal_id": None,  # Hide non-essential columns
     },
     hide_index=True,
-    use_container_width=True
+    use_container_width=True,
 )
 ```
+
+**Dataframe best practices:**
+- **Always hide useless index:** `hide_index=True`
+- **Or make index meaningful:** `df = df.set_index("customer_name")` before displaying
+- **Use human-readable column labels:** `"rev"` → `"Revenue"`
+- **Hide internal/technical columns:** Set column to `None` in config
+- **Use dedicated column types:** Numbers, dates, links, images, progress bars, sparklines
 
 **Column types:**
 - `NumberColumn` → Numbers with formatting

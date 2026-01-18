@@ -13,6 +13,28 @@ Small touches that make apps feel polished.
 - `streamlit-charts-and-data` → Column config, sparklines, bordered metrics
 - `streamlit-layout` → Containers, alignment, dashboard cards
 
+## Page Config
+
+Set browser tab title, icon, and layout at the top of your app:
+
+```python
+st.set_page_config(
+    page_title="My Dashboard",
+    page_icon=":material/analytics:",
+    layout="wide",  # Use "wide" for dashboards
+)
+```
+
+Use `layout="wide"` for dashboards to display more data.
+
+## App Logo
+
+Add a logo to the sidebar/header:
+
+```python
+st.logo("logo.png")
+```
+
 ## Icons Over Emojis
 
 Use Material icons for a cleaner, more professional look.
