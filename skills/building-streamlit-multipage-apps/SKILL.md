@@ -105,7 +105,7 @@ st.line_chart(data)
 
 ## Global State
 
-Initialize state in the main module so all pages can access it.
+Initialize state in the main module only if it's needed across multiple pages:
 
 ```python
 # streamlit_app.py
@@ -114,7 +114,7 @@ st.session_state.user = get_user()
 st.session_state.settings = load_settings()
 ```
 
-**Why main module:**
+**Why main module (for global state):**
 - Runs before every page
 - Ensures state is initialized
 - Single source of truth
