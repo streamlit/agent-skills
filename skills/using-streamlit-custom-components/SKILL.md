@@ -1,16 +1,16 @@
 ---
-name: using-streamlit-components
-description: Using third-party Streamlit components. Use when extending Streamlit with community packages. Covers installation, popular components, and when to use them.
+name: using-streamlit-custom-components
+description: Using third-party Streamlit custom components. Use when extending Streamlit with community packages. Covers installation, popular custom components, and when to use them.
 license: Apache-2.0
 ---
 
-# Streamlit components
+# Streamlit custom components
 
-Extend Streamlit with third-party components from the community.
+Extend Streamlit with third-party custom components from the community.
 
-## What are components?
+## What are custom components?
 
-Components are standalone Python libraries that add features not in Streamlit's core API. They're built by the community and can be installed like any Python package.
+Custom components are standalone Python libraries that add features not in Streamlit's core API. They're built by the community and can be installed like any Python package.
 
 ## Installation
 
@@ -36,9 +36,9 @@ Components are not maintained by Streamlit. Before adopting:
 - **Check popularity** - GitHub stars, downloads, community usage
 - **Consider alternatives** - Can you achieve this with core Streamlit?
 
-Components can break when Streamlit updates, so prefer core features when possible.
+Custom components can break when Streamlit updates, so prefer core features when possible.
 
-## Popular components
+## Popular custom components
 
 ### streamlit-keyup
 
@@ -165,9 +165,9 @@ value = vertical_slider("Volume", min_value=0, max_value=100, default_value=50)
 
 ## Discover more
 
-Browse the component gallery: https://streamlit.io/components
+Browse the custom component gallery: https://streamlit.io/components
 
-Filter by category, popularity, and recency to find components for your use case.
+Filter by category, popularity, and recency to find custom components for your use case.
 
 ## References
 

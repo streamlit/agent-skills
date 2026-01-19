@@ -94,61 +94,69 @@ with st.container(border=True):
     st.write("Grouped content here")
 ```
 
-## Dialogs for settings and forms
+## Dialogs for focused interactions
 
-Use `@st.dialog` for settings, configuration, or any UI that doesn't need to be always visible.
+Use `@st.dialog` for UI that doesn't need to be always visible:
 
 ```python
-@st.dialog("Settings")
-def show_settings():
-    st.text_input("API key")
-    st.selectbox("Theme", ["Light", "Dark"])
-    if st.button("Save"):
-        st.session_state.saved = True
+@st.dialog("Confirm deletion")
+def confirm_delete(item_name):
+    st.write(f"Are you sure you want to delete **{item_name}**?")
+    if st.button("Delete", type="primary"):
+        delete_item(item_name)
         st.rerun()
 
-if st.button("Settings", icon=":material/settings:"):
-    show_settings()
+if st.button("Delete item"):
+    confirm_delete("My Document")
 ```
 
 **When to use dialogs:**
-- Settings panels
 - Confirmation prompts
+- Settings panels
 - Forms that don't need to be always visible
-- Any UI that would clutter the sidebar
 
-Dialogs reduce sidebar clutter and keep the main UI focused.
+## Spacing
 
-## Tight layouts with gap=None
-
-Remove default spacing between elements in containers:
+Control spacing between elements with `gap` on containers:
 
 ```python
+# Remove spacing for tight list-like UIs
 with st.container(gap=None, border=True):
     for item in items:
-        with st.container(horizontal=True):
-            st.checkbox(item.text)
-            st.button(":material/delete:", type="tertiary")
+        st.checkbox(item.text)
+
+# Explicit gap sizes
+with st.container(gap="small"):
+    ...
 ```
 
-Useful for list-like UIs where default spacing feels too loose.
-
-## Stretch to fill available space
-
-Use `height="stretch"` to make containers fill available vertical space:
+Add vertical space with `st.space`:
 
 ```python
-cols = st.columns(2)
-with cols[0].container(border=True, height="stretch"):
-    st.subheader("Chart")
-    st.altair_chart(chart)
-
-with cols[1].container(border=True, height="stretch"):
-    st.subheader("Data")
-    st.dataframe(df)
+st.space("small")   # Small gap
+st.space("medium")  # Medium gap
+st.space("large")   # Large gap
+st.space(50)        # Custom pixels
 ```
 
-Both columns will have equal height regardless of content.
+## Width and height
+
+Control element sizing:
+
+```python
+# Stretch to fill available space (equal height columns)
+cols = st.columns(2)
+with cols[0].container(border=True, height="stretch"):
+    st.line_chart(data)
+with cols[1].container(border=True, height="stretch"):
+    st.dataframe(df)
+
+# Shrink to content size
+st.container(width="content")
+
+# Fixed pixel sizes
+st.container(height=300)
+```
 
 ## References
 

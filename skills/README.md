@@ -17,7 +17,7 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 | 9 | [setting-up-streamlit-environment](setting-up-streamlit-environment/) | MEDIUM | Python environment with uv |
 | 10 | [building-streamlit-chat-ui](building-streamlit-chat-ui/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
 | 11 | [customizing-streamlit-theme](customizing-streamlit-theme/) | LOW | Custom colors via config.toml, avoiding CSS |
-| 12 | [using-streamlit-components](using-streamlit-components/) | LOW | Third-party components from the community |
+| 12 | [using-streamlit-custom-components](using-streamlit-custom-components/) | LOW | Third-party custom components from the community |
 | 13 | [connecting-streamlit-to-snowflake](connecting-streamlit-to-snowflake/) | LOW | Connecting to Snowflake with st.connection |
 
 ## How to Route
@@ -42,7 +42,7 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 
 **Building a chatbot or AI assistant?** → `building-streamlit-chat-ui`
 
-**Need features not in core Streamlit?** → `using-streamlit-components`
+**Need features not in core Streamlit?** → `using-streamlit-custom-components`
 
 ## Resources
 
