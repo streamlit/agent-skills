@@ -180,7 +180,6 @@ st.markdown("Justified paragraph with longer content...", text_alignment="justif
 ```
 
 ```python
-# Control width
 st.markdown("Full width (default)", width="stretch")
 st.markdown("Content width only", width="content")
 st.markdown("Fixed 400px", width=400)
