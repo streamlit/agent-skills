@@ -24,84 +24,32 @@ cp -r skills/streamlit-app-basics ~/.claude/skills/
 
 Or reference skills directly in your project by adding them to your `.claude/skills/` directory.
 
-### Claude.ai
+### Cursor
 
-Copy the contents of a skill's `SKILL.md` file and paste it into your Claude.ai conversation or upload as a custom skill.
+Copy a skill folder to your [Cursor skills directory](https://cursor.com/docs/context/skills):
+
+```bash
+cp -r skills/streamlit-app-basics ~/.cursor/skills/
+```
+
+Or add skills directly to your project's `.cursor/skills/` directory.
 
 ### Other AI Assistants
 
-Most AI coding assistants support custom instructions. Copy the relevant `SKILL.md` content into your assistant's custom instructions or system prompt.
-
-## Creating a New Skill
-
-1. Copy the template:
-   ```bash
-   cp -r template skills/my-new-skill
-   ```
-
-2. Edit `skills/my-new-skill/SKILL.md` with your skill's instructions
-
-3. Follow the [Agent Skills Specification](https://agentskills.io/specification) for formatting
-
-## Skill Format
-
-Each skill is a directory containing a required `SKILL.md` file and optional supporting directories:
-
-```
-skill-name/
-├── SKILL.md          # Required - skill instructions
-├── scripts/          # Optional - executable code (Python, Bash, JavaScript)
-├── references/       # Optional - additional documentation
-└── assets/           # Optional - static resources (templates, images, data files)
-```
-
-### SKILL.md
-
-The `SKILL.md` file contains YAML frontmatter and markdown instructions:
-
-```yaml
----
-name: skill-name
-description: A clear description of what this skill does and when to use it.
----
-
-# Skill Instructions
-
-Your instructions here...
-```
-
-### Optional Directories
-
-| Directory | Purpose | Contents |
-|-----------|---------|----------|
-| `scripts/` | Executable code that agents can run | Python, Bash, JavaScript files |
-| `references/` | Additional documentation loaded on-demand | Markdown files, domain-specific docs |
-| `assets/` | Static resources | Templates, images, data files, schemas |
-
-These directories support progressive disclosure—files are loaded only when needed, keeping context usage efficient.
-
-### Required Fields
-
-| Field | Description |
-|-------|-------------|
-| `name` | Unique identifier (lowercase, hyphens, max 64 chars) |
-| `description` | What the skill does and when to use it (max 1024 chars) |
-
-### Optional Fields
-
-| Field | Description |
-|-------|-------------|
-| `license` | License identifier (e.g., `Apache-2.0`) |
-| `compatibility` | Environment requirements |
-| `metadata` | Additional properties (author, version, etc.) |
+| Agent | Skills Folder | Documentation |
+|-------|---------------|---------------|
+| OpenAI Codex | `.codex/skills/` | [Codex Skills Docs](https://developers.openai.com/codex/skills/) |
+| Gemini CLI | `.gemini/skills/` | [Gemini CLI Skills Docs](https://geminicli.com/docs/cli/skills/) |
+| GitHub Copilot | `.github/skills/` | [Copilot Agent Skills Docs](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) |
 
 ## Contributing
 
-Contributions welcome! Fork the repo, create your skill in `skills/`, and submit a PR.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on creating new skills.
 
 ## Related Resources
 
 - [Agent Skills Specification](https://agentskills.io/specification)
+- [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
 - [Anthropic Skills Repository](https://github.com/anthropics/skills)
 - [Streamlit Documentation](https://docs.streamlit.io)
 - [Streamlit API Reference](https://docs.streamlit.io/library/api-reference)

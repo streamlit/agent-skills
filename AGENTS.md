@@ -26,20 +26,13 @@ skills/
 
 ### Optional Directories
 
-Skills can include additional files and scripts as defined in the [Agent Skills Specification](https://agentskills.io/specification):
-
 | Directory | Purpose | Example Contents |
 |-----------|---------|------------------|
 | `scripts/` | Executable code that agents can run directly | `extract.py`, `process.sh`, `transform.js` |
 | `references/` | Supplementary documentation loaded on-demand | `REFERENCE.md`, `FORMS.md`, domain-specific docs |
 | `assets/` | Non-executable static resources | Templates, images, lookup tables, schemas |
 
-**Best practices for additional files:**
-- Keep scripts self-contained or clearly document dependencies
-- Include helpful error messages in scripts
-- Keep individual reference files focused (smaller files use less context)
-- Reference files using relative paths from the skill root
-- Keep file references one level deep from `SKILL.md`
+**Script conventions**: When writing executable scripts, write status messages to stderr (`echo 'Processing...' >&2`) and machine-readable output (JSON) to stdout. This keeps human-readable progress separate from parseable results.
 
 ## Creating a New Skill
 
@@ -49,7 +42,12 @@ Skills can include additional files and scripts as defined in the [Agent Skills 
 cp -r template skills/my-new-skill
 ```
 
-Use lowercase names with hyphens (e.g., `data-visualization`, `api-client`).
+Use lowercase names with hyphens. The recommended naming convention is **gerund form** (verb + -ing):
+- `processing-pdfs`
+- `analyzing-spreadsheets`
+- `building-dashboards`
+
+Avoid vague names (`helper`, `utils`) or reserved words (`anthropic-*`, `claude-*`).
 
 ### 2. Edit SKILL.md
 
@@ -70,8 +68,8 @@ Instructions for the AI agent...
 
 | Field | Description | Constraints |
 |-------|-------------|-------------|
-| `name` | Unique skill identifier | Lowercase, hyphens only, max 64 chars |
-| `description` | What the skill does and when to use it | Max 1024 chars, include keywords |
+| `name` | Unique skill identifier | Lowercase letters, numbers, and hyphens only; max 64 chars; no XML tags; cannot contain "anthropic" or "claude" |
+| `description` | What the skill does and when to use it | Non-empty; max 1024 chars; no XML tags; include keywords |
 
 ### Optional Frontmatter Fields
 
@@ -80,54 +78,35 @@ Instructions for the AI agent...
 | `license` | License identifier (e.g., `Apache-2.0`) |
 | `metadata` | Additional properties (author, version, tags) |
 
-## SKILL.md Content Guidelines
-
-Structure your skill instructions with these sections:
-
-1. **When to Use This Skill** - Clear triggers for when the skill applies
-2. **Instructions/Patterns** - Step-by-step guidance or code patterns
-3. **Examples** - Concrete code examples showing usage
-4. **Common Pitfalls** - Mistakes to avoid
-5. **References** - Links to official documentation
-
-### Best Practices for Context Efficiency
-
-Skills are loaded on-demand—only the skill name and description are loaded at startup. The full `SKILL.md` loads into context only when the agent decides the skill is relevant. To minimize context usage:
-
-- **Keep SKILL.md under 500 lines**: Put detailed reference material in separate files if needed
-- **Write specific descriptions**: Helps the agent know exactly when to activate the skill
-- **Use progressive disclosure**: Reference supporting files that get read only when needed
-- **Be concise**: Every line should provide value
-- **Use code examples**: Show, don't just tell
-- **Avoid redundancy**: Don't repeat information
-- **Prioritize patterns**: Focus on reusable patterns over exhaustive API docs
-- **Link to references**: Point to official docs for comprehensive details
-
-### Description Keywords
-
-Include relevant keywords in the `description` field to help AI agents identify when to use the skill:
-
-```yaml
-description: Build Streamlit applications following best practices. Use when creating dashboards, data apps, interactive visualizations, or any Python web application with Streamlit.
-```
-
-## Testing a Skill
-
-To validate a skill works correctly:
-
-1. Load the skill in your AI assistant (Claude Code, Cursor, etc.)
-2. Test with prompts that should trigger the skill
-3. Verify the AI follows the skill's patterns and guidelines
-4. Check that generated code matches the skill's examples
-
 ## File Naming Conventions
 
 | Item | Convention | Example |
 |------|------------|---------|
-| Skill directory | lowercase-with-hyphens | `streamlit-app` |
+| Skill directory | lowercase-with-hyphens (gerund form preferred) | `building-dashboards` |
 | Skill file | Always `SKILL.md` | `SKILL.md` |
-| Frontmatter name | Matches directory name | `name: streamlit-app` |
+| Frontmatter name | Matches directory name | `name: building-dashboards` |
 
+## Best Practices
+
+For comprehensive guidance on writing effective skills, see the official [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
+
+Key points:
+- **Keep SKILL.md under 500 lines** - Use separate reference files for detailed content
+- **Write specific descriptions** - Include what the skill does AND when to use it
+- **Use third person** in descriptions (e.g., "Processes files" not "I can process files")
+- **Be concise** - The context window is a shared resource
+- **Keep file references one level deep** from SKILL.md
+
+## Streamlit-Specific Guidelines
+
+Skills in this repository should always target the **latest Streamlit version**. Streamlit's API evolves frequently, and skills should reflect current best practices.
+
+When writing or updating skills:
+
+1. **Fetch the latest Streamlit documentation and API reference** from [docs.streamlit.io/llms-full.txt](https://docs.streamlit.io/llms-full.txt) (markdown format optimized for LLMs)
+2. **Verify all code examples** against the current API - check for deprecated methods or new alternatives
+
+This ensures skills provide accurate, up-to-date guidance rather than outdated patterns.
 
 ## Contributing
 
@@ -136,4 +115,5 @@ When adding or modifying skills:
 1. Follow the template structure in `template/SKILL.md`
 2. Ensure the skill is focused on a specific, well-defined task
 3. Include practical code examples
-4. Test the skill with an AI assistant before submitting
+4. Verify against the latest [Streamlit documentation](https://docs.streamlit.io/llms-full.txt)
+5. Review against the best practices for skill writing
