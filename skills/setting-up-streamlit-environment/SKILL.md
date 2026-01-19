@@ -23,7 +23,25 @@ brew install uv
 pip install uv
 ```
 
-## Create a new project
+## Quick start (venv only)
+
+For simple apps, just create a virtual environment:
+
+```bash
+uv venv
+source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+uv pip install streamlit
+```
+
+Run with:
+
+```bash
+streamlit run streamlit_app.py
+```
+
+## Full project setup
+
+For larger projects or when you need reproducible builds:
 
 ```bash
 uv init my-streamlit-app
@@ -36,31 +54,27 @@ This creates:
 - `uv.lock` for reproducible builds
 - `.venv/` virtual environment
 
-## Run the app
+Run with:
 
 ```bash
 uv run streamlit run
 ```
 
-**What happens:**
-- uv reads `pyproject.toml`
-- Installs missing packages automatically
-- Runs in isolated environment
-- Reproducible across machines
-
 ## With options
 
 ```bash
-uv run streamlit run --server.port 8502
-uv run streamlit run --server.headless true
+streamlit run streamlit_app.py --server.port 8502
+streamlit run streamlit_app.py --server.headless true
 ```
 
 ## Add dependencies
 
 ```bash
-uv add plotly
-uv add snowflake-connector-python
-uv add streamlit-extras
+# With venv approach
+uv pip install plotly snowflake-connector-python
+
+# With full project (uv init)
+uv add plotly snowflake-connector-python
 ```
 
 ## Project structure
