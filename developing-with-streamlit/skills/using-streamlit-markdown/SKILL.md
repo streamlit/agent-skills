@@ -38,22 +38,16 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 
 ## Where markdown works
 
-| Context | Full markdown | Label subset |
-|---------|---------------|--------------|
-| `st.markdown()` body | Yes | - |
-| `st.write()` | Yes | - |
-| `st.title()`, `st.header()`, `st.subheader()` | Yes | - |
-| Widget labels (`st.button`, `st.selectbox`, etc.) | - | Yes |
-| `help` tooltips | Yes | - |
-| `st.metric()` label, value, delta | - | Yes |
-| `st.table()` cells and headers | Yes | - |
-| `st.info()`, `st.warning()`, `st.error()`, `st.success()` | Yes | - |
-| `st.caption()` | Yes | - |
-| `st.expander()` label | - | Yes |
-| `st.tabs()` labels | - | Yes |
-| `@st.dialog()` title | - | Yes |
+Markdown works wherever text is rendered, with these exceptions:
+- `st.dataframe()` and `st.data_editor()` cells
+- `st.json()` values
+- `st.text()`
+- Charts and maps
+- `st.Page` titles
+- `st.selectbox` and `st.multiselect` options
+- Input widget placeholders
 
-**Label subset** supports: bold, italic, strikethrough, inline code, links, images, colored text, Material icons, and emojis. Unsupported elements are stripped to text content. Escape with backslash to show literally: `"1\. Not a list"`.
+Widget labels use a **label subset**: bold, italic, strikethrough, inline code, links, images, colored text, Material icons, and emojis. Block elements are stripped. Escape with backslash: `"1\. Not a list"`.
 
 ## GitHub-flavored markdown
 
