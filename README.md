@@ -8,40 +8,42 @@ Agent Skills are specialized instruction sets that enhance AI coding assistants'
 
 ## Available skills
 
+The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.md), which routes to specialized sub-skills:
+
 | Skill | Description |
 |-------|-------------|
-| [building-streamlit-chat-ui](skills/building-streamlit-chat-ui/) | Chat interfaces, chatbots, AI assistants |
-| [building-streamlit-dashboards](skills/building-streamlit-dashboards/) | KPI cards, metrics, dashboard layouts |
-| [building-streamlit-multipage-apps](skills/building-streamlit-multipage-apps/) | Multi-page app structure and navigation |
-| [choosing-streamlit-selection-widgets](skills/choosing-streamlit-selection-widgets/) | Choosing the right selection widget |
-| [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/) | Connecting to Snowflake with st.connection |
-| [customizing-streamlit-theme](skills/customizing-streamlit-theme/) | Custom colors via config.toml |
-| [displaying-streamlit-data](skills/displaying-streamlit-data/) | Dataframes, column config, charts |
-| [improving-streamlit-design](skills/improving-streamlit-design/) | Icons, badges, spacing, text styling |
-| [optimizing-streamlit-performance](skills/optimizing-streamlit-performance/) | Caching, fragments, forms, static vs dynamic widgets |
-| [organizing-streamlit-code](skills/organizing-streamlit-code/) | Separating UI from business logic, modules |
-| [setting-up-streamlit-environment](skills/setting-up-streamlit-environment/) | Python environment setup |
-| [using-streamlit-custom-components](skills/using-streamlit-custom-components/) | Third-party components from the community |
-| [using-streamlit-layouts](skills/using-streamlit-layouts/) | Sidebar, columns, containers, dialogs |
+| [building-streamlit-chat-ui](developing-with-streamlit/skills/building-streamlit-chat-ui/) | Chat interfaces, chatbots, AI assistants |
+| [building-streamlit-dashboards](developing-with-streamlit/skills/building-streamlit-dashboards/) | KPI cards, metrics, dashboard layouts |
+| [building-streamlit-multipage-apps](developing-with-streamlit/skills/building-streamlit-multipage-apps/) | Multi-page app structure and navigation |
+| [choosing-streamlit-selection-widgets](developing-with-streamlit/skills/choosing-streamlit-selection-widgets/) | Choosing the right selection widget |
+| [connecting-streamlit-to-snowflake](developing-with-streamlit/skills/connecting-streamlit-to-snowflake/) | Connecting to Snowflake with st.connection |
+| [customizing-streamlit-theme](developing-with-streamlit/skills/customizing-streamlit-theme/) | Custom colors via config.toml |
+| [displaying-streamlit-data](developing-with-streamlit/skills/displaying-streamlit-data/) | Dataframes, column config, charts |
+| [improving-streamlit-design](developing-with-streamlit/skills/improving-streamlit-design/) | Icons, badges, spacing, text styling |
+| [optimizing-streamlit-performance](developing-with-streamlit/skills/optimizing-streamlit-performance/) | Caching, fragments, forms, static vs dynamic widgets |
+| [organizing-streamlit-code](developing-with-streamlit/skills/organizing-streamlit-code/) | Separating UI from business logic, modules |
+| [setting-up-streamlit-environment](developing-with-streamlit/skills/setting-up-streamlit-environment/) | Python environment setup |
+| [using-streamlit-custom-components](developing-with-streamlit/skills/using-streamlit-custom-components/) | Third-party components from the community |
+| [using-streamlit-layouts](developing-with-streamlit/skills/using-streamlit-layouts/) | Sidebar, columns, containers, dialogs |
 
 ## Installation
 
 ### Claude Code
 
-Copy a skill folder to your Claude Code skills directory:
+Copy the parent skill folder to your Claude Code skills directory:
 
 ```bash
-cp -r skills/optimizing-streamlit-performance ~/.claude/skills/
+cp -r developing-with-streamlit ~/.claude/skills/
 ```
 
 Or reference skills directly in your project by adding them to your `.claude/skills/` directory.
 
 ### Cursor
 
-Copy a skill folder to your [Cursor skills directory](https://cursor.com/docs/context/skills):
+Copy the parent skill folder to your [Cursor skills directory](https://cursor.com/docs/context/skills):
 
 ```bash
-cp -r skills/optimizing-streamlit-performance ~/.cursor/skills/
+cp -r developing-with-streamlit ~/.cursor/skills/
 ```
 
 Or add skills directly to your project's `.cursor/skills/` directory.
