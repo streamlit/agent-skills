@@ -14,18 +14,13 @@ Custom components are standalone Python libraries that add features not in Strea
 
 ## Installation
 
+Install like any Python package:
+
 ```bash
-uv add streamlit-keyup
+uv add <component-name>
 ```
 
-Then import and use:
-
-```python
-from st_keyup import st_keyup
-
-# Unlike st.text_input, this updates on every keystroke
-query = st_keyup("Search", debounce=300)
-```
+Then import and use according to the component's documentation.
 
 ## Use with caution
 
