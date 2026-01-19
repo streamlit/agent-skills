@@ -54,7 +54,7 @@ page.run()
 page = st.navigation([...], position="top")
 ```
 
-Creates a clean horizontal menu. Great for simple apps.
+Creates a clean horizontal menu. Great for simple apps. Sections are supported too—they appear as dropdowns in the top nav.
 
 **Many pages or nested sections → Sidebar:**
 
