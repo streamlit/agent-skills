@@ -1,6 +1,6 @@
 ---
 name: developing-with-streamlit
-description: Build production-grade Streamlit apps. Use when creating, editing, debugging, or deploying Streamlit applications. Routes to specialized sub-skills for performance, layouts, design, data display, and more.
+description: Build production-grade Streamlit apps. Used when creating, editing, debugging, or deploying Streamlit applications. Routes to specialized sub-skills for performance, layouts, design, data display, and more.
 ---
 
 # Developing with Streamlit
