@@ -2,7 +2,7 @@
 
 This file provides guidance to AI coding agents (Claude Code, Cursor, Copilot, etc.) when working with code in this repository.
 
-## Repository Overview
+## Repository overview
 
 This is a collection of Agent Skills for building Streamlit applications. Skills are instruction sets that enhance AI coding assistants' capabilities for specific tasks.
 
@@ -11,7 +11,7 @@ This is a collection of Agent Skills for building Streamlit applications. Skills
 - `template/` - Template for creating new skills
 - `README.md` - Human-readable documentation
 
-## Skill Structure
+## Skill structure
 
 Each skill is a directory containing a required `SKILL.md` file and optional supporting directories:
 
@@ -24,7 +24,7 @@ skills/
     └── assets/           # Optional: Static resources
 ```
 
-### Optional Directories
+### Optional directories
 
 | Directory | Purpose | Example Contents |
 |-----------|---------|------------------|
@@ -34,9 +34,9 @@ skills/
 
 **Script conventions**: When writing executable scripts, write status messages to stderr (`echo 'Processing...' >&2`) and machine-readable output (JSON) to stdout. This keeps human-readable progress separate from parseable results.
 
-## Creating a New Skill
+## Creating a new skill
 
-### 1. Create the Skill Directory
+### 1. Create the skill directory
 
 ```bash
 cp -r template skills/my-new-skill
@@ -64,21 +64,21 @@ description: Clear description of what this skill does and when to use it.
 Instructions for the AI agent...
 ```
 
-### Required Frontmatter Fields
+### Required frontmatter fields
 
 | Field | Description | Constraints |
 |-------|-------------|-------------|
 | `name` | Unique skill identifier | Lowercase letters, numbers, and hyphens only; max 64 chars; no XML tags; cannot contain "anthropic" or "claude" |
 | `description` | What the skill does and when to use it | Non-empty; max 1024 chars; no XML tags; include keywords |
 
-### Optional Frontmatter Fields
+### Optional frontmatter fields
 
 | Field | Description |
 |-------|-------------|
 | `license` | License identifier (e.g., `Apache-2.0`) |
 | `metadata` | Additional properties (author, version, tags) |
 
-## File Naming Conventions
+## File naming conventions
 
 | Item | Convention | Example |
 |------|------------|---------|
@@ -86,7 +86,7 @@ Instructions for the AI agent...
 | Skill file | Always `SKILL.md` | `SKILL.md` |
 | Frontmatter name | Matches directory name | `name: building-dashboards` |
 
-## Best Practices
+## Best practices
 
 For comprehensive guidance on writing effective skills, see the official [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md).
 
@@ -96,8 +96,10 @@ Key points:
 - **Use third person** in descriptions (e.g., "Processes files" not "I can process files")
 - **Be concise** - The context window is a shared resource
 - **Keep file references one level deep** from SKILL.md
+- **Use sentence casing for titles and headers** - Capitalize only the first word and proper nouns (e.g., "Creating a new skill" not "Creating a New Skill")
+- **Verify all links are publicly accessible** - Ensure URLs point to existing, publicly available resources
 
-## Streamlit-Specific Guidelines
+## Streamlit-specific guidelines
 
 Skills in this repository should always target the **latest Streamlit version**. Streamlit's API evolves frequently, and skills should reflect current best practices.
 
@@ -117,3 +119,4 @@ When adding or modifying skills:
 3. Include practical code examples
 4. Verify against the latest [Streamlit documentation](https://docs.streamlit.io/llms-full.txt)
 5. Review against the [best practices for skill writing](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md)
+6. **Update documentation when adding or renaming skills** - Reflect changes in `README.md` (Available skills table) and `developing-with-streamlit/SKILL.md` (Skill map table)
