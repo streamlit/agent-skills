@@ -212,3 +212,5 @@ from ..utils.data import load_sales_data
 - [st.navigation](https://docs.streamlit.io/develop/api-reference/navigation/st.navigation)
 - [st.Page](https://docs.streamlit.io/develop/api-reference/navigation/st.page)
 - [st.session_state](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state)
+- [st.switch_page](https://docs.streamlit.io/develop/api-reference/navigation/st.switch_page)
+- [st.page_link](https://docs.streamlit.io/develop/api-reference/widgets/st.page_link)
