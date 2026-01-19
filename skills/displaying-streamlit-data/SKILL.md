@@ -111,7 +111,6 @@ st.dataframe(
 - `ListColumn` → Display lists/arrays
 - `JSONColumn` → Display JSON objects
 - `MultiselectColumn` → Multi-value selection
-- `TextColumn(pinned=True)` → Sticky column that stays visible when scrolling
 
 ## Pinned Columns
 
