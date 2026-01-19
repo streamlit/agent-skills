@@ -129,7 +129,7 @@ $$
 st.latex(r"\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}")
 ```
 
-## Text alignment and width
+## st.markdown - text alignment and width
 
 Control layout with `text_alignment` and `width` parameters.
 
@@ -138,8 +138,6 @@ st.markdown("Centered heading", text_alignment="center")
 st.markdown("Right-aligned text", text_alignment="right")
 st.markdown("Justified paragraph with longer content...", text_alignment="justify")
 ```
-
-**Alignment options:** `"left"` (default), `"center"`, `"right"`, `"justify"`
 
 ```python
 # Control width
