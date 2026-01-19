@@ -41,17 +41,6 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 
 **Need features not in core Streamlit?** → `using-streamlit-components`
 
-## Quick Wins Checklist
-
-- [ ] Replace `st.radio(..., horizontal=True)` → `st.segmented_control`
-- [ ] Add `@st.cache_data` to data loading functions
-- [ ] Add `@st.cache_resource` to connections
-- [ ] Use `@st.fragment` for isolated UI components
-- [ ] Replace static widgets with dynamic ones for heavy content
-- [ ] Use Material icons instead of emojis
-- [ ] Use sentence casing for titles
-- [ ] Configure dataframe columns with `column_config`
-
 ## Resources
 
 - [Streamlit Documentation](https://docs.streamlit.io/develop/api-reference)
