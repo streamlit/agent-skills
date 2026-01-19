@@ -147,19 +147,13 @@ with st.form("search", border=False):
 
 **When NOT to use forms:** If inputs depend on each other (e.g., selecting a country should update available cities), forms won't work since there's no rerun until submit.
 
-## Static vs dynamic widgets
+## Conditional rendering
 
 **This is critical and often missed.**
 
-**Static widgets** load ALL content even when hidden:
-- `st.tabs` - All tab content loads
-- `st.expander` - Content loads even when collapsed
-- `st.popover` - Content loads even when closed
+Layout containers like `st.tabs`, `st.expander`, and `st.popover` always render all their content, even when hidden or collapsed.
 
-**Dynamic widgets** only load content when shown:
-- `st.segmented_control` + `if` statements
-- `st.toggle` + `if` statements
-- `@st.dialog` - Content loads only when dialog opens
+To render content only when needed, use elements like `st.segmented_control`, `st.toggle`, or `@st.dialog` with conditional logic:
 
 ```python
 # BAD: Heavy content loads even when tab not visible
