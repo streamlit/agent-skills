@@ -59,7 +59,7 @@ st.altair_chart(chart, use_container_width=True)
 
 ## Dataframe Column Configuration
 
-Use `column_config` where it adds value—formatting currencies, showing progress bars, displaying links or images. Don't add config just for labels or tooltips that don't meaningfully improve readability.
+Use `column_config` where it adds value—formatting currencies, showing progress bars, displaying links or images. Don't add config just for labels or tooltips that don't meaningfully improve readability. Works with both `st.dataframe` and `st.data_editor`.
 
 ```python
 st.dataframe(
@@ -90,11 +90,10 @@ st.dataframe(
 **Note on hiding columns:** Setting a column to `None` hides it from the UI, but the data is still sent to the frontend. For truly sensitive data, pre-filter the DataFrame before displaying.
 
 **Dataframe best practices:**
-- **Always hide useless index:** `hide_index=True`
+- **Hide useless index:** `hide_index=True`
 - **Or make index meaningful:** `df = df.set_index("customer_name")` before displaying
-- **Use human-readable column labels:** `"rev"` → `"Revenue"`
 - **Hide internal/technical columns:** Set column to `None` in config (but pre-filter for sensitive data)
-- **Use dedicated column types:** Numbers, dates, links, images, progress bars, sparklines
+- **Use visual column types where they help:** sparklines for trends, progress bars for completion, images for logos
 
 **Column types:**
 - `NumberColumn` → Numbers with formatting
