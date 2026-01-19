@@ -116,4 +116,4 @@ When adding or modifying skills:
 2. Ensure the skill is focused on a specific, well-defined task
 3. Include practical code examples
 4. Verify against the latest [Streamlit documentation](https://docs.streamlit.io/llms-full.txt)
-5. Review against the best practices for skill writing
+5. Review against the [best practices for skill writing](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
