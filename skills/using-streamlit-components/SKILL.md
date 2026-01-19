@@ -4,11 +4,11 @@ description: Using third-party Streamlit components. Use when extending Streamli
 license: Apache-2.0
 ---
 
-# Streamlit Components
+# Streamlit components
 
 Extend Streamlit with third-party components from the community.
 
-## What Are Components?
+## What are components?
 
 Components are standalone Python libraries that add features not in Streamlit's core API. They're built by the community and can be installed like any Python package.
 
@@ -27,7 +27,7 @@ from st_keyup import st_keyup
 query = st_keyup("Search", debounce=300)
 ```
 
-## Use with Caution
+## Use with caution
 
 Components are not maintained by Streamlit. Before adopting:
 
@@ -38,7 +38,7 @@ Components are not maintained by Streamlit. Before adopting:
 
 Components can break when Streamlit updates, so prefer core features when possible.
 
-## Popular Components
+## Popular components
 
 ### streamlit-keyup
 
@@ -163,7 +163,7 @@ from streamlit_extras.vertical_slider import vertical_slider
 value = vertical_slider("Volume", min_value=0, max_value=100, default_value=50)
 ```
 
-## Discover More
+## Discover more
 
 Browse the component gallery: https://streamlit.io/components
 

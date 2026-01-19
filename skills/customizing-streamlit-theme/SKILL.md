@@ -4,11 +4,11 @@ description: Customizing Streamlit app themes. Use when changing app colors or a
 license: Apache-2.0
 ---
 
-# Streamlit Theming
+# Streamlit theming
 
 Custom colors and styling. Stick to config.toml—avoid CSS.
 
-## Basic Theme
+## Basic theme
 
 Configure your app's colors in `.streamlit/config.toml`:
 
@@ -30,7 +30,7 @@ font = "sans serif"
 - `textColor` → All text
 - `font` → `"sans serif"`, `"serif"`, or `"monospace"`
 
-## Separate Light and Dark Themes
+## Separate light and dark themes
 
 Define both themes and let users choose:
 
@@ -50,7 +50,7 @@ textColor = "#FAFAFA"
 
 When both are defined, users can switch between them in the settings menu.
 
-## Sidebar Styling
+## Sidebar styling
 
 Style the sidebar separately:
 
@@ -65,7 +65,7 @@ backgroundColor = "aliceBlue"
 secondaryBackgroundColor = "skyBlue"
 ```
 
-## Detect Current Theme
+## Detect current theme
 
 ```python
 if st.context.theme.base == "dark":
@@ -77,7 +77,7 @@ else:
 
 Use `st.context.theme.base` to detect if the user is in light or dark mode.
 
-## Avoid Custom CSS/HTML
+## Avoid custom CSS/HTML
 
 Custom CSS makes apps hard to maintain and breaks with Streamlit updates.
 
@@ -97,7 +97,7 @@ st.markdown("""
 # primaryColor = "#FF4B4B"
 ```
 
-## When You Must Use CSS
+## When you must use CSS
 
 If you absolutely need custom styling, use the `key=` parameter to create targetable CSS classes.
 

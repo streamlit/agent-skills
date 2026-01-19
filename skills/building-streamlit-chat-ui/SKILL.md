@@ -4,11 +4,11 @@ description: Building chat interfaces in Streamlit. Use when creating conversati
 license: Apache-2.0
 ---
 
-# Streamlit Chat Interfaces
+# Streamlit chat interfaces
 
 Build conversational UIs with Streamlit's chat elements.
 
-## Basic Chat Structure
+## Basic chat structure
 
 ```python
 import streamlit as st
@@ -35,7 +35,7 @@ if prompt := st.chat_input("Ask a question"):
     st.session_state.messages.append({"role": "assistant", "content": response})
 ```
 
-## Streaming Responses
+## Streaming responses
 
 Use `st.write_stream` for token-by-token display. Pass any generator that yields strings, including the OpenAI generator directly:
 
@@ -66,7 +66,7 @@ with st.chat_message("assistant"):
     response = st.write_stream(stream)
 ```
 
-## Chat Message Avatars
+## Chat message avatars
 
 Streamlit provides default avatars for "user" and "assistant" roles—only customize if you have a specific need. You can use icons or images:
 
@@ -80,7 +80,7 @@ with st.chat_message("user", avatar="https://example.com/avatar.png"):
     st.write(user_message)
 ```
 
-## Suggestion Chips
+## Suggestion chips
 
 Offer clickable suggestions before the first message. The pills disappear once the user sends a message, creating a clean onboarding experience:
 
@@ -102,7 +102,7 @@ if not st.session_state.messages:
 
 The `if not st.session_state.messages` check ensures the suggestions only appear on an empty chat. Once a message is added, the pills vanish and the conversation takes over.
 
-## File Uploads
+## File uploads
 
 Enable file attachments with `accept_file`. When enabled, `st.chat_input` returns a dict-like object with `text` and `files` attributes:
 
@@ -128,7 +128,7 @@ if prompt:
 
 Use `accept_file="multiple"` to allow multiple files.
 
-## Audio Input
+## Audio input
 
 Enable voice recording with `accept_audio`. The recorded audio is available as a WAV file:
 
@@ -142,7 +142,7 @@ if prompt:
         st.write(prompt.text)
 ```
 
-### Dictation with Speech-to-Text
+### Dictation with speech-to-text
 
 Convert audio to text and inject it back into the chat input:
 
@@ -160,7 +160,7 @@ if prompt and prompt.audio:
     st.rerun()
 ```
 
-## Related Skills
+## Related skills
 
 - `connecting-streamlit-to-snowflake`: Database queries and Cortex chat example
 - `optimizing-streamlit-performance`: Caching strategies for LLM calls

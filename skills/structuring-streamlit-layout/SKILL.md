@@ -4,11 +4,11 @@ description: Structuring Streamlit app layouts. Use when placing content in side
 license: Apache-2.0
 ---
 
-# Streamlit Layout
+# Streamlit layout
 
 How you structure your app affects usability more than you think.
 
-## Sidebar: Navigation + Global Filters Only
+## Sidebar: navigation + global filters only
 
 The sidebar should only contain navigation and app-level filters. Main content goes in the main area.
 
@@ -35,7 +35,7 @@ with st.sidebar:
 **What stays out:**
 - Main content, charts, tables, results
 
-## Columns: Max 4, Set Alignment
+## Columns: max 4, set alignment
 
 Don't use too many columns—they get cramped.
 
@@ -50,7 +50,7 @@ cols = st.columns(4, vertical_alignment="center")
 col1, col2, col3, col4, col5, col6 = st.columns(6)
 ```
 
-## Horizontal Containers for Button Groups
+## Horizontal containers for button groups
 
 Use `st.container(horizontal=True)` instead of columns for button groups.
 
@@ -63,7 +63,7 @@ with st.container(horizontal=True, horizontal_alignment="center"):
 
 Alignment options: `"left"` (default), `"center"`, `"right"`, `"distribute"`
 
-## Centering Elements
+## Centering elements
 
 ```python
 with st.container(horizontal_alignment="center"):
@@ -71,7 +71,7 @@ with st.container(horizontal_alignment="center"):
     st.title("Welcome")
 ```
 
-## Bordered Containers for Dashboard Cards
+## Bordered containers for dashboard cards
 
 Use `border=True` directly in metrics for clear visual separation.
 
@@ -104,7 +104,7 @@ with cols[1]:
 - Helps users scan information
 - Great for KPI cards
 
-## Dialogs for Settings and Forms
+## Dialogs for settings and forms
 
 Use `@st.dialog` for settings, configuration, or any UI that doesn't need to be always visible.
 
@@ -129,7 +129,7 @@ if st.button("Settings", icon=":material/settings:"):
 
 Dialogs reduce sidebar clutter and keep the main UI focused.
 
-## Tight Layouts with gap=None
+## Tight layouts with gap=None
 
 Remove default spacing between elements in containers:
 
@@ -143,7 +143,7 @@ with st.container(gap=None, border=True):
 
 Useful for list-like UIs where default spacing feels too loose.
 
-## Stretch to Fill Available Space
+## Stretch to fill available space
 
 Use `height="stretch"` to make containers fill available vertical space:
 

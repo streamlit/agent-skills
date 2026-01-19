@@ -4,11 +4,11 @@ description: Organizing Streamlit code for maintainability. Use when structuring
 license: Apache-2.0
 ---
 
-# Streamlit Code Organization
+# Streamlit code organization
 
 Keep your Streamlit apps maintainable by separating UI from business logic.
 
-## Directory Structure
+## Directory structure
 
 ```
 my-app/
@@ -21,7 +21,7 @@ my-app/
     └── api.py
 ```
 
-## UI Files Stay Clean
+## UI files stay clean
 
 Your Streamlit files should read like a description of the UI, not contain complex logic.
 
@@ -61,7 +61,7 @@ total_revenue = df["revenue"].sum()
 # ... 50 more lines of data processing
 ```
 
-## Utility Modules
+## Utility modules
 
 Keep reusable logic in `utils/`. Bonus: isolated functions naturally lead to caching.
 
@@ -85,7 +85,7 @@ def compute_metrics(df):
     }
 ```
 
-## Imports from Pages
+## Imports from pages
 
 When importing from page files in `app_pages/`, always import from the root directory perspective. This works because `streamlit_app.py` is the main module.
 
@@ -97,7 +97,7 @@ from utils.data import load_sales_data
 from ..utils.data import load_sales_data
 ```
 
-## Running the App
+## Running the app
 
 ```bash
 uv run streamlit run streamlit_app.py
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     print(load_data("test.csv"))
 ```
 
-## When to Split
+## When to split
 
 **Keep in main file:**
 - Simple apps (< 200 lines)

@@ -4,11 +4,11 @@ description: Choosing the right Streamlit selection widget. Use when deciding be
 license: Apache-2.0
 ---
 
-# Streamlit Selection Widgets
+# Streamlit selection widgets
 
 The right selection widget for the job. Streamlit has evolved—many old patterns are now anti-patterns.
 
-## When to Use What
+## When to use what
 
 Use `st.segmented_control` or `st.pills` when you want all options visible at once. Use `st.selectbox` or `st.multiselect` when options should be hidden in a dropdown.
 
@@ -19,7 +19,7 @@ Use `st.segmented_control` or `st.pills` when you want all options visible at on
 | `st.selectbox` | Many options, single select, dropdown |
 | `st.multiselect` | Many options, multi-select, dropdown |
 
-## Segmented Control (options visible, single select)
+## Segmented control (options visible, single select)
 
 ```python
 # BAD
@@ -71,7 +71,7 @@ countries = st.multiselect(
 )
 ```
 
-## Toggle vs Checkbox
+## Toggle vs checkbox
 
 Use `st.toggle` for settings that trigger changes in the app. Reserve `st.checkbox` for forms.
 
@@ -105,7 +105,7 @@ with st.form("signup"):
     st.form_submit_button("Submit")
 ```
 
-## Custom Options in Selectbox and Multiselect
+## Custom options in selectbox and multiselect
 
 Allow users to add their own options with `accept_new_options`:
 

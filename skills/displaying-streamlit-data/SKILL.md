@@ -4,11 +4,11 @@ description: Displaying charts, dataframes, and metrics in Streamlit. Use when v
 license: Apache-2.0
 ---
 
-# Streamlit Charts & Data
+# Streamlit charts & data
 
 Present data clearly.
 
-## Native Charts First
+## Native charts first
 
 Prefer Streamlit's native charts for simple cases.
 
@@ -21,7 +21,7 @@ st.area_chart(df, x="date", y="value")
 
 Native charts support additional parameters: `color` for series grouping, `stack` for bar/area stacking, `size` for scatter point sizing, `horizontal` for horizontal bars. See the [chart API reference](https://docs.streamlit.io/develop/api-reference/charts) for full options.
 
-## Human-Readable Labels
+## Human-readable labels
 
 Use clear labels—not column names or abbreviations. Skip `x_label`/`y_label` if the column names are already readable.
 
@@ -36,7 +36,7 @@ st.line_chart(df, x="date", y="revenue")
 st.line_chart(df, x="dt", y="rev", x_label="Date", y_label="Revenue")
 ```
 
-## Altair for Complex Charts
+## Altair for complex charts
 
 Use Altair when you need more control. Altair is bundled with Streamlit (no extra install), while Plotly requires an additional package. Pick one and stay consistent throughout your app.
 
@@ -57,7 +57,7 @@ st.altair_chart(chart, use_container_width=True)
 - Interactive tooltips
 - Layered visualizations
 
-## Dataframe Column Configuration
+## Dataframe column configuration
 
 Use `column_config` where it adds value—formatting currencies, showing progress bars, displaying links or images. Don't add config just for labels or tooltips that don't meaningfully improve readability. Works with both `st.dataframe` and `st.data_editor`.
 
@@ -113,7 +113,7 @@ st.dataframe(
 - `TextColumn` → Text with formatting
 - `TimeColumn` → Time only (no date)
 
-## Pinned Columns
+## Pinned columns
 
 Keep important columns visible while scrolling horizontally:
 
@@ -128,7 +128,7 @@ st.dataframe(
 )
 ```
 
-## Sparklines in Metrics
+## Sparklines in metrics
 
 Add `chart_data` and `chart_type` to metrics for visual context.
 

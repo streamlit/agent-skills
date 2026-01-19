@@ -4,7 +4,7 @@ description: Improving visual design in Streamlit apps. Use when polishing apps 
 license: Apache-2.0
 ---
 
-# Streamlit Visual Design
+# Streamlit visual design
 
 Small touches that make apps feel polished.
 
@@ -13,7 +13,7 @@ Small touches that make apps feel polished.
 - `displaying-streamlit-data` → Column config, sparklines, bordered metrics
 - `structuring-streamlit-layout` → Containers, alignment, dashboard cards
 
-## Page Config
+## Page config
 
 Set browser tab title, icon, and layout. Place this at the top of your script to avoid visual blinking:
 
@@ -29,7 +29,7 @@ st.set_page_config(
 - `layout="centered"` (default) → Best for most apps, content is constrained to a readable width
 - `layout="wide"` → Full-width, good for dashboards and data-heavy apps
 
-## App Logo
+## App logo
 
 Add a logo to the sidebar/header:
 
@@ -37,7 +37,7 @@ Add a logo to the sidebar/header:
 st.logo("logo.png")
 ```
 
-## Icons Over Emojis
+## Icons over emojis
 
 Use Material icons for a cleaner, more professional look.
 
@@ -67,7 +67,7 @@ Find icons: https://fonts.google.com/icons
 | Content | `chat`, `code`, `description`, `article`, `folder` |
 | UI | `visibility`, `build`, `tune`, `filter_list` |
 
-## Badges for Status
+## Badges for status
 
 For standalone badges:
 ```python
@@ -89,7 +89,7 @@ Avoid the old verbose syntax:
 st.markdown(":orange-background[:orange[Pending]]")
 ```
 
-## Spacing: Remove Dividers
+## Spacing: remove dividers
 
 Dividers (`st.divider()` or `---`) look heavy. Just remove them—Streamlit's default spacing is usually enough.
 
@@ -116,7 +116,7 @@ st.space(50)        # Custom pixels for fine-tuning
 
 **Don't** systematically replace dividers with `st.space()`—it can look weird too.
 
-## Sentence Casing
+## Sentence casing
 
 Use sentence casing for titles and labels. Title Case Feels Shouty.
 
@@ -131,7 +131,7 @@ st.title("Upload Your Data")
 st.selectbox("Select A Region", options)
 ```
 
-## Caption Over Info
+## Caption over info
 
 `st.info()` is too heavy for simple informational text.
 
@@ -151,7 +151,7 @@ st.info("Data last updated 5 minutes ago")
 - `st.success` → Confirmation of action
 - `st.toast` → Lightweight confirmation that auto-dismisses
 
-## Text Alignment
+## Text alignment
 
 Use `text_alignment` for text elements:
 
@@ -165,7 +165,7 @@ Options: `"left"` (default), `"center"`, `"right"`, `"justify"`
 
 **Note:** `text_alignment` is for text content. Use `horizontal_alignment` on containers to align widgets and other elements.
 
-## Icons in Callouts
+## Icons in callouts
 
 Add icons to status messages for better visual clarity:
 

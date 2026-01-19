@@ -4,7 +4,7 @@ description: Setting up Python environments for Streamlit apps. Use when creatin
 license: Apache-2.0
 ---
 
-# Streamlit Environment
+# Streamlit environment
 
 Use uv for dependency management. It's fast, reliable, and creates isolated environments automatically.
 
@@ -23,7 +23,7 @@ brew install uv
 pip install uv
 ```
 
-## Create a New Project
+## Create a new project
 
 ```bash
 uv init my-streamlit-app
@@ -36,7 +36,7 @@ This creates:
 - `uv.lock` for reproducible builds
 - `.venv/` virtual environment
 
-## Run the App
+## Run the app
 
 ```bash
 uv run streamlit run
@@ -48,14 +48,14 @@ uv run streamlit run
 - Runs in isolated environment
 - Reproducible across machines
 
-## With Options
+## With options
 
 ```bash
 uv run streamlit run --server.port 8502
 uv run streamlit run --server.headless true
 ```
 
-## Add Dependencies
+## Add dependencies
 
 ```bash
 uv add plotly
@@ -63,7 +63,7 @@ uv add snowflake-connector-python
 uv add streamlit-extras
 ```
 
-## Project Structure
+## Project structure
 
 ```
 my-streamlit-app/

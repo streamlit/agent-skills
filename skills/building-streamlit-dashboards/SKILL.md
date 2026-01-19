@@ -4,11 +4,11 @@ description: Building dashboards in Streamlit. Use when creating KPI displays, m
 license: Apache-2.0
 ---
 
-# Streamlit Dashboards
+# Streamlit dashboards
 
 Compose metrics, charts, and data into clean dashboard layouts.
 
-## Cards with Borders
+## Cards with borders
 
 Use `border=True` to create visual cards. Supported on `st.container`, `st.metric`, `st.columns`, and `st.form`:
 
@@ -27,7 +27,7 @@ for col in st.columns(3, border=True):
         st.metric("Users", "1.2k")
 ```
 
-## Card Labels
+## Card labels
 
 Add context to cards with headers or bold text:
 
@@ -43,7 +43,7 @@ with st.container(border=True):
     st.dataframe(top_products)
 ```
 
-## KPI Rows
+## KPI rows
 
 Use horizontal containers for responsive metric rows:
 
@@ -56,7 +56,7 @@ with st.container(horizontal=True):
 
 Horizontal containers wrap on smaller screens. Prefer them over `st.columns` for metric rows.
 
-## Metrics with Sparklines
+## Metrics with sparklines
 
 Add trend context with `chart_data`:
 
@@ -75,7 +75,7 @@ st.metric(
 
 Sparklines show y-values only—use for evenly-spaced data like daily/weekly snapshots.
 
-## Dashboard Layout
+## Dashboard layout
 
 Combine cards into a dashboard:
 
@@ -104,7 +104,7 @@ with st.container(border=True):
     st.dataframe(orders_df, hide_index=True)
 ```
 
-## Sidebar Filters
+## Sidebar filters
 
 Put filters in the sidebar to maximize dashboard space:
 
@@ -116,7 +116,7 @@ with st.sidebar:
 # Main area is all dashboard content
 ```
 
-## Related Skills
+## Related skills
 
 - `structuring-streamlit-layout`: Columns, containers, tabs, dialogs
 - `displaying-streamlit-data`: Charts, dataframes, column configuration

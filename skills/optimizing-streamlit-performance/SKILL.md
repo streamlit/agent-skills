@@ -4,13 +4,13 @@ description: Optimizing Streamlit app performance. Use when apps are slow, rerun
 license: Apache-2.0
 ---
 
-# Streamlit Performance
+# Streamlit performance
 
 Performance is the biggest win. Without caching and fragments, your app reruns everything on every interaction.
 
 ## Caching
 
-### @st.cache_data for Data
+### @st.cache_data for data
 
 Use for any function that loads or computes data.
 
@@ -25,7 +25,7 @@ def load_data(path):
     return pd.read_csv(path)
 ```
 
-### @st.cache_resource for Connections
+### @st.cache_resource for connections
 
 Use for connections, API clients, ML models—objects that can't be serialized.
 
@@ -39,7 +39,7 @@ def load_model():
     return torch.load("model.pt")
 ```
 
-### TTL for Fresh Data
+### TTL for fresh data
 
 ```python
 @st.cache_data(ttl="5m")  # 5 minutes
@@ -57,7 +57,7 @@ def load_reference_data():
 - Reference data → `ttl="1h"` or more
 - Static data → No TTL
 
-### Prevent Unbounded Cache Growth
+### Prevent unbounded cache growth
 
 **Important:** Caches without `ttl` or `max_entries` can grow indefinitely and cause memory issues. For any cached function that stores changing objects (user-specific data, parameterized queries), set limits:
 
@@ -110,7 +110,7 @@ auto_refresh_metrics()
 
 Use for: live metrics, refresh buttons, interactive charts that don't affect global state.
 
-## Forms to Batch Interactions
+## Forms to batch interactions
 
 By default, every widget interaction triggers a full rerun. Use `st.form` to batch multiple inputs and only rerun on submit.
 
@@ -145,7 +145,7 @@ with st.form("search", border=False):
 - Text inputs where typing triggers expensive operations
 - Any UI where "submit" semantics make sense
 
-## Static vs Dynamic Widgets
+## Static vs dynamic widgets
 
 **This is critical and often missed.**
 

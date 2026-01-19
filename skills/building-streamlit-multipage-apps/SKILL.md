@@ -4,11 +4,11 @@ description: Building multi-page Streamlit apps. Use when creating apps with mul
 license: Apache-2.0
 ---
 
-# Streamlit Multi-Page Apps
+# Streamlit multi-page apps
 
 Structure and navigation for apps with multiple pages.
 
-## Directory Structure
+## Directory structure
 
 ```
 streamlit_app.py          # Main entry point
@@ -20,7 +20,7 @@ app_pages/
 
 **Important:** Name your pages directory `app_pages/` (not `pages/`). Using `pages/` conflicts with Streamlit's old auto-discovery API and can cause unexpected behavior.
 
-## Main Module
+## Main module
 
 ```python
 # streamlit_app.py
@@ -46,7 +46,7 @@ page.run()
 
 **Note:** When you handle titles in `streamlit_app.py`, individual pages should NOT use `st.title` again.
 
-## Navigation Position
+## Navigation position
 
 **Few pages (3-7) → Top navigation:**
 
@@ -88,7 +88,7 @@ page = st.navigation({
 }, position="top")
 ```
 
-## Page Modules
+## Page modules
 
 ```python
 # app_pages/analytics.py
@@ -103,7 +103,7 @@ data = api.fetch_analytics(user.id)
 st.line_chart(data)
 ```
 
-## Global State
+## Global state
 
 Initialize state in the main module only if it's needed across multiple pages:
 
@@ -119,7 +119,7 @@ st.session_state.settings = load_settings()
 - Ensures state is initialized
 - Single source of truth
 
-## Page-Specific State
+## Page-specific state
 
 Use prefixed keys for page-specific state:
 
@@ -129,7 +129,7 @@ if "analytics_date_range" not in st.session_state:
     st.session_state.analytics_date_range = default_range()
 ```
 
-## Conditional Pages
+## Conditional pages
 
 Show different pages based on user role, authentication, or any other condition by building the pages list dynamically:
 

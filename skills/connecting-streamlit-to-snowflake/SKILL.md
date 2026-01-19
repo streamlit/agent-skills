@@ -4,7 +4,7 @@ description: Connecting Streamlit apps to Snowflake. Use when setting up databas
 license: Apache-2.0
 ---
 
-# Streamlit Snowflake Connection
+# Streamlit Snowflake connection
 
 Connect your Streamlit app to Snowflake the right way.
 
@@ -28,7 +28,7 @@ st.dataframe(df)
 - Handles reconnection
 - Works with st.secrets
 
-## Caller's Rights Connection (Streamlit 1.53+)
+## Caller's rights connection (Streamlit 1.53+)
 
 For apps running in Snowflake, use caller's rights to run queries with the viewer's permissions instead of the app owner's:
 
@@ -41,7 +41,7 @@ This is useful when:
 - You want row-level security to apply based on the viewer
 - You don't want the app to have elevated permissions
 
-## Cached Queries
+## Cached queries
 
 Use the built-in `ttl` parameter to cache query results:
 
@@ -77,7 +77,7 @@ Add to `.gitignore`:
 .streamlit/secrets.toml
 ```
 
-## Parameterized Queries
+## Parameterized queries
 
 Use parameters to prevent SQL injection:
 
@@ -94,7 +94,7 @@ df = conn.query(
 # df = conn.query(f"SELECT * FROM users WHERE region = '{selected_region}'")
 ```
 
-## Write Data
+## Write data
 
 Use the session for write operations:
 
@@ -109,7 +109,7 @@ session.write_pandas(df, "MY_TABLE", auto_create_table=True)
 session.sql("INSERT INTO logs VALUES (:ts, :msg)", params={...}).collect()
 ```
 
-## Multiple Connections
+## Multiple connections
 
 Define multiple connections in secrets:
 
