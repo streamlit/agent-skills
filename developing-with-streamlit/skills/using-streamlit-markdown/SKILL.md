@@ -184,7 +184,7 @@ Widgets, containers, and other elements support markdown in their labels (using 
 ```python
 st.selectbox(":material/language: Language", ["English", "Spanish", "French"])
 tab1, tab2 = st.tabs([":material/home: Home", ":material/settings: Settings"])
-st.metric(label="Revenue", value="$1.2M", delta=":material/trending_up: 12%")
+st.metric(label=":material/attach_money: Revenue", value=":green[$1.2M]", delta=":material/trending_up: 12%")
 ```
 
 ## Escaping special characters
