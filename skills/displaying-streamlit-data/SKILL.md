@@ -147,47 +147,7 @@ st.metric(
 
 **Note:** Sparklines only show y-values and ignore x-axis spacing. Use them for evenly-spaced data (like daily or weekly snapshots). For irregularly-spaced time series, use a proper chart instead.
 
-## Dashboard Layout
-
-Use horizontal containers for responsive dashboard cards:
-
-```python
-with st.container(horizontal=True):
-    st.metric(
-        "Revenue",
-        "$1.2M",
-        "-7%",
-        border=True,
-        chart_data=data,
-        chart_type="line",
-    )
-    st.metric(
-        "Users",
-        "762k",
-        "+12%",
-        border=True,
-        chart_data=data,
-        chart_type="line",
-    )
-    st.metric(
-        "Orders",
-        "1.4k",
-        "+5%",
-        border=True,
-        chart_data=data,
-        chart_type="bar",
-    )
-```
-
-This is preferred over `st.columns` because horizontal containers are more responsive on different screen sizes.
-
-Alternative with columns (less responsive):
-```python
-cols = st.columns(4)
-for col, (label, value, delta, data) in zip(cols, metrics):
-    with col:
-        st.metric(label, value, delta, border=True, chart_data=data, chart_type="line")
-```
+See `building-streamlit-dashboards` for composing metrics into dashboard layouts.
 
 ## References
 

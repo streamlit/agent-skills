@@ -10,20 +10,23 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 | 2 | [choosing-streamlit-selection-widgets](choosing-streamlit-selection-widgets/) | HIGH | Choosing the right selection widget |
 | 3 | [structuring-streamlit-layout](structuring-streamlit-layout/) | HIGH | Sidebar, columns, containers, dialogs |
 | 4 | [improving-streamlit-design](improving-streamlit-design/) | MEDIUM | Icons, badges, spacing, text styling |
-| 5 | [displaying-streamlit-data](displaying-streamlit-data/) | MEDIUM | Charts, dataframes, metrics with sparklines |
-| 6 | [building-streamlit-multipage-apps](building-streamlit-multipage-apps/) | MEDIUM | Multi-page app structure and navigation |
-| 7 | [organizing-streamlit-code](organizing-streamlit-code/) | MEDIUM | Separating UI from business logic, modules |
-| 8 | [setting-up-streamlit-environment](setting-up-streamlit-environment/) | MEDIUM | Python environment with uv |
-| 9 | [building-streamlit-chat-ui](building-streamlit-chat-ui/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
-| 10 | [customizing-streamlit-theme](customizing-streamlit-theme/) | LOW | Custom colors via config.toml, avoiding CSS |
-| 11 | [using-streamlit-components](using-streamlit-components/) | LOW | Third-party components from the community |
-| 12 | [connecting-streamlit-to-snowflake](connecting-streamlit-to-snowflake/) | LOW | Connecting to Snowflake with st.connection |
+| 5 | [displaying-streamlit-data](displaying-streamlit-data/) | MEDIUM | Charts, dataframes, column configuration |
+| 6 | [building-streamlit-dashboards](building-streamlit-dashboards/) | MEDIUM | KPI cards, metrics, dashboard layouts |
+| 7 | [building-streamlit-multipage-apps](building-streamlit-multipage-apps/) | MEDIUM | Multi-page app structure and navigation |
+| 8 | [organizing-streamlit-code](organizing-streamlit-code/) | MEDIUM | Separating UI from business logic, modules |
+| 9 | [setting-up-streamlit-environment](setting-up-streamlit-environment/) | MEDIUM | Python environment with uv |
+| 10 | [building-streamlit-chat-ui](building-streamlit-chat-ui/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
+| 11 | [customizing-streamlit-theme](customizing-streamlit-theme/) | LOW | Custom colors via config.toml, avoiding CSS |
+| 12 | [using-streamlit-components](using-streamlit-components/) | LOW | Third-party components from the community |
+| 13 | [connecting-streamlit-to-snowflake](connecting-streamlit-to-snowflake/) | LOW | Connecting to Snowflake with st.connection |
 
 ## How to Route
 
 **Performance issues or slow apps?** → `optimizing-streamlit-performance`
 
 **Building a new UI?** → Start with `choosing-streamlit-selection-widgets` + `structuring-streamlit-layout`
+
+**Building a dashboard?** → `building-streamlit-dashboards` + `displaying-streamlit-data`
 
 **Making it look good?** → `improving-streamlit-design` + `choosing-streamlit-selection-widgets` + `displaying-streamlit-data` + `structuring-streamlit-layout`
 
