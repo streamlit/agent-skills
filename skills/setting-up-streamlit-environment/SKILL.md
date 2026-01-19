@@ -57,7 +57,7 @@ This creates:
 Run with:
 
 ```bash
-uv run streamlit run
+uv run streamlit run streamlit_app.py
 ```
 
 ## With options
