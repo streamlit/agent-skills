@@ -189,17 +189,11 @@ st.metric(label=":material/attach_money: Revenue", value=":green[$1.2M]", delta=
 
 ## Escaping special characters
 
-Use backslash to show literal characters or prevent markdown parsing.
+Use backslash to show literal characters: `\\[`, `\\*`, `1\\.`
 
 ```python
-# Escape brackets in colored text
-st.markdown(":blue[Array notation: \\[1, 2, 3\\]]")
-
-# Escape in widget labels to prevent list parsing
-st.button("1\\. Not an ordered list")
-
-# Show literal asterisks
-st.markdown("\\*not italic\\*")
+st.markdown(":blue[Array: \\[1, 2, 3\\]]")
+st.button("1\\. Not a list")
 ```
 
 ## Combining features
