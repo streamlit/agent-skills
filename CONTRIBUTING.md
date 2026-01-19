@@ -69,5 +69,5 @@ These directories support progressive disclosure—files are loaded only when ne
 
 ## Best Practices
 
-- Official guidance: [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+- Comprehensive guidance: [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
 - Streamlit-specific: [AGENTS.md](AGENTS.md)
