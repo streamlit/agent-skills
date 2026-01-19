@@ -62,9 +62,10 @@ uv run streamlit run
 
 ## With options
 
+Avoid setting options unless you have a specific reason:
+
 ```bash
-streamlit run streamlit_app.py --server.port 8502
-streamlit run streamlit_app.py --server.headless true
+streamlit run streamlit_app.py --server.headless true  # Only for automated/CI environments
 ```
 
 ## Add dependencies
@@ -79,22 +80,19 @@ uv add plotly snowflake-connector-python
 
 ## Project structure
 
+Keep it simple. For most apps:
+
 ```
 my-streamlit-app/
-├── pyproject.toml        # Dependencies
-├── uv.lock               # Lock file
-├── .venv/                # Virtual environment
-├── streamlit_app.py      # Main entry point
-├── app_pages/            # Multi-page modules
-│   ├── home.py
-│   └── analytics.py
-├── .gitignore            # Include secrets.toml here
-└── .streamlit/
-    ├── config.toml       # Streamlit config (theming, etc.)
-    └── secrets.toml      # App secrets (optional, never commit)
+├── .venv/
+└── streamlit_app.py
 ```
 
-**Important:** Add `.streamlit/secrets.toml` to your `.gitignore` to avoid committing credentials.
+Only add more when needed:
+- `app_pages/` → Only for multi-page apps
+- `.streamlit/config.toml` → Only if customizing theme or settings
+- `.streamlit/secrets.toml` → Only if using secrets (add to `.gitignore`)
+- `pyproject.toml` → Only if using `uv init` for reproducible builds
 
 ## Convention
 
