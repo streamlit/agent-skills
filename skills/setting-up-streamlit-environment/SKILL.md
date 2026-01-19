@@ -6,24 +6,15 @@ license: Apache-2.0
 
 # Streamlit environment
 
-Use uv for dependency management. It's fast, reliable, and creates isolated environments automatically.
+Use whatever dependency management the project already has (pip, poetry, conda, etc.). If starting fresh and uv is available, it's a good default—fast, reliable, and creates isolated environments automatically.
 
-## Install uv
+If uv is not installed, ask the user before installing it.
 
-See [official installation guide](https://docs.astral.sh/uv/getting-started/installation/) for all options.
+## Using uv
 
-```bash
-# macOS/Linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
+If uv is available, here's how to set up a Streamlit project.
 
-# Or with Homebrew
-brew install uv
-
-# Or with pip
-pip install uv
-```
-
-## Quick start (venv only)
+### Quick start (venv only)
 
 For simple apps, just create a virtual environment:
 
