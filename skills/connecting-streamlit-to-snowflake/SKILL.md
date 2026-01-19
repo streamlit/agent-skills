@@ -184,7 +184,7 @@ if prompt := st.chat_input("Ask anything"):
     st.session_state.messages.append({"role": "assistant", "content": response})
 ```
 
-See `building-streamlit-chat` for more chat patterns (avatars, suggestions, history management).
+See `building-streamlit-chat-ui` for more chat patterns (avatars, suggestions, history management).
 
 ## References
 

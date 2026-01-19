@@ -1,6 +1,6 @@
 ---
-name: designing-streamlit-visuals
-description: Designing visual elements in Streamlit apps. Use when styling apps with icons, badges, spacing, or text. Covers Material icons, badge syntax, divider alternatives, and text casing conventions.
+name: improving-streamlit-design
+description: Improving visual design in Streamlit apps. Use when polishing apps with icons, badges, spacing, or text styling. Covers Material icons, badge syntax, divider alternatives, and text casing conventions.
 license: Apache-2.0
 ---
 

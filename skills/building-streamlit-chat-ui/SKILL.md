@@ -1,5 +1,5 @@
 ---
-name: building-streamlit-chat
+name: building-streamlit-chat-ui
 description: Building chat interfaces in Streamlit. Use when creating conversational UIs, chatbots, or AI assistants. Covers st.chat_message, st.chat_input, message history, and streaming responses.
 license: Apache-2.0
 ---
