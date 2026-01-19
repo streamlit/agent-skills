@@ -184,3 +184,12 @@ for col, (label, value, delta, data) in zip(cols, metrics):
     with col:
         st.metric(label, value, delta, border=True, chart_data=data, chart_type="line")
 ```
+
+## References
+
+- [st.dataframe](https://docs.streamlit.io/develop/api-reference/data/st.dataframe)
+- [st.column_config](https://docs.streamlit.io/develop/api-reference/data/st.column_config)
+- [st.metric](https://docs.streamlit.io/develop/api-reference/data/st.metric)
+- [st.line_chart](https://docs.streamlit.io/develop/api-reference/charts/st.line_chart)
+- [st.bar_chart](https://docs.streamlit.io/develop/api-reference/charts/st.bar_chart)
+- [st.altair_chart](https://docs.streamlit.io/develop/api-reference/charts/st.altair_chart)

@@ -149,3 +149,8 @@ if __name__ == "__main__":
 - Data processing is complex
 - Multiple pages share logic
 - You want to test business logic separately
+
+## References
+
+- [Multipage apps](https://docs.streamlit.io/develop/concepts/multipage-apps)
+- [st.cache_data](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_data)

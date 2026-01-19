@@ -104,3 +104,8 @@ dev-dependencies = [
     "pytest>=8.0.0",
 ]
 ```
+
+## References
+
+- [uv documentation](https://docs.astral.sh/uv/)
+- [Streamlit installation](https://docs.streamlit.io/get-started/installation)

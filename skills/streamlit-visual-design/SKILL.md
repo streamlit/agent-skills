@@ -159,3 +159,12 @@ st.caption("Justified text", text_alignment="justify")
 ```
 
 Options: `"left"` (default), `"center"`, `"right"`, `"justify"`
+
+## References
+
+- [st.set_page_config](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)
+- [st.logo](https://docs.streamlit.io/develop/api-reference/media/st.logo)
+- [st.badge](https://docs.streamlit.io/develop/api-reference/text/st.badge)
+- [st.space](https://docs.streamlit.io/develop/api-reference/layout/st.space)
+- [st.markdown](https://docs.streamlit.io/develop/api-reference/text/st.markdown)
+- [st.toast](https://docs.streamlit.io/develop/api-reference/status/st.toast)

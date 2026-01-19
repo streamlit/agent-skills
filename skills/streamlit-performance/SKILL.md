@@ -182,3 +182,10 @@ Move expensive work outside the main flow:
 - Compute aggregations in SQL/dbt, not Python
 - Pre-compute metrics in scheduled jobs
 - Use materialized views for complex queries
+
+## References
+
+- [st.cache_data](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_data)
+- [st.cache_resource](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_resource)
+- [st.fragment](https://docs.streamlit.io/develop/api-reference/execution-flow/st.fragment)
+- [st.form](https://docs.streamlit.io/develop/api-reference/execution-flow/st.form)

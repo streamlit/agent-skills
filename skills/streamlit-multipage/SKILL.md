@@ -154,3 +154,9 @@ Common conditions for showing/hiding pages:
 - `st.session_state` flags (roles, permissions, feature flags)
 - Environment variables or secrets
 - Time-based access (e.g., beta features)
+
+## References
+
+- [st.navigation](https://docs.streamlit.io/develop/api-reference/navigation/st.navigation)
+- [st.Page](https://docs.streamlit.io/develop/api-reference/navigation/st.page)
+- [st.session_state](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state)

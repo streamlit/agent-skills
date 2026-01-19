@@ -159,3 +159,10 @@ with cols[1].container(border=True, height="stretch"):
 ```
 
 Both columns will have equal height regardless of content.
+
+## References
+
+- [st.container](https://docs.streamlit.io/develop/api-reference/layout/st.container)
+- [st.columns](https://docs.streamlit.io/develop/api-reference/layout/st.columns)
+- [st.sidebar](https://docs.streamlit.io/develop/api-reference/layout/st.sidebar)
+- [st.dialog](https://docs.streamlit.io/develop/api-reference/execution-flow/st.dialog)

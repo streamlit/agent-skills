@@ -91,3 +91,8 @@ if st.context.theme.type == "dark":
     # Dark mode specific logic
     pass
 ```
+
+## References
+
+- [Theming](https://docs.streamlit.io/develop/concepts/configuration/theming)
+- [st.context](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.context)

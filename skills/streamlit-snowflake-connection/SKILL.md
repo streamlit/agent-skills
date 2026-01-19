@@ -185,3 +185,9 @@ if prompt := st.chat_input("Ask anything"):
 ```
 
 See `streamlit-chat` for more chat patterns (avatars, suggestions, history management).
+
+## References
+
+- [st.connection](https://docs.streamlit.io/develop/api-reference/connections/st.connection)
+- [SnowflakeConnection](https://docs.streamlit.io/develop/api-reference/connections/st.connections.snowflakeconnection)
+- [st.secrets](https://docs.streamlit.io/develop/api-reference/connections/st.secrets)

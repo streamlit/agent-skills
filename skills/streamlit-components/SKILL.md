@@ -148,3 +148,8 @@ value = vertical_slider("Volume", min_value=0, max_value=100, default_value=50)
 Browse the component gallery: https://streamlit.io/components
 
 Filter by category, popularity, and recency to find components for your use case.
+
+## References
+
+- [Components Gallery](https://streamlit.io/components)
+- [Build a custom component](https://docs.streamlit.io/develop/concepts/custom-components)

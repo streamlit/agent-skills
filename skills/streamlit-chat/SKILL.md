@@ -81,3 +81,9 @@ if not st.session_state.messages:
 
 - `streamlit-snowflake-connection`: Database queries and Cortex chat example
 - `streamlit-performance`: Caching strategies for LLM calls
+
+## References
+
+- [st.chat_message](https://docs.streamlit.io/develop/api-reference/chat/st.chat_message)
+- [st.chat_input](https://docs.streamlit.io/develop/api-reference/chat/st.chat_input)
+- [st.write_stream](https://docs.streamlit.io/develop/api-reference/write-magic/st.write_stream)

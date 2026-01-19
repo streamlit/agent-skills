@@ -106,3 +106,13 @@ tickers = st.multiselect(
     placeholder="Choose stocks or type your own"
 )
 ```
+
+## References
+
+- [st.segmented_control](https://docs.streamlit.io/develop/api-reference/widgets/st.segmented_control)
+- [st.pills](https://docs.streamlit.io/develop/api-reference/widgets/st.pills)
+- [st.selectbox](https://docs.streamlit.io/develop/api-reference/widgets/st.selectbox)
+- [st.multiselect](https://docs.streamlit.io/develop/api-reference/widgets/st.multiselect)
+- [st.toggle](https://docs.streamlit.io/develop/api-reference/widgets/st.toggle)
+- [st.checkbox](https://docs.streamlit.io/develop/api-reference/widgets/st.checkbox)
+- [st.form](https://docs.streamlit.io/develop/api-reference/execution-flow/st.form)
