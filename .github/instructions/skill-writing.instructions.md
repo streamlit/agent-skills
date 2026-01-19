@@ -21,7 +21,7 @@ When reviewing skill files in the `skills/` directory, follow these guidelines:
 
 ## Agent Skills Best Practices
 
-Verify compliance with the [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices):
+Verify compliance with the [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md):
 
 - **Name field**: Lowercase letters, numbers, and hyphens only; max 64 chars; no XML tags; cannot contain "anthropic" or "claude"
 - **Description field**: Non-empty; max 1024 chars; no XML tags; should describe what the skill does AND when to use it; must be written in third person

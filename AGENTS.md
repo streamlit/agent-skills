@@ -88,7 +88,7 @@ Instructions for the AI agent...
 
 ## Best Practices
 
-For comprehensive guidance on writing effective skills, see the official [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
+For comprehensive guidance on writing effective skills, see the official [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md).
 
 Key points:
 - **Keep SKILL.md under 500 lines** - Use separate reference files for detailed content
@@ -116,4 +116,4 @@ When adding or modifying skills:
 2. Ensure the skill is focused on a specific, well-defined task
 3. Include practical code examples
 4. Verify against the latest [Streamlit documentation](https://docs.streamlit.io/llms-full.txt)
-5. Review against the [best practices for skill writing](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+5. Review against the [best practices for skill writing](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md)
