@@ -10,7 +10,7 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 
 ## Quick reference
 
-| Feature | Syntax | Example | Labels |
+| Feature | Syntax | Example | Works in labels |
 |---------|--------|---------|--------|
 | Bold | `**text**` | `**Bold**` | ✓ |
 | Italic | `*text*` | `*Italic*` | ✓ |
@@ -98,11 +98,13 @@ Material icons also work in `icon` parameters across many elements (`st.button`,
 
 ## Emojis
 
-Both Unicode emojis and shortcodes work.
+Both Unicode emojis (preferred) and shortcodes work.
 
 ```python
 st.markdown("Hello! 👋 :+1: :tada: :streamlit:")
 ```
+
+**Note:** Material icons are preferred over emojis for a more professional look.
 
 ## LaTeX math
 
