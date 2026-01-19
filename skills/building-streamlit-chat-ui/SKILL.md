@@ -160,6 +160,31 @@ if prompt and prompt.audio:
     st.rerun()
 ```
 
+## User feedback
+
+Add thumbs up/down feedback to assistant messages:
+
+```python
+with st.chat_message("assistant"):
+    st.markdown(response)
+    feedback = st.feedback("thumbs")
+    if feedback is not None:
+        log_feedback(
+            message=response,
+            rating="positive" if feedback == 1 else "negative"
+        )
+```
+
+## Clear chat
+
+Add a button to reset the conversation:
+
+```python
+if st.sidebar.button("Clear chat"):
+    st.session_state.messages = []
+    st.rerun()
+```
+
 ## Related skills
 
 - `connecting-streamlit-to-snowflake`: Database queries and Cortex chat example
