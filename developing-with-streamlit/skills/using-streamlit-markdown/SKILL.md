@@ -186,15 +186,8 @@ st.markdown("""
 Control layout with `text_alignment` and `width` parameters.
 
 ```python
-st.markdown("Centered heading", text_alignment="center")
-st.markdown("Right-aligned text", text_alignment="right")
-st.markdown("Justified paragraph with longer content...", text_alignment="justify")
-```
-
-```python
-st.markdown("Full width (default)", width="stretch")
-st.markdown("Content width only", width="content")
-st.markdown("Fixed 400px", width=400)
+st.markdown("Centered heading", text_alignment="center")  # left, center, right, justify
+st.markdown("Content width only", width="content")  # stretch, content, or pixels (e.g. 400)
 ```
 
 ## HTML (use very sparingly!)
