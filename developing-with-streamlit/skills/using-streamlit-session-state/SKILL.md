@@ -16,6 +16,10 @@ Session state is a dictionary-like object supporting attribute and bracket notat
 # Initialize with setdefault (preferred)
 st.session_state.setdefault("count", 0)
 
+# Alternative: check before setting
+if "count" not in st.session_state:
+    st.session_state.count = 0
+
 # Read
 current = st.session_state.count
 
