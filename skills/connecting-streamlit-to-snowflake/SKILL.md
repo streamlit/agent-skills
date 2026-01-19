@@ -46,13 +46,15 @@ This is useful when:
 Use the built-in `ttl` parameter to cache query results:
 
 ```python
+from datetime import timedelta
+
 conn = st.connection("snowflake")
 
 # Cache for 10 minutes
-df = conn.query("SELECT * FROM metrics", ttl="10m")
+df = conn.query("SELECT * FROM metrics", ttl=timedelta(minutes=10))
 
 # Cache for 1 hour
-df = conn.query("SELECT * FROM reference_data", ttl="1h")
+df = conn.query("SELECT * FROM reference_data", ttl=3600)
 ```
 
 ## Configure with st.secrets
