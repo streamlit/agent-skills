@@ -96,21 +96,22 @@ st.dataframe(
 - **Use visual column types where they help:** sparklines for trends, progress bars for completion, images for logos
 
 **Column types:**
+- `AreaChartColumn` → Area sparklines
+- `BarChartColumn` → Bar sparklines
+- `CheckboxColumn` → Boolean as checkbox
+- `DateColumn` → Date only (no time)
+- `DatetimeColumn` → Dates with formatting
+- `ImageColumn` → Images
+- `JSONColumn` → Display JSON objects
+- `LineChartColumn` → Sparkline charts
+- `LinkColumn` → Clickable links
+- `ListColumn` → Display lists/arrays
+- `MultiselectColumn` → Multi-value selection
 - `NumberColumn` → Numbers with formatting
 - `ProgressColumn` → Progress bars
-- `LinkColumn` → Clickable links
-- `ImageColumn` → Images
-- `DatetimeColumn` → Dates with formatting
-- `DateColumn` → Date only (no time)
-- `TimeColumn` → Time only (no date)
-- `CheckboxColumn` → Boolean as checkbox
 - `SelectboxColumn` → Editable dropdown
-- `LineChartColumn` → Sparkline charts
-- `BarChartColumn` → Bar sparklines
-- `AreaChartColumn` → Area sparklines
-- `ListColumn` → Display lists/arrays
-- `JSONColumn` → Display JSON objects
-- `MultiselectColumn` → Multi-value selection
+- `TextColumn` → Text with formatting
+- `TimeColumn` → Time only (no date)
 
 ## Pinned Columns
 
