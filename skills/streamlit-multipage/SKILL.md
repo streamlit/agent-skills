@@ -73,12 +73,13 @@ page = st.navigation({
 
 **Mixed: Some pages ungrouped:**
 
-Use an empty string key `""` for pages that shouldn't be in a section. These ungrouped pages always appear first, before any named groups:
+Use an empty string key `""` for pages that shouldn't be in a section. These ungrouped pages always appear first, before any named groups. Put all ungrouped pages in a single `""` key:
 
 ```python
 page = st.navigation({
     "": [
         st.Page("app_pages/home.py", title="Home"),
+        st.Page("app_pages/about.py", title="About"),
     ],
     "Analytics": [
         st.Page("app_pages/dashboard.py", title="Dashboard"),
