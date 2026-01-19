@@ -13,9 +13,8 @@ Streamlit reruns scripts top-to-bottom on every interaction. Without session sta
 Session state is a dictionary-like object supporting attribute and bracket notation:
 
 ```python
-# Initialize (always check first)
-if "count" not in st.session_state:
-    st.session_state.count = 0
+# Initialize with setdefault (preferred)
+st.session_state.setdefault("count", 0)
 
 # Read
 current = st.session_state.count
@@ -66,8 +65,7 @@ Set initial widget values through session state, not the `value` parameter:
 
 ```python
 # Set default before widget renders
-if "temperature" not in st.session_state:
-    st.session_state.temperature = 50
+st.session_state.setdefault("temperature", 50)
 
 st.slider("Temperature", 0, 100, key="temperature")
 ```
@@ -134,8 +132,7 @@ st.session_state.name = "Alice"
 st.text_input("Name", value="Bob", key="name")  # Warning!
 
 # GOOD: Use one or the other
-if "name" not in st.session_state:
-    st.session_state.name = "Alice"
+st.session_state.setdefault("name", "Alice")
 st.text_input("Name", key="name")
 ```
 
