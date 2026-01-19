@@ -169,7 +169,7 @@ st.button("![Logo](app/static/logo.png) Click me")  # Image as icon in label
 
 In labels, images display as icons with max height equal to font height.
 
-## HTML (use sparingly)
+## HTML (use very sparingly!)
 
 Mix markdown with HTML using `unsafe_allow_html=True`. For pure HTML without markdown processing, use `st.html()` instead.
 
