@@ -155,6 +155,18 @@ Common conditions for showing/hiding pages:
 - Environment variables or secrets
 - Time-based access (e.g., beta features)
 
+## Imports from pages
+
+When importing from page files in `app_pages/`, always import from the root directory perspective:
+
+```python
+# app_pages/dashboard.py - GOOD
+from utils.data import load_sales_data
+
+# app_pages/dashboard.py - BAD (don't use relative imports)
+from ..utils.data import load_sales_data
+```
+
 ## References
 
 - [st.navigation](https://docs.streamlit.io/develop/api-reference/navigation/st.navigation)

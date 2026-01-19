@@ -6,7 +6,21 @@ license: Apache-2.0
 
 # Streamlit code organization
 
-Keep your Streamlit apps maintainable by separating UI from business logic.
+For most simple apps, keep everything in one file—it's cleaner and more straightforward. Only split into modules when your app grows complex.
+
+## When to split
+
+**Keep in one file (most apps):**
+- Apps under ~1000 lines
+- One-off scripts and prototypes
+- Apps where logic is straightforward
+
+**Consider splitting when:**
+- Data processing is complex (50+ lines of non-UI code)
+- Multiple pages share logic
+- You want to test business logic separately
+
+If splitting makes sense, here's how to organize it.
 
 ## Directory structure
 
@@ -85,32 +99,6 @@ def compute_metrics(df):
     }
 ```
 
-## Imports from pages
-
-When importing from page files in `app_pages/`, always import from the root directory perspective. This works because `streamlit_app.py` is the main module.
-
-```python
-# app_pages/dashboard.py - GOOD
-from utils.data import load_sales_data
-
-# app_pages/dashboard.py - BAD (don't use relative imports)
-from ..utils.data import load_sales_data
-```
-
-## Running the app
-
-```bash
-uv run streamlit run streamlit_app.py
-```
-
-Or simply:
-
-```bash
-uv run streamlit run
-```
-
-Streamlit defaults to `streamlit_app.py` if no file is specified.
-
 ## Avoid if __name__ == "__main__"
 
 Streamlit apps run the entire file on each interaction. Don't use the main guard in Streamlit files.
@@ -137,18 +125,6 @@ def load_data(path):
 if __name__ == "__main__":
     print(load_data("test.csv"))
 ```
-
-## When to split
-
-**Keep in main file:**
-- Simple apps (< 200 lines)
-- One-off scripts
-- Prototypes
-
-**Split into modules when:**
-- Data processing is complex
-- Multiple pages share logic
-- You want to test business logic separately
 
 ## References
 
