@@ -182,7 +182,7 @@ st.html("<div class='custom'>Pure HTML content</div>")
 Widgets, containers, and other elements support markdown in their labels (using the label subset).
 
 ```python
-st.selectbox(":material/language: **:blue[Language]**", ["English", "Spanish", "French"])
+st.radio("**:blue[Language]**", [":flag-us: English", ":flag-es: Spanish", ":flag-fr: French"])
 tab1, tab2 = st.tabs([":material/home: Home", ":material/settings: Settings"])
 st.metric(label=":material/attach_money: Revenue", value=":green[$1.2M]", delta=":material/trending_up: 12%")
 ```
