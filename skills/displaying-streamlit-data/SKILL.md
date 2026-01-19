@@ -59,7 +59,7 @@ st.altair_chart(chart, use_container_width=True)
 
 ## Dataframe Column Configuration
 
-**Always use `column_config`** to make dataframes readable. Raw dataframes with cryptic column names and unformatted numbers look unprofessional.
+Use `column_config` where it adds value—formatting currencies, showing progress bars, displaying links or images. Don't add config just for labels or tooltips that don't meaningfully improve readability.
 
 ```python
 st.dataframe(
