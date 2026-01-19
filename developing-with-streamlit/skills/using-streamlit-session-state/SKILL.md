@@ -65,15 +65,6 @@ st.session_state.setdefault("page", "home")
 st.session_state.setdefault("filters", {})
 ```
 
-Set initial widget values through session state, not the `value` parameter:
-
-```python
-# Set default before widget renders
-st.session_state.setdefault("temperature", 50)
-
-st.slider("Temperature", 0, 100, key="temperature")
-```
-
 ## Multipage state
 
 Widgets are NOT stateful across pages. Their values reset when navigating between pages.
