@@ -73,7 +73,7 @@ page = st.navigation({
 
 **Mixed: Some pages ungrouped:**
 
-Use an empty string key `""` for pages that shouldn't be in a section:
+Use an empty string key `""` for pages that shouldn't be in a section. These ungrouped pages always appear first, before any named groups:
 
 ```python
 page = st.navigation({
