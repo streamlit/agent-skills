@@ -47,7 +47,7 @@ Markdown works wherever text is rendered, with these exceptions:
 - `st.selectbox` and `st.multiselect` options
 - Input widget placeholders
 
-Widget labels use a **label subset**: bold, italic, strikethrough, inline code, links, images, colored text, Material icons, and emojis. Block elements are stripped. Escape with backslash: `"1\. Not a list"`.
+Element labels and some other parameters use a **label subset**: bold, italic, strikethrough, inline code, links, images, colored text, Material icons, and emojis. Block elements are stripped. Escape with backslash: `"1\. Not a list"`.
 
 ## GitHub-flavored markdown
 
