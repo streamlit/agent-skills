@@ -123,7 +123,7 @@ Don't set both—it causes warnings:
 
 ```python
 # BAD: Conflicting sources
-st.session_state.name = "Alice"
+st.session_state.setdefault("name", "Alice")
 st.text_input("Name", value="Bob", key="name")  # Warning!
 
 # GOOD: Use one or the other
