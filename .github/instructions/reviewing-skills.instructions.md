@@ -37,6 +37,7 @@ For Streamlit-related skills, check against the guidelines in `/AGENTS.md`:
 - Code examples should target the latest Streamlit version
 - Verify suggestions against current Streamlit API patterns
 - Flag deprecated methods or outdated patterns
+- Reference: [docs.streamlit.io/llms-full.txt](https://docs.streamlit.io/llms-full.txt) (large file - LLM-optimized Streamlit docs)
 
 ## Consistency
 
