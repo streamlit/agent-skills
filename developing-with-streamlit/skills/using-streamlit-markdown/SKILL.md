@@ -10,31 +10,31 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 
 ## Quick reference
 
-| Feature | Syntax | Example |
-|---------|--------|---------|
-| Bold | `**text**` | `**Bold**` |
-| Italic | `*text*` | `*Italic*` |
-| Strikethrough | `~text~` | `~Strikethrough~` |
-| Inline code | `` `code` `` | `` `variable` `` |
-| Code block | ` ```lang...``` ` | ` ```python...``` ` |
-| Link | `[text](url)` | `[Streamlit](https://streamlit.io)` |
-| Image | `![alt](path)` | `![Logo](logo.png)` |
-| Heading | `# ` to `###### ` | `## Section` |
-| Blockquote | `> text` | `> Note` |
-| Horizontal rule | `---` | `---` |
-| Unordered list | `- item` | `- First`<br>`- Second` |
-| Ordered list | `1. item` | `1. First`<br>`2. Second` |
-| Task list | `- [ ]` / `- [x]` | `- [x] Done`<br>`- [ ] Todo` |
-| Table | `\| a \| b \|` | `\| H1 \| H2 \|`<br>`\|--\|--\|` |
-| Emoji | Direct or shortcode | `🎉` or `:tada:` |
-| Streamlit logo | `:streamlit:` | `:streamlit:` |
-| Material icon | `:material/icon_name:` | `:material/check_circle:` |
-| Colored text | `:color[text]` | `:red[Error]` |
-| Colored background | `:color-background[text]` | `:blue-background[Info]` |
-| Badge | `:color-badge[text]` | `:green-badge[Success]` |
-| Small text | `:small[text]` | `:small[footnote]` |
-| LaTeX (inline) | `$formula$` | `$ax^2 + bx + c$` |
-| LaTeX (block) | `$$formula$$` | `$$\int_0^1 x^2 dx$$` |
+| Feature | Syntax | Example | Labels |
+|---------|--------|---------|--------|
+| Bold | `**text**` | `**Bold**` | ✓ |
+| Italic | `*text*` | `*Italic*` | ✓ |
+| Strikethrough | `~text~` | `~Strikethrough~` | ✓ |
+| Inline code | `` `code` `` | `` `variable` `` | ✓ |
+| Code block | ` ```lang...``` ` | ` ```python...``` ` | ✗ |
+| Link | `[text](url)` | `[Streamlit](https://streamlit.io)` | ✓ |
+| Image | `![alt](path)` | `![Logo](logo.png)` | ✓ |
+| Heading | `# ` to `###### ` | `## Section` | ✗ |
+| Blockquote | `> text` | `> Note` | ✗ |
+| Horizontal rule | `---` | `---` | ✗ |
+| Unordered list | `- item` | `- First`<br>`- Second` | ✗ |
+| Ordered list | `1. item` | `1. First`<br>`2. Second` | ✗ |
+| Task list | `- [ ]` / `- [x]` | `- [x] Done`<br>`- [ ] Todo` | ✗ |
+| Table | `\| a \| b \|` | `\| H1 \| H2 \|`<br>`\|--\|--\|` | ✗ |
+| Emoji | Direct or shortcode | `🎉` or `:tada:` | ✓ |
+| Streamlit logo | `:streamlit:` | `:streamlit:` | ✓ |
+| Material icon | `:material/icon_name:` | `:material/check_circle:` | ✓ |
+| Colored text | `:color[text]` | `:red[Error]` | ✓ |
+| Colored background | `:color-background[text]` | `:blue-background[Info]` | ✓ |
+| Badge | `:color-badge[text]` | `:green-badge[Success]` | ✓ |
+| Small text | `:small[text]` | `:small[footnote]` | ✓ |
+| LaTeX (inline) | `$formula$` | `$ax^2 + bx + c$` | ✓ |
+| LaTeX (block) | `$$formula$$` | `$$\int_0^1 x^2 dx$$` | ✗ |
 
 ## Where markdown works
 
