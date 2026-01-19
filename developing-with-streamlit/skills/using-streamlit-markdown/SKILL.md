@@ -146,8 +146,6 @@ st.markdown("Content width only", width="content")
 st.markdown("Fixed 400px", width=400)
 ```
 
-**Width options:** `"stretch"` (default), `"content"`, or integer pixels
-
 ## Images in markdown
 
 ```python
