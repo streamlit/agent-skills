@@ -137,7 +137,7 @@ In labels, images display as icons with max height equal to font height.
 Widgets, containers, and other elements support markdown in their labels (using the label subset).
 
 ```python
-st.radio("**:blue[Language]**", [":flag-us: English", ":flag-es: Spanish", ":flag-fr: French"])
+st.radio(":material/palette: Choose **color**", [":red-background[Red]", ":blue-background[Blue]", ":green-background[Green]"])
 tab1, tab2 = st.tabs([":material/home: Home", ":material/settings: Settings"])
 st.metric(label=":material/attach_money: Revenue", value=":green[$1.2M]", delta=":material/trending_up: 12%")
 ```
