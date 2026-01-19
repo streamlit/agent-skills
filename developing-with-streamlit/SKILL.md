@@ -27,6 +27,8 @@ Activate these skills when:
 
 **Making it look good?** → `improving-streamlit-design`
 
+**Formatting text with markdown?** → `using-streamlit-markdown`
+
 **Multi-page architecture?** → `building-streamlit-multipage-apps`
 
 **Customizing appearance?** → `customizing-streamlit-theme`
@@ -61,6 +63,7 @@ Activate these skills when:
 | [using-streamlit-custom-components](skills/using-streamlit-custom-components/SKILL.md) | Third-party components from the community |
 | [using-streamlit-cli](skills/using-streamlit-cli/SKILL.md) | CLI commands, running apps |
 | [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md) | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
+| [using-streamlit-markdown](skills/using-streamlit-markdown/SKILL.md) | Colored text, badges, icons, LaTeX, and all markdown features |
 
 ## Resources
 
