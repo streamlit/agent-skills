@@ -1,6 +1,6 @@
 ---
-name: streamlit-theming
-description: Streamlit theming and styling. Use when customizing app colors or appearance. Covers config.toml theming, avoiding CSS, and targeted styling when necessary.
+name: theming-streamlit-apps
+description: Theming and styling Streamlit apps. Use when customizing app colors or appearance. Covers config.toml theming, avoiding CSS, and targeted styling when necessary.
 license: Apache-2.0
 ---
 

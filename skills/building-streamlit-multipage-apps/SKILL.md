@@ -1,6 +1,6 @@
 ---
-name: streamlit-multipage
-description: Streamlit multi-page app patterns. Use when building apps with multiple pages, setting up navigation, or managing state across pages.
+name: building-streamlit-multipage-apps
+description: Building multi-page Streamlit apps. Use when creating apps with multiple pages, setting up navigation, or managing state across pages.
 license: Apache-2.0
 ---
 

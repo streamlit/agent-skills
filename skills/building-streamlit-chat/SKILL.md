@@ -1,6 +1,6 @@
 ---
-name: streamlit-chat
-description: Streamlit chat interface patterns. Use when building conversational UIs, chatbots, or AI assistants. Covers st.chat_message, st.chat_input, message history, and streaming responses.
+name: building-streamlit-chat
+description: Building chat interfaces in Streamlit. Use when creating conversational UIs, chatbots, or AI assistants. Covers st.chat_message, st.chat_input, message history, and streaming responses.
 license: Apache-2.0
 ---
 
@@ -79,8 +79,8 @@ if not st.session_state.messages:
 
 ## Related Skills
 
-- `streamlit-snowflake-connection`: Database queries and Cortex chat example
-- `streamlit-performance`: Caching strategies for LLM calls
+- `connecting-streamlit-to-snowflake`: Database queries and Cortex chat example
+- `optimizing-streamlit-performance`: Caching strategies for LLM calls
 
 ## References
 

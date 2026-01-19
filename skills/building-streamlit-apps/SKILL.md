@@ -1,6 +1,6 @@
 ---
-name: streamlit-app-basics
-description: Build Streamlit applications following best practices. Use when creating dashboards, data apps, or interactive visualizations with Streamlit.
+name: building-streamlit-apps
+description: Building Streamlit applications following best practices. Use when creating dashboards, data apps, or interactive visualizations with Streamlit.
 license: Apache-2.0
 ---
 

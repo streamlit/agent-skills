@@ -1,6 +1,6 @@
 ---
-name: streamlit-code-organization
-description: Streamlit code organization patterns. Use when structuring apps with separate modules and utilities. Covers separation of concerns, keeping UI code clean, and import patterns.
+name: organizing-streamlit-code
+description: Organizing Streamlit code for maintainability. Use when structuring apps with separate modules and utilities. Covers separation of concerns, keeping UI code clean, and import patterns.
 license: Apache-2.0
 ---
 

@@ -1,6 +1,6 @@
 ---
-name: streamlit-layout
-description: Streamlit layout patterns. Use when structuring apps with sidebars, columns, containers, dialogs, or deciding where to place content. Covers sidebar usage, column limits, horizontal containers, dialogs, and bordered cards.
+name: structuring-streamlit-layout
+description: Structuring Streamlit app layouts. Use when placing content in sidebars, columns, containers, or dialogs. Covers sidebar usage, column limits, horizontal containers, dialogs, and bordered cards.
 license: Apache-2.0
 ---
 

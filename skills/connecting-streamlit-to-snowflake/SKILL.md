@@ -1,5 +1,5 @@
 ---
-name: streamlit-snowflake-connection
+name: connecting-streamlit-to-snowflake
 description: Connecting Streamlit apps to Snowflake. Use when setting up database connections, managing secrets, or querying Snowflake from a Streamlit app.
 license: Apache-2.0
 ---
@@ -184,7 +184,7 @@ if prompt := st.chat_input("Ask anything"):
     st.session_state.messages.append({"role": "assistant", "content": response})
 ```
 
-See `streamlit-chat` for more chat patterns (avatars, suggestions, history management).
+See `building-streamlit-chat` for more chat patterns (avatars, suggestions, history management).
 
 ## References
 

@@ -1,6 +1,6 @@
 ---
-name: streamlit-components
-description: Using third-party Streamlit components. Use when looking to extend Streamlit with community packages. Covers installation, popular components, and when to use them.
+name: using-streamlit-components
+description: Using third-party Streamlit components. Use when extending Streamlit with community packages. Covers installation, popular components, and when to use them.
 license: Apache-2.0
 ---
 

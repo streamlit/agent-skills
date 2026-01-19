@@ -1,6 +1,6 @@
 ---
-name: streamlit-visual-design
-description: Streamlit visual design patterns. Use when styling apps with icons, badges, spacing, or text. Covers Material icons, badge syntax, divider alternatives, and text casing conventions.
+name: designing-streamlit-visuals
+description: Designing visual elements in Streamlit apps. Use when styling apps with icons, badges, spacing, or text. Covers Material icons, badge syntax, divider alternatives, and text casing conventions.
 license: Apache-2.0
 ---
 
@@ -9,9 +9,9 @@ license: Apache-2.0
 Small touches that make apps feel polished.
 
 **Related skills:** Visual design works hand-in-hand with other skills:
-- `streamlit-selection-widgets` → Choosing the right widget (segmented control, pills, toggle)
-- `streamlit-charts-and-data` → Column config, sparklines, bordered metrics
-- `streamlit-layout` → Containers, alignment, dashboard cards
+- `choosing-streamlit-widgets` → Choosing the right widget (segmented control, pills, toggle)
+- `displaying-streamlit-data` → Column config, sparklines, bordered metrics
+- `structuring-streamlit-layout` → Containers, alignment, dashboard cards
 
 ## Page Config
 
