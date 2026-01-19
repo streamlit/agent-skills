@@ -52,10 +52,10 @@ These directories support progressive disclosure—files are loaded only when ne
 
 ### Required Fields
 
-| Field | Description |
-|-------|-------------|
-| `name` | Unique identifier (lowercase, hyphens, max 64 chars) |
-| `description` | What the skill does and when to use it (max 1024 chars) |
+| Field | Description | Constraints |
+|-------|-------------|-------------|
+| `name` | Unique skill identifier | Lowercase letters, numbers, and hyphens only; max 64 chars; no XML tags; cannot contain "anthropic" or "claude" |
+| `description` | What the skill does and when to use it | Non-empty; max 1024 chars; no XML tags; include keywords |
 
 ### Optional Fields
 
