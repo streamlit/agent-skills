@@ -15,7 +15,7 @@ We welcome contributions but are opinionated about what we include—skills shou
 
 3. Add the new skill to the sub-skills table in `developing-with-streamlit/SKILL.md`
 
-3. Follow the [Agent Skills Specification](https://agentskills.io/specification) for formatting
+4. Follow the [Agent Skills Specification](https://agentskills.io/specification) for formatting
 
 ## Skill Format
 
