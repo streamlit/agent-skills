@@ -43,6 +43,8 @@ Activate these skills when:
 
 **Using the Streamlit CLI?** → `using-streamlit-cli`
 
+**State management and session state?** → `using-streamlit-session-state`
+
 ## Skill map
 
 | Skill | Covers |
@@ -61,6 +63,7 @@ Activate these skills when:
 | [using-streamlit-custom-components](skills/using-streamlit-custom-components/SKILL.md) | Third-party components from the community |
 | [using-streamlit-cli](skills/using-streamlit-cli/SKILL.md) | CLI commands, running apps |
 | [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md) | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
+| [using-streamlit-session-state](skills/using-streamlit-session-state/SKILL.md) | Session state, widget keys, callbacks, state persistence |
 
 ## Resources
 
