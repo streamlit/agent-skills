@@ -6,7 +6,7 @@ license: Apache-2.0
 
 # Using markdown in Streamlit
 
-Streamlit supports markdown throughout its API—in `st.markdown()`, widget labels, help tooltips, metrics, table cells, and more. Beyond standard GitHub-flavored Markdown, Streamlit adds colored text, badges, icons, and LaTeX.
+Streamlit supports markdown throughout its API—in `st.markdown()`, widget labels, help tooltips, metrics, `st.table()` cells, and more. Beyond standard GitHub-flavored Markdown, Streamlit adds colored text, badges, icons, and LaTeX.
 
 ## Quick reference
 
