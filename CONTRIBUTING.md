@@ -2,6 +2,8 @@
 
 We welcome contributions but are opinionated about what we include—skills should be focused, well-written, and follow Streamlit best practices.
 
+**Before you start**: Read [AGENTS.md](AGENTS.md) for detailed guidance on writing skills for this repository, including Streamlit-specific guidelines, naming conventions, and context efficiency tips.
+
 ## Creating a New Skill
 
 1. Copy the template:
@@ -67,6 +69,5 @@ These directories support progressive disclosure—files are loaded only when ne
 
 ## Best Practices
 
-For comprehensive guidance on writing effective skills, see the official [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
-
-For Streamlit-specific guidelines and additional context, see [AGENTS.md](AGENTS.md).
+- Official guidance: [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+- Streamlit-specific: [AGENTS.md](AGENTS.md)
