@@ -129,23 +129,6 @@ $$
 st.latex(r"\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}")
 ```
 
-## st.markdown - text alignment and width
-
-Control layout with `text_alignment` and `width` parameters.
-
-```python
-st.markdown("Centered heading", text_alignment="center")
-st.markdown("Right-aligned text", text_alignment="right")
-st.markdown("Justified paragraph with longer content...", text_alignment="justify")
-```
-
-```python
-# Control width
-st.markdown("Full width (default)", width="stretch")
-st.markdown("Content width only", width="content")
-st.markdown("Fixed 400px", width=400)
-```
-
 ## Images in markdown
 
 ```python
@@ -154,15 +137,6 @@ st.button("![Logo](app/static/logo.png) Click me")  # Image as icon in label
 ```
 
 In labels, images display as icons with max height equal to font height.
-
-## HTML (use very sparingly!)
-
-Mix markdown with HTML using `unsafe_allow_html=True`. For pure HTML without markdown processing, use `st.html()` instead.
-
-```python
-st.markdown("**Status:** <span style='color: coral'>Custom styled</span>", unsafe_allow_html=True)
-st.html("<div class='custom'>Pure HTML content</div>")
-```
 
 ## Markdown in element labels
 
@@ -199,6 +173,32 @@ st.markdown("""
 
 :small[Last updated: just now]
 """)
+```
+
+## st.markdown - text alignment and width
+
+Control layout with `text_alignment` and `width` parameters.
+
+```python
+st.markdown("Centered heading", text_alignment="center")
+st.markdown("Right-aligned text", text_alignment="right")
+st.markdown("Justified paragraph with longer content...", text_alignment="justify")
+```
+
+```python
+# Control width
+st.markdown("Full width (default)", width="stretch")
+st.markdown("Content width only", width="content")
+st.markdown("Fixed 400px", width=400)
+```
+
+## HTML (use very sparingly!)
+
+Mix markdown with HTML using `unsafe_allow_html=True`. For pure HTML without markdown processing, use `st.html()` instead.
+
+```python
+st.markdown("**Status:** <span style='color: coral'>Custom styled</span>", unsafe_allow_html=True)
+st.html("<div class='custom'>Pure HTML content</div>")
 ```
 
 ## References
