@@ -142,6 +142,15 @@ tab1, tab2 = st.tabs([":material/home: Home", ":material/settings: Settings"])
 st.metric(label=":material/attach_money: Revenue", value=":green[$1.2M]", delta=":material/trending_up: 12%")
 ```
 
+## Escaping special characters
+
+Use backslash to show literal characters: `\\[`, `\\*`, `1\\.`
+
+```python
+st.markdown(":blue[Array: \\[1, 2, 3\\]]")
+st.button("1\\. Not a list")
+```
+
 ## Markdown in st.table
 
 `st.table()` renders markdown in cells and headers.
@@ -152,15 +161,6 @@ st.table({
     "**Status**": ":green-badge[Active]",
     "**Role**": ":material/shield: Admin"
 })
-```
-
-## Escaping special characters
-
-Use backslash to show literal characters: `\\[`, `\\*`, `1\\.`
-
-```python
-st.markdown(":blue[Array: \\[1, 2, 3\\]]")
-st.button("1\\. Not a list")
 ```
 
 ## Combining features
