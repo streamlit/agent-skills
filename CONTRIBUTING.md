@@ -8,10 +8,12 @@ We welcome contributions but are opinionated about what we include—skills shou
 
 1. Copy the template:
    ```bash
-   cp -r template skills/my-new-skill
+   cp -r template developing-with-streamlit/skills/my-new-skill
    ```
 
-2. Edit `skills/my-new-skill/SKILL.md` with your skill's instructions
+2. Edit `developing-with-streamlit/skills/my-new-skill/SKILL.md` with your skill's instructions
+
+3. Add the new skill to the sub-skills table in `developing-with-streamlit/SKILL.md`
 
 3. Follow the [Agent Skills Specification](https://agentskills.io/specification) for formatting
 
