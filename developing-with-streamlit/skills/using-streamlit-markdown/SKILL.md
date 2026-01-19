@@ -51,6 +51,7 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 | `st.caption()` | Yes | - |
 | `st.expander()` label | - | Yes |
 | `st.tabs()` labels | - | Yes |
+| `@st.dialog()` title | - | Yes |
 
 **Label subset** supports: bold, italic, strikethrough, inline code, links, images, colored text, Material icons, and emojis. Unsupported elements are stripped to text content. Escape with backslash to show literally: `"1\. Not a list"`.
 
