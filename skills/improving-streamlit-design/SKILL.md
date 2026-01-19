@@ -9,7 +9,7 @@ license: Apache-2.0
 Small touches that make apps feel polished.
 
 **Related skills:** Visual design works hand-in-hand with other skills:
-- `choosing-streamlit-widgets` → Choosing the right widget (segmented control, pills, toggle)
+- `choosing-streamlit-selection-widgets` → Choosing the right widget (segmented control, pills, toggle)
 - `displaying-streamlit-data` → Column config, sparklines, bordered metrics
 - `structuring-streamlit-layout` → Containers, alignment, dashboard cards
 
@@ -165,16 +165,21 @@ Options: `"left"` (default), `"center"`, `"right"`, `"justify"`
 
 **Note:** `text_alignment` is for text content. Use `horizontal_alignment` on containers to align widgets and other elements.
 
-## Icons in callouts
+## Icons in callouts and expanders
 
-Add icons to status messages for better visual clarity:
+Material icons can make callouts and expanders look nicer:
 
 ```python
 st.info("Processing complete", icon=":material/check_circle:")
 st.warning("Rate limit approaching", icon=":material/warning:")
 st.error("Connection failed", icon=":material/error:")
 st.success("Saved!", icon=":material/thumb_up:")
+
+with st.expander("Settings", icon=":material/settings:"):
+    st.write("Configure your preferences")
 ```
+
+Other elements like `st.button` and `st.tabs` also support icons—worth considering when it adds clarity.
 
 ## References
 
