@@ -33,7 +33,7 @@ st.line_chart(df, x="date", y="revenue", x_label="Date", y_label="Revenue")
 
 ## Altair for Complex Charts
 
-Use Altair when you need more control.
+Use Altair when you need more control. Altair is bundled with Streamlit (no extra install), while Plotly requires an additional package. Pick one and stay consistent throughout your app.
 
 ```python
 import altair as alt
@@ -43,7 +43,7 @@ chart = alt.Chart(df).mark_line().encode(
     y=alt.Y("revenue:Q", title="Revenue ($)"),
     color="region:N"
 )
-st.altair_chart(chart, width="stretch")
+st.altair_chart(chart, use_container_width=True)
 ```
 
 **When to use Altair:**
@@ -51,6 +51,8 @@ st.altair_chart(chart, width="stretch")
 - Multiple series with legends
 - Interactive tooltips
 - Layered visualizations
+
+Native charts also support additional parameters (color, stack, y_label, etc.)—see the [chart API reference](https://docs.streamlit.io/develop/api-reference/charts) for details.
 
 ## Dataframe Column Configuration
 

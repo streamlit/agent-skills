@@ -8,14 +8,18 @@ license: Apache-2.0
 
 The right selection widget for the job. Streamlit has evolved—many old patterns are now anti-patterns.
 
-## Selection Widgets by Option Count
+## When to Use What
 
-| Options | Single Select | Multi Select |
-|---------|--------------|--------------|
-| 2-4 | `st.segmented_control` | `st.pills` |
-| 5+ | `st.selectbox` | `st.multiselect` |
+Use `st.segmented_control` or `st.pills` when you want all options visible at once. Use `st.selectbox` or `st.multiselect` when options should be hidden in a dropdown.
 
-## Segmented Control (2-4 options, single select)
+| Widget | Best For |
+|--------|----------|
+| `st.segmented_control` | 2-5 options, single select, all visible |
+| `st.pills` | 2-5 options, multi-select, all visible |
+| `st.selectbox` | Many options, single select, dropdown |
+| `st.multiselect` | Many options, multi-select, dropdown |
+
+## Segmented Control (options visible, single select)
 
 ```python
 # BAD
@@ -29,7 +33,7 @@ For vertical layouts, `st.radio(..., horizontal=False)` is still a great choice.
 
 Cleaner, more modern look than horizontal radio buttons.
 
-## Pills (2-5 options, multi-select)
+## Pills (options visible, multi-select)
 
 ```python
 # Multi-select with few options
@@ -47,7 +51,7 @@ st.pills("Examples", ["Show me sales data", "Top customers"], label_visibility="
 
 More visual and easier to use than `st.multiselect` for small option sets.
 
-## Selectbox (5+ options, single select)
+## Selectbox (many options, single select)
 
 ```python
 country = st.selectbox(
@@ -58,7 +62,7 @@ country = st.selectbox(
 
 Dropdowns scale better than radio/pills for long lists.
 
-## Multiselect (5+ options, multi-select)
+## Multiselect (many options, multi-select)
 
 ```python
 countries = st.multiselect(
@@ -84,26 +88,43 @@ with st.form("signup"):
 
 ## Forms with border=False
 
-Remove the default form border for cleaner inline forms:
+Remove the default form border for cleaner inline forms. Keep the border for longer forms where visual grouping helps.
 
 ```python
+# Inline form without border
 with st.form(key="add_item", border=False):
     with st.container(horizontal=True, vertical_alignment="bottom"):
         st.text_input("New item", label_visibility="collapsed", placeholder="Add item")
         st.form_submit_button("Add", icon=":material/add:")
+
+# Longer form - keep the border for visual grouping
+with st.form("signup"):
+    st.text_input("Name")
+    st.text_input("Email")
+    st.selectbox("Role", ["Admin", "User"])
+    st.form_submit_button("Submit")
 ```
 
-## Multiselect with Custom Options
+## Custom Options in Selectbox and Multiselect
 
 Allow users to add their own options with `accept_new_options`:
 
 ```python
+# Works with multiselect
 tickers = st.multiselect(
     "Stock tickers",
     options=["AAPL", "MSFT", "GOOGL", "NVDA"],
     default=["AAPL"],
-    accept_new_options=True,  # Users can type custom values
+    accept_new_options=True,
     placeholder="Choose stocks or type your own"
+)
+
+# Also works with selectbox
+country = st.selectbox(
+    "Country",
+    options=["USA", "UK", "Canada"],
+    accept_new_options=True,
+    placeholder="Select or type a country"
 )
 ```
 

@@ -15,7 +15,7 @@ Small touches that make apps feel polished.
 
 ## Page Config
 
-**Must be the first Streamlit command in your script.** Set browser tab title, icon, and layout:
+Set browser tab title, icon, and layout. Place this at the top of your script to avoid visual blinking:
 
 ```python
 st.set_page_config(
@@ -111,6 +111,7 @@ If you genuinely need spacing:
 st.space("small")   # Small gap
 st.space("medium")  # Medium gap
 st.space("large")   # Large gap
+st.space(50)        # Custom pixels for fine-tuning
 ```
 
 **Don't** systematically replace dividers with `st.space()`—it can look weird too.
@@ -152,6 +153,8 @@ st.info("Data last updated 5 minutes ago")
 
 ## Text Alignment
 
+Use `text_alignment` for text elements:
+
 ```python
 st.title("Centered title", text_alignment="center")
 st.write("Right aligned", text_alignment="right")
@@ -159,6 +162,19 @@ st.caption("Justified text", text_alignment="justify")
 ```
 
 Options: `"left"` (default), `"center"`, `"right"`, `"justify"`
+
+**Note:** `text_alignment` is for text content. Use `horizontal_alignment` on containers to align widgets and other elements.
+
+## Icons in Callouts
+
+Add icons to status messages for better visual clarity:
+
+```python
+st.info("Processing complete", icon=":material/check_circle:")
+st.warning("Rate limit approaching", icon=":material/warning:")
+st.error("Connection failed", icon=":material/error:")
+st.success("Saved!", icon=":material/thumb_up:")
+```
 
 ## References
 

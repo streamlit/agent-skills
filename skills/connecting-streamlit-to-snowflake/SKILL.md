@@ -43,24 +43,29 @@ This is useful when:
 
 ## Cached Query Helper
 
-Wrap queries in a cached function for better control:
+For simple cases, use the built-in `ttl` parameter:
 
 ```python
-import streamlit as st
+conn = st.connection("snowflake")
 
+# Cache for 10 minutes
+df = conn.query("SELECT * FROM metrics", ttl="10m")
 
+# Cache for 1 hour
+df = conn.query("SELECT * FROM reference_data", ttl="1h")
+```
+
+For more control (like parameterized queries with consistent caching):
+
+```python
 @st.cache_data(ttl="10m")
 def query(sql: str, **params):
     conn = st.connection("snowflake")
     return conn.query(sql, params=params)
 
-
 # Usage
 df = query("SELECT * FROM users WHERE region = :region", region="US")
-st.dataframe(df)
 ```
-
-This gives you a reusable pattern with consistent caching across your app.
 
 ## Configure with st.secrets
 
@@ -101,15 +106,15 @@ df = conn.query(
 
 ## Cache Queries
 
-For repeated queries, use TTL caching:
+For repeated queries, use TTL caching directly on `conn.query`:
 
 ```python
 conn = st.connection("snowflake")
 
 # Cache for 10 minutes
-df = conn.query("SELECT * FROM metrics", ttl=600)
+df = conn.query("SELECT * FROM metrics", ttl="10m")
 
-# Cache for 1 hour
+# Cache for 1 hour  
 df = conn.query("SELECT * FROM reference_data", ttl="1h")
 ```
 

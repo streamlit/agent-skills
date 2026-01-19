@@ -8,13 +8,13 @@ license: Apache-2.0
 
 Custom colors and styling. Stick to config.toml—avoid CSS.
 
-## Use config.toml
+## Basic Theme
 
-Configure your app's colors in `.streamlit/config.toml`.
+Configure your app's colors in `.streamlit/config.toml`:
 
 ```toml
-# .streamlit/config.toml
 [theme]
+base = "light"  # or "dark"
 primaryColor = "#FF4B4B"
 backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#F0F2F6"
@@ -22,14 +22,60 @@ textColor = "#262730"
 font = "sans serif"
 ```
 
-**Color variables:**
+**Core options:**
+- `base` → Start from `"light"` or `"dark"` theme
 - `primaryColor` → Interactive elements (buttons, links, sliders)
 - `backgroundColor` → Main content area
-- `secondaryBackgroundColor` → Sidebar and expanders
+- `secondaryBackgroundColor` → Sidebar and widget backgrounds
 - `textColor` → All text
 - `font` → `"sans serif"`, `"serif"`, or `"monospace"`
 
-This is the proper way to customize colors—no CSS required.
+## Separate Light and Dark Themes
+
+Define both themes and let users choose:
+
+```toml
+[theme.light]
+primaryColor = "#FF4B4B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+
+[theme.dark]
+primaryColor = "#FF6B6B"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#262730"
+textColor = "#FAFAFA"
+```
+
+When both are defined, users can switch between them in the settings menu.
+
+## Sidebar Styling
+
+Style the sidebar separately:
+
+```toml
+[theme]
+base = "light"
+primaryColor = "slateBlue"
+backgroundColor = "mintCream"
+
+[theme.sidebar]
+backgroundColor = "aliceBlue"
+secondaryBackgroundColor = "skyBlue"
+```
+
+## Detect Current Theme
+
+```python
+if st.context.theme.base == "dark":
+    # Dark mode specific logic
+    chart_color = "#FF6B6B"
+else:
+    chart_color = "#FF4B4B"
+```
+
+Use `st.context.theme.base` to detect if the user is in light or dark mode.
 
 ## Avoid Custom CSS/HTML
 
@@ -78,19 +124,6 @@ st.html("""
 ```
 
 **Only use this as a last resort.**
-
-## Dark Mode
-
-Streamlit automatically supports dark mode based on user system preferences. Your `config.toml` colors apply to light mode; Streamlit derives dark mode colors automatically.
-
-To test dark mode: Change your system appearance settings.
-
-To detect the current theme in code:
-```python
-if st.context.theme.type == "dark":
-    # Dark mode specific logic
-    pass
-```
 
 ## References
 

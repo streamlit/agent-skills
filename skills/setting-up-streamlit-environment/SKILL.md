@@ -74,9 +74,13 @@ my-streamlit-app/
 ├── app_pages/            # Multi-page modules
 │   ├── home.py
 │   └── analytics.py
+├── .gitignore            # Include secrets.toml here
 └── .streamlit/
-    └── config.toml       # Streamlit config
+    ├── config.toml       # Streamlit config (theming, etc.)
+    └── secrets.toml      # App secrets (optional, never commit)
 ```
+
+**Important:** Add `.streamlit/secrets.toml` to your `.gitignore` to avoid committing credentials.
 
 ## Convention
 

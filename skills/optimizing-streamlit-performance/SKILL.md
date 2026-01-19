@@ -42,7 +42,7 @@ def load_model():
 ### TTL for Fresh Data
 
 ```python
-@st.cache_data(ttl=300)  # 5 minutes
+@st.cache_data(ttl="5m")  # 5 minutes
 def get_metrics():
     return api.fetch()
 
@@ -52,14 +52,14 @@ def load_reference_data():
 ```
 
 **Guidelines:**
-- Real-time → `ttl=60` or less
-- Metrics/reports → `ttl=300`
-- Reference data → `ttl=3600` or more
+- Real-time dashboards → `ttl="1m"` or less
+- Metrics/reports → `ttl="5m"` to `ttl="15m"`
+- Reference data → `ttl="1h"` or more
 - Static data → No TTL
 
 ### Prevent Unbounded Cache Growth
 
-**Important:** Caches without `ttl` or `max_entries` can grow indefinitely and cause memory issues. For any cached function that stores changing objects (user-specific data, parameterized queries), always set limits:
+**Important:** Caches without `ttl` or `max_entries` can grow indefinitely and cause memory issues. For any cached function that stores changing objects (user-specific data, parameterized queries), set limits:
 
 ```python
 # BAD: Unbounded cache - memory will grow indefinitely
@@ -67,13 +67,18 @@ def load_reference_data():
 def get_user_data(user_id):
     return fetch_user(user_id)
 
-# GOOD: Bounded cache
-@st.cache_data(ttl="1h", max_entries=100)
+# GOOD: Bounded cache with TTL
+@st.cache_data(ttl="1h")
+def get_user_data(user_id):
+    return fetch_user(user_id)
+
+# GOOD: Bounded cache with max entries
+@st.cache_data(max_entries=100)
 def get_user_data(user_id):
     return fetch_user(user_id)
 ```
 
-Use `ttl` for time-based expiration, `max_entries` for size-based limits, or both.
+Use `ttl` for time-based expiration OR `max_entries` for size-based limits. You usually don't need both.
 
 ## Fragments
 

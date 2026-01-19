@@ -59,6 +59,26 @@ filtered = df[df["name"].str.contains(query, case=False)]
 st.dataframe(filtered)
 ```
 
+### streamlit-bokeh
+
+Official replacement for `st.bokeh_chart` (removed from Streamlit API). Maintained by Streamlit.
+
+- **Repo:** https://github.com/streamlit/streamlit-bokeh
+- **Docs:** https://pypi.org/project/streamlit-bokeh/
+
+```bash
+uv add streamlit-bokeh
+```
+
+```python
+from bokeh.plotting import figure
+from streamlit_bokeh import streamlit_bokeh
+
+p = figure(title="Simple Line", x_axis_label="x", y_axis_label="y")
+p.line([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], line_width=2)
+streamlit_bokeh(p)
+```
+
 ### streamlit-aggrid
 
 Interactive dataframes with sorting, filtering, cell editing, grouping, and pivoting. Use when you need customization beyond what `st.dataframe` and `st.data_editor` offer.
