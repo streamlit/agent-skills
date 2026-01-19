@@ -7,7 +7,7 @@ description: Build production-grade Streamlit apps. Use when creating, editing, 
 
 A collection of skills for building production-grade Streamlit apps. Each skill focuses on a specific aspect of Streamlit development.
 
-## When to Activate
+## When to activate
 
 Activate these skills when:
 - Creating new Streamlit apps from scratch
@@ -17,64 +17,72 @@ Activate these skills when:
 - Setting up project structure and environments
 - Connecting to data sources like Snowflake
 
-## Skill Map
+## Quick routing
 
-### Performance & Optimization
+**Performance issues or slow apps?** → `optimizing-streamlit-performance`
 
-**Optimizing Performance**
-Caching strategies with `@st.cache_data` and `@st.cache_resource`, when to use `st.fragment` for partial reruns, forms for batching inputs, and static vs dynamic widget patterns. Load `optimizing-streamlit-performance` for slow apps or expensive computations.
+**Building a new UI?** → `choosing-streamlit-selection-widgets` + `using-streamlit-layouts`
 
-### UI & Layout
+**Building a dashboard?** → `building-streamlit-dashboards` + `displaying-streamlit-data`
 
-**Choosing Selection Widgets**
-Decision framework for picking between `st.selectbox`, `st.radio`, `st.segmented_control`, `st.pills`, and `st.multiselect`. Covers single vs multi-select, few vs many options, and navigation vs filtering use cases. Load `choosing-streamlit-selection-widgets` when building input forms.
+**Making it look good?** → `improving-streamlit-design`
 
-**Using Layouts**
-Sidebar, columns, containers, tabs, expanders, popovers, and dialogs. Alignment, spacing, and sizing options. Load `using-streamlit-layouts` when structuring app UI.
+**Multi-page architecture?** → `building-streamlit-multipage-apps`
 
-**Improving Design**
-Icons, badges, colored text, and visual polish. Material icons in buttons, callouts, and expanders. Load `improving-streamlit-design` when refining app appearance.
+**Customizing appearance?** → `customizing-streamlit-theme`
 
-### Data Display
+**Setting up a project?** → `setting-up-streamlit-environment`
 
-**Displaying Data**
-Dataframes with column configuration, charts, and data visualization. Load `displaying-streamlit-data` when showing data to users.
+**App getting complex?** → `organizing-streamlit-code`
 
-**Building Dashboards**
-KPI cards, metrics with deltas, dashboard layouts, and summary views. Load `building-streamlit-dashboards` for analytics and reporting apps.
+**Connecting to Snowflake?** → `connecting-streamlit-to-snowflake`
 
-### App Architecture
+**Building a chatbot or AI assistant?** → `building-streamlit-chat-ui`
 
-**Multi-page Apps**
-Page structure with `pages/` directory, navigation, and shared state across pages. Load `building-streamlit-multipage-apps` when apps need multiple pages.
+**Need features not in core Streamlit?** → `using-streamlit-custom-components`
 
-**Organizing Code**
-When to split into modules, separating UI from business logic. Load `organizing-streamlit-code` when apps grow complex.
+## Skill map
 
-**Setting Up Environment**
-Python environment setup, dependency management. Load `setting-up-streamlit-environment` when starting new projects.
+### Performance
 
-### Specialized Features
+| Skill | Covers |
+|-------|--------|
+| `optimizing-streamlit-performance` | Caching, fragments, forms, static vs dynamic widgets |
 
-**Building Chat UI**
-Chat interfaces with `st.chat_message` and `st.chat_input`, streaming responses, message history. Load `building-streamlit-chat-ui` for chatbots and AI assistants.
+### UI and layout
 
-**Customizing Theme**
-Custom colors via `.streamlit/config.toml`, light/dark modes. Load `customizing-streamlit-theme` for brand customization.
+| Skill | Covers |
+|-------|--------|
+| `choosing-streamlit-selection-widgets` | Selectbox vs radio vs segmented control vs pills vs multiselect |
+| `using-streamlit-layouts` | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
+| `improving-streamlit-design` | Icons, badges, colored text, visual polish |
 
-**Using Custom Components**
-Third-party components from the community. Load `using-streamlit-custom-components` when core Streamlit lacks needed features.
+### Data display
 
-**Connecting to Snowflake**
-`st.connection("snowflake")`, query caching, credential management. Load `connecting-streamlit-to-snowflake` for Snowflake data apps.
+| Skill | Covers |
+|-------|--------|
+| `displaying-streamlit-data` | Dataframes, column config, charts |
+| `building-streamlit-dashboards` | KPI cards, metrics, dashboard layouts |
 
-## Practical Guidance
+### App architecture
 
-Each skill can be used independently or in combination. For new apps, start with `setting-up-streamlit-environment` and `using-streamlit-layouts`. Add specialized skills as needed based on app requirements.
+| Skill | Covers |
+|-------|--------|
+| `building-streamlit-multipage-apps` | Page structure, navigation, shared state |
+| `organizing-streamlit-code` | When to split into modules, separating UI from logic |
+| `setting-up-streamlit-environment` | Python environment, dependency management |
+
+### Specialized
+
+| Skill | Covers |
+|-------|--------|
+| `building-streamlit-chat-ui` | Chat interfaces, streaming responses, message history |
+| `customizing-streamlit-theme` | Custom colors via config.toml, light/dark modes |
+| `using-streamlit-custom-components` | Third-party components from the community |
+| `connecting-streamlit-to-snowflake` | st.connection, query caching, credentials |
 
 ## References
 
-Internal skills in this collection:
 - [building-streamlit-chat-ui](skills/building-streamlit-chat-ui/SKILL.md)
 - [building-streamlit-dashboards](skills/building-streamlit-dashboards/SKILL.md)
 - [building-streamlit-multipage-apps](skills/building-streamlit-multipage-apps/SKILL.md)
@@ -88,6 +96,4 @@ Internal skills in this collection:
 - [setting-up-streamlit-environment](skills/setting-up-streamlit-environment/SKILL.md)
 - [using-streamlit-custom-components](skills/using-streamlit-custom-components/SKILL.md)
 - [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md)
-
-External resources:
-- [Streamlit Documentation](https://docs.streamlit.io/develop/api-reference)
+- [Streamlit documentation](https://docs.streamlit.io/develop/api-reference)
