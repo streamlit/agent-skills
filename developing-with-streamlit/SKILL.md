@@ -47,53 +47,40 @@ Activate these skills when:
 
 | Skill | Covers |
 |-------|--------|
-| `optimizing-streamlit-performance` | Caching, fragments, forms, static vs dynamic widgets |
+| [optimizing-streamlit-performance](skills/optimizing-streamlit-performance/SKILL.md) | Caching, fragments, forms, static vs dynamic widgets |
 
 ### UI and layout
 
 | Skill | Covers |
 |-------|--------|
-| `choosing-streamlit-selection-widgets` | Selectbox vs radio vs segmented control vs pills vs multiselect |
-| `using-streamlit-layouts` | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
-| `improving-streamlit-design` | Icons, badges, colored text, visual polish |
+| [choosing-streamlit-selection-widgets](skills/choosing-streamlit-selection-widgets/SKILL.md) | Selectbox vs radio vs segmented control vs pills vs multiselect |
+| [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md) | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
+| [improving-streamlit-design](skills/improving-streamlit-design/SKILL.md) | Icons, badges, colored text, visual polish |
 
 ### Data display
 
 | Skill | Covers |
 |-------|--------|
-| `displaying-streamlit-data` | Dataframes, column config, charts |
-| `building-streamlit-dashboards` | KPI cards, metrics, dashboard layouts |
+| [displaying-streamlit-data](skills/displaying-streamlit-data/SKILL.md) | Dataframes, column config, charts |
+| [building-streamlit-dashboards](skills/building-streamlit-dashboards/SKILL.md) | KPI cards, metrics, dashboard layouts |
 
 ### App architecture
 
 | Skill | Covers |
 |-------|--------|
-| `building-streamlit-multipage-apps` | Page structure, navigation, shared state |
-| `organizing-streamlit-code` | When to split into modules, separating UI from logic |
-| `setting-up-streamlit-environment` | Python environment, dependency management |
+| [building-streamlit-multipage-apps](skills/building-streamlit-multipage-apps/SKILL.md) | Page structure, navigation, shared state |
+| [organizing-streamlit-code](skills/organizing-streamlit-code/SKILL.md) | When to split into modules, separating UI from logic |
+| [setting-up-streamlit-environment](skills/setting-up-streamlit-environment/SKILL.md) | Python environment, dependency management |
 
 ### Specialized
 
 | Skill | Covers |
 |-------|--------|
-| `building-streamlit-chat-ui` | Chat interfaces, streaming responses, message history |
-| `customizing-streamlit-theme` | Custom colors via config.toml, light/dark modes |
-| `using-streamlit-custom-components` | Third-party components from the community |
-| `connecting-streamlit-to-snowflake` | st.connection, query caching, credentials |
+| [building-streamlit-chat-ui](skills/building-streamlit-chat-ui/SKILL.md) | Chat interfaces, streaming responses, message history |
+| [customizing-streamlit-theme](skills/customizing-streamlit-theme/SKILL.md) | Custom colors via config.toml, light/dark modes |
+| [using-streamlit-custom-components](skills/using-streamlit-custom-components/SKILL.md) | Third-party components from the community |
+| [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/SKILL.md) | st.connection, query caching, credentials |
 
-## References
+## Resources
 
-- [building-streamlit-chat-ui](skills/building-streamlit-chat-ui/SKILL.md)
-- [building-streamlit-dashboards](skills/building-streamlit-dashboards/SKILL.md)
-- [building-streamlit-multipage-apps](skills/building-streamlit-multipage-apps/SKILL.md)
-- [choosing-streamlit-selection-widgets](skills/choosing-streamlit-selection-widgets/SKILL.md)
-- [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/SKILL.md)
-- [customizing-streamlit-theme](skills/customizing-streamlit-theme/SKILL.md)
-- [displaying-streamlit-data](skills/displaying-streamlit-data/SKILL.md)
-- [improving-streamlit-design](skills/improving-streamlit-design/SKILL.md)
-- [optimizing-streamlit-performance](skills/optimizing-streamlit-performance/SKILL.md)
-- [organizing-streamlit-code](skills/organizing-streamlit-code/SKILL.md)
-- [setting-up-streamlit-environment](skills/setting-up-streamlit-environment/SKILL.md)
-- [using-streamlit-custom-components](skills/using-streamlit-custom-components/SKILL.md)
-- [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md)
 - [Streamlit documentation](https://docs.streamlit.io/develop/api-reference)
