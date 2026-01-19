@@ -163,7 +163,7 @@ st.caption("Justified text", text_alignment="justify")
 
 Options: `"left"` (default), `"center"`, `"right"`, `"justify"`
 
-**Note:** `text_alignment` is for text content. Use `horizontal_alignment` on containers to align widgets and other elements.
+**Note:** `horizontal_alignment` on containers positions elements but also sets their `text_alignment`. If you need different text alignment within a horizontally-aligned container, override `text_alignment` on the text element itself.
 
 ## Icons in callouts and expanders
 

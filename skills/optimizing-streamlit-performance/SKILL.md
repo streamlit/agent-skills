@@ -145,6 +145,8 @@ with st.form("search", border=False):
 - Text inputs where typing triggers expensive operations
 - Any UI where "submit" semantics make sense
 
+**When NOT to use forms:** If inputs depend on each other (e.g., selecting a country should update available cities), forms won't work since there's no rerun until submit.
+
 ## Static vs dynamic widgets
 
 **This is critical and often missed.**
