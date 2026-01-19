@@ -11,7 +11,7 @@ Small touches that make apps feel polished.
 **Related skills:** Visual design works hand-in-hand with other skills:
 - `choosing-streamlit-selection-widgets` → Choosing the right widget (segmented control, pills, toggle)
 - `displaying-streamlit-data` → Column config, sparklines, bordered metrics
-- `structuring-streamlit-layout` → Containers, alignment, dashboard cards
+- `using-streamlit-layouts` → Containers, alignment, dashboard cards
 
 ## Page config
 

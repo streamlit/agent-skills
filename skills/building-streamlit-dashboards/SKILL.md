@@ -118,7 +118,7 @@ with st.sidebar:
 
 ## Related skills
 
-- `structuring-streamlit-layout`: Columns, containers, tabs, dialogs
+- `using-streamlit-layouts`: Columns, containers, tabs, dialogs
 - `displaying-streamlit-data`: Charts, dataframes, column configuration
 - `optimizing-streamlit-performance`: Caching and fragments for heavy dashboards
 

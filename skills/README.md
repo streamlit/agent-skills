@@ -8,7 +8,7 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 |----------|-------|--------|-------------|
 | 1 | [optimizing-streamlit-performance](optimizing-streamlit-performance/) | CRITICAL | Caching, fragments, static vs dynamic widgets |
 | 2 | [choosing-streamlit-selection-widgets](choosing-streamlit-selection-widgets/) | HIGH | Choosing the right selection widget |
-| 3 | [structuring-streamlit-layout](structuring-streamlit-layout/) | HIGH | Sidebar, columns, containers, dialogs |
+| 3 | [using-streamlit-layouts](using-streamlit-layouts/) | HIGH | Sidebar, columns, containers, dialogs |
 | 4 | [improving-streamlit-design](improving-streamlit-design/) | MEDIUM | Icons, badges, spacing, text styling |
 | 5 | [displaying-streamlit-data](displaying-streamlit-data/) | MEDIUM | Charts, dataframes, column configuration |
 | 6 | [building-streamlit-dashboards](building-streamlit-dashboards/) | MEDIUM | KPI cards, metrics, dashboard layouts |
@@ -24,11 +24,11 @@ A collection of agent skills for building production-grade Streamlit apps. Each 
 
 **Performance issues or slow apps?** → `optimizing-streamlit-performance`
 
-**Building a new UI?** → Start with `choosing-streamlit-selection-widgets` + `structuring-streamlit-layout`
+**Building a new UI?** → Start with `choosing-streamlit-selection-widgets` + `using-streamlit-layouts`
 
 **Building a dashboard?** → `building-streamlit-dashboards` + `displaying-streamlit-data`
 
-**Making it look good?** → `improving-streamlit-design` + `choosing-streamlit-selection-widgets` + `displaying-streamlit-data` + `structuring-streamlit-layout`
+**Making it look good?** → `improving-streamlit-design` + `choosing-streamlit-selection-widgets` + `displaying-streamlit-data` + `using-streamlit-layouts`
 
 **Multi-page architecture?** → `building-streamlit-multipage-apps`
 

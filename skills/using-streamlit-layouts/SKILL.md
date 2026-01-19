@@ -1,5 +1,5 @@
 ---
-name: structuring-streamlit-layout
+name: using-streamlit-layouts
 description: Structuring Streamlit app layouts. Use when placing content in sidebars, columns, containers, or dialogs. Covers sidebar usage, column limits, horizontal containers, dialogs, and bordered cards.
 license: Apache-2.0
 ---
@@ -52,57 +52,47 @@ col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 ## Horizontal containers for button groups
 
-Use `st.container(horizontal=True)` instead of columns for button groups.
+Use `st.container(horizontal=True)` instead of columns for button groups:
 
 ```python
-with st.container(horizontal=True, horizontal_alignment="center"):
+with st.container(horizontal=True):
     st.button("Cancel")
     st.button("Save")
     st.button("Submit")
 ```
 
-Alignment options: `"left"` (default), `"center"`, `"right"`, `"distribute"`
+## Aligning elements
 
-## Centering elements
+Use `horizontal_alignment` on containers to position elements:
 
 ```python
+# Center elements
 with st.container(horizontal_alignment="center"):
     st.image("logo.png", width=200)
     st.title("Welcome")
+
+# Right-align elements
+with st.container(horizontal_alignment="right"):
+    st.button("Settings", icon=":material/settings:")
+
+# Distribute evenly (great for button groups)
+with st.container(horizontal=True, horizontal_alignment="distribute"):
+    st.button("Cancel")
+    st.button("Save")
+    st.button("Submit")
 ```
 
-## Bordered containers for dashboard cards
+Options: `"left"` (default), `"center"`, `"right"`, `"distribute"`
 
-Use `border=True` directly in metrics for clear visual separation.
+## Bordered containers
+
+Use `border=True` on containers for visual grouping. See `building-streamlit-dashboards` for dashboard-specific patterns like KPI cards.
 
 ```python
-cols = st.columns(4)
-with cols[0]:
-    st.metric(
-        "Revenue",
-        "$1.2M",
-        "-7%",
-        border=True,
-        chart_data=data,
-        chart_type="line",
-    )
-
-with cols[1]:
-    st.metric(
-        "Users",
-        "762k",
-        "+12%",
-        border=True,
-        chart_data=data,
-        chart_type="line",
-    )
+with st.container(border=True):
+    st.subheader("Section title")
+    st.write("Grouped content here")
 ```
-
-**Why bordered containers work:**
-- Clear visual separation
-- Makes dashboards feel organized
-- Helps users scan information
-- Great for KPI cards
 
 ## Dialogs for settings and forms
 
