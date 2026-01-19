@@ -24,6 +24,7 @@ The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.
 | [organizing-streamlit-code](developing-with-streamlit/skills/organizing-streamlit-code/) | Separating UI from business logic, modules |
 | [setting-up-streamlit-environment](developing-with-streamlit/skills/setting-up-streamlit-environment/) | Python environment setup |
 | [using-streamlit-custom-components](developing-with-streamlit/skills/using-streamlit-custom-components/) | Third-party components from the community |
+| [using-streamlit-cli](developing-with-streamlit/skills/using-streamlit-cli/) | CLI commands, running apps |
 | [using-streamlit-layouts](developing-with-streamlit/skills/using-streamlit-layouts/) | Sidebar, columns, containers, dialogs |
 
 ## Installation

@@ -41,6 +41,8 @@ Activate these skills when:
 
 **Need features not in core Streamlit?** → `using-streamlit-custom-components`
 
+**Using the Streamlit CLI?** → `using-streamlit-cli`
+
 ## Skill map
 
 | Skill | Covers |
@@ -57,6 +59,7 @@ Activate these skills when:
 | [organizing-streamlit-code](skills/organizing-streamlit-code/SKILL.md) | When to split into modules, separating UI from logic |
 | [setting-up-streamlit-environment](skills/setting-up-streamlit-environment/SKILL.md) | Python environment, dependency management |
 | [using-streamlit-custom-components](skills/using-streamlit-custom-components/SKILL.md) | Third-party components from the community |
+| [using-streamlit-cli](skills/using-streamlit-cli/SKILL.md) | CLI commands, running apps |
 | [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md) | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
 
 ## Resources

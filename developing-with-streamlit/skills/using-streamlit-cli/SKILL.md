@@ -7,15 +7,15 @@ description: Documents Streamlit CLI commands for running apps, managing configu
 
 The Streamlit CLI is the primary tool for running Streamlit applications and managing configuration. This skill covers all essential commands and configuration options.
 
-## Running Streamlit Apps
+## Running Streamlit apps
 
-### Basic Syntax
+### Basic syntax
 
 ```bash
 streamlit run [<entrypoint>] [-- config options] [script args]
 ```
 
-### Entrypoint Options
+### Entrypoint options
 
 | Argument | Behavior |
 |----------|----------|
@@ -40,7 +40,7 @@ streamlit run https://raw.githubusercontent.com/streamlit/demo-uber-nyc-pickups/
 python -m streamlit run app.py
 ```
 
-### Running with `uv` (Recommended)
+### Running with `uv` (recommended)
 
 Use `uv run` to run Streamlit in a virtual environment with automatic dependency management:
 
@@ -49,7 +49,7 @@ Use `uv run` to run Streamlit in a virtual environment with automatic dependency
 uv run streamlit run app.py
 
 # With configuration options
-uv run streamlit run app.py --server.port=8080
+uv run streamlit run app.py --server.headless=true
 
 # With script arguments
 uv run streamlit run app.py -- arg1 arg2
@@ -61,7 +61,7 @@ Using `uv run` is the recommended approach because it:
 - Ensures reproducible environments across machines
 - Avoids manual activation/deactivation of virtual environments
 
-## Setting Configuration with `streamlit run`
+## Setting configuration with `streamlit run`
 
 Configuration options follow the pattern `--<section>.<option>=<value>` and must come after the script name.
 
@@ -78,7 +78,7 @@ streamlit run app.py --client.showErrorDetails=false
 streamlit run app.py --theme.primaryColor=blue
 ```
 
-### Combining Multiple Options
+### Combining multiple options
 
 ```bash
 streamlit run app.py \
@@ -88,7 +88,7 @@ streamlit run app.py \
     --client.showErrorDetails=false
 ```
 
-## Passing Arguments to Your Script
+## Passing arguments to your script
 
 Script arguments come after configuration options. Use `sys.argv` to access them:
 
@@ -106,23 +106,23 @@ import sys
 args = sys.argv[1:]
 ```
 
-## Other CLI Commands
+## Other CLI commands
 
-### View Configuration
+### View configuration
 
 ```bash
 # Show all current configuration settings
 streamlit config show
 ```
 
-### Cache Management
+### Cache management
 
 ```bash
 # Clear all cached data from disk
 streamlit cache clear
 ```
 
-### Diagnostics and Help
+### Diagnostics and help
 
 ```bash
 # Show installed version
@@ -135,21 +135,21 @@ streamlit help
 streamlit docs
 ```
 
-### Project Scaffolding
+### Project scaffolding
 
 ```bash
 # Create starter files for a new project
 streamlit init
 ```
 
-### Demo App
+### Demo app
 
 ```bash
 # Launch the Streamlit demo application
 streamlit hello
 ```
 
-## Configuration Precedence
+## Configuration precedence
 
 Configuration can be set in multiple places. Order of precedence (highest to lowest):
 
