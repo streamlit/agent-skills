@@ -37,7 +37,7 @@ if prompt := st.chat_input("Ask a question"):
 
 ## Streaming Responses
 
-Use `st.write_stream` for token-by-token display. Pass any generator that yields strings:
+Use `st.write_stream` for token-by-token display. Pass any generator that yields strings, including the OpenAI generator directly:
 
 ```python
 def get_streaming_response(prompt):
@@ -49,6 +49,21 @@ with st.chat_message("assistant"):
     response = st.write_stream(get_streaming_response(prompt))
 
 st.session_state.messages.append({"role": "assistant", "content": response})
+```
+
+With OpenAI, you can pass the stream directly:
+
+```python
+from openai import OpenAI
+
+client = OpenAI()
+with st.chat_message("assistant"):
+    stream = client.chat.completions.create(
+        model="gpt-4o",
+        messages=st.session_state.messages,
+        stream=True,
+    )
+    response = st.write_stream(stream)
 ```
 
 ## Chat Message Avatars
