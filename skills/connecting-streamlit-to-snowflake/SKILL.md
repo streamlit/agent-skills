@@ -41,9 +41,9 @@ This is useful when:
 - You want row-level security to apply based on the viewer
 - You don't want the app to have elevated permissions
 
-## Cached Query Helper
+## Cached Queries
 
-For simple cases, use the built-in `ttl` parameter:
+Use the built-in `ttl` parameter to cache query results:
 
 ```python
 conn = st.connection("snowflake")
@@ -53,18 +53,6 @@ df = conn.query("SELECT * FROM metrics", ttl="10m")
 
 # Cache for 1 hour
 df = conn.query("SELECT * FROM reference_data", ttl="1h")
-```
-
-For more control (like parameterized queries with consistent caching):
-
-```python
-@st.cache_data(ttl="10m")
-def query(sql: str, **params):
-    conn = st.connection("snowflake")
-    return conn.query(sql, params=params)
-
-# Usage
-df = query("SELECT * FROM users WHERE region = :region", region="US")
 ```
 
 ## Configure with st.secrets
@@ -102,20 +90,6 @@ df = conn.query(
 
 # UNSAFE: string formatting - don't do this
 # df = conn.query(f"SELECT * FROM users WHERE region = '{selected_region}'")
-```
-
-## Cache Queries
-
-For repeated queries, use TTL caching directly on `conn.query`:
-
-```python
-conn = st.connection("snowflake")
-
-# Cache for 10 minutes
-df = conn.query("SELECT * FROM metrics", ttl="10m")
-
-# Cache for 1 hour  
-df = conn.query("SELECT * FROM reference_data", ttl="1h")
 ```
 
 ## Write Data
