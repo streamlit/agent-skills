@@ -14,13 +14,13 @@ Custom components are standalone Python libraries that add features not in Strea
 
 ## Installation
 
-Install like any Python package:
+Install using the PyPI package name (not the repo name—they can differ):
 
 ```bash
-uv add <component-name>
+uv add <pypi-package-name>
 ```
 
-Then import and use according to the component's documentation.
+Then import according to the component's documentation. The import name often differs from the package name too.
 
 ## Use with caution
 
