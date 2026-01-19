@@ -68,14 +68,16 @@ with st.chat_message("assistant"):
 
 ## Chat Message Avatars
 
-Customize avatars with icons:
+Streamlit provides default avatars for "user" and "assistant" roles—only customize if you have a specific need. You can use icons or images:
 
 ```python
-with st.chat_message("user", avatar=":material/person:"):
-    st.write(user_message)
-
+# With icons
 with st.chat_message("assistant", avatar=":material/robot:"):
     st.write(assistant_message)
+
+# With images
+with st.chat_message("user", avatar="https://example.com/avatar.png"):
+    st.write(user_message)
 ```
 
 ## Suggestion Chips
