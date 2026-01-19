@@ -1,6 +1,10 @@
-# Copilot Review Instructions
+---
+applyTo: "skills/**"
+---
 
-When reviewing code in this repository, follow these guidelines:
+# Skill Writing Review Instructions
+
+When reviewing skill files in the `skills/` directory, follow these guidelines:
 
 ## Spelling and Grammar
 
@@ -17,7 +21,7 @@ When reviewing code in this repository, follow these guidelines:
 
 ## Agent Skills Best Practices
 
-When reviewing SKILL.md files or skill-related content, verify compliance with the [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices):
+Verify compliance with the [Agent Skills Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices):
 
 - **Name field**: Lowercase letters, numbers, and hyphens only; max 64 chars; no XML tags; cannot contain "anthropic" or "claude"
 - **Description field**: Non-empty; max 1024 chars; no XML tags; should describe what the skill does AND when to use it; must be written in third person
@@ -35,6 +39,6 @@ For Streamlit-related skills, check against the guidelines in `/AGENTS.md`:
 
 ## Consistency
 
-- Ensure terminology is consistent throughout documents
-- Check that constraint definitions match between AGENTS.md and CONTRIBUTING.md
+- Ensure terminology is consistent throughout the skill
+- Check that code examples match the documented patterns
 - Verify links are valid and point to the correct resources
