@@ -6,7 +6,9 @@ license: Apache-2.0
 
 # Streamlit code organization
 
-For most simple apps, keep everything in one file—it's cleaner and more straightforward. Only split into modules when your app grows complex.
+For most simple apps, keep everything in one file—it's cleaner and more straightforward. The app file should read like a normal Python script for data processing, with a few Streamlit commands sprinkled in.
+
+Name the main file `streamlit_app.py` (Streamlit's default).
 
 ## When to split
 
@@ -35,12 +37,12 @@ my-app/
     └── api.py
 ```
 
-## UI files stay clean
+## Separating UI from logic
 
-Your Streamlit files should read like a description of the UI, not contain complex logic.
+When you do split, keep Streamlit files focused on UI and move complex logic to utility modules:
 
 ```python
-# streamlit_app.py - GOOD: UI-focused
+# streamlit_app.py - UI-focused
 import streamlit as st
 from utils.data import load_sales_data, compute_metrics
 
@@ -54,49 +56,6 @@ metrics = compute_metrics(data)
 
 st.metric("Revenue", f"${metrics['revenue']:,.0f}")
 st.dataframe(data)
-```
-
-```python
-# streamlit_app.py - BAD: Too much logic mixed in
-import streamlit as st
-import pandas as pd
-
-st.title("Sales Dashboard")
-
-start = st.date_input("Start")
-end = st.date_input("End")
-
-# Don't embed complex logic in UI files
-df = pd.read_csv("sales.csv")
-df["date"] = pd.to_datetime(df["date"])
-df = df[(df["date"] >= start) & (df["date"] <= end)]
-df["revenue"] = df["quantity"] * df["price"]
-total_revenue = df["revenue"].sum()
-# ... 50 more lines of data processing
-```
-
-## Utility modules
-
-Keep reusable logic in `utils/`. Bonus: isolated functions naturally lead to caching.
-
-```python
-# utils/data.py
-import pandas as pd
-import streamlit as st
-
-
-@st.cache_data(ttl="10m")
-def load_sales_data(start, end):
-    df = pd.read_csv("sales.csv")
-    df["date"] = pd.to_datetime(df["date"])
-    return df[(df["date"] >= start) & (df["date"] <= end)]
-
-
-def compute_metrics(df):
-    return {
-        "revenue": df["revenue"].sum(),
-        "orders": len(df),
-    }
 ```
 
 ## Avoid if __name__ == "__main__"
