@@ -1,5 +1,6 @@
 ---
 applyTo: "skills/**"
+excludeAgent: "coding-agent"
 ---
 
 # Skill Writing Review Instructions
