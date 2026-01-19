@@ -127,3 +127,38 @@ Use prefixed keys for page-specific state:
 if "analytics_date_range" not in st.session_state:
     st.session_state.analytics_date_range = default_range()
 ```
+
+## Conditional Pages
+
+Show different pages based on user role, authentication, or any other condition by building the navigation dictionary dynamically:
+
+```python
+# streamlit_app.py
+import streamlit as st
+
+# Base pages everyone can see
+pages = {
+    "": [
+        st.Page("app_pages/home.py", title="Home", icon=":material/home:"),
+    ],
+    "Analytics": [
+        st.Page("app_pages/dashboard.py", title="Dashboard", icon=":material/bar_chart:"),
+    ],
+}
+
+# Add admin pages only for admins
+if st.user.get("is_admin"):
+    pages["Admin"] = [
+        st.Page("app_pages/users.py", title="Users", icon=":material/group:"),
+        st.Page("app_pages/settings.py", title="Settings", icon=":material/settings:"),
+    ]
+
+page = st.navigation(pages)
+page.run()
+```
+
+Common conditions for showing/hiding pages:
+- `st.user` attributes (role, email domain, permissions)
+- Feature flags in `st.session_state`
+- Environment variables or secrets
+- Time-based access (e.g., beta features)
