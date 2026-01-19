@@ -102,6 +102,64 @@ if not st.session_state.messages:
 
 The `if not st.session_state.messages` check ensures the suggestions only appear on an empty chat. Once a message is added, the pills vanish and the conversation takes over.
 
+## File Uploads
+
+Enable file attachments with `accept_file`. When enabled, `st.chat_input` returns a dict-like object with `text` and `files` attributes:
+
+```python
+prompt = st.chat_input(
+    "Ask about an image",
+    accept_file=True,
+    file_type=["jpg", "jpeg", "png"],
+)
+
+if prompt:
+    with st.chat_message("user"):
+        if prompt.text:
+            st.write(prompt.text)
+        if prompt.files:
+            st.image(prompt.files[0])
+
+    # Send to vision model
+    with st.chat_message("assistant"):
+        response = analyze_image(prompt.files[0], prompt.text)
+        st.write(response)
+```
+
+Use `accept_file="multiple"` to allow multiple files.
+
+## Audio Input
+
+Enable voice recording with `accept_audio`. The recorded audio is available as a WAV file:
+
+```python
+prompt = st.chat_input("Say something", accept_audio=True)
+
+if prompt:
+    if prompt.audio:
+        st.audio(prompt.audio)
+    if prompt.text:
+        st.write(prompt.text)
+```
+
+### Dictation with Speech-to-Text
+
+Convert audio to text and inject it back into the chat input:
+
+```python
+prompt = st.chat_input("Say something", accept_audio=True, key="chat")
+
+if prompt and prompt.audio:
+    # Transcribe with Whisper or another STT model
+    transcript = openai.audio.transcriptions.create(
+        model="whisper-1",
+        file=prompt.audio,
+    )
+    # Set the transcribed text as the next input
+    st.session_state.chat = transcript.text
+    st.rerun()
+```
+
 ## Related Skills
 
 - `connecting-streamlit-to-snowflake`: Database queries and Cortex chat example
