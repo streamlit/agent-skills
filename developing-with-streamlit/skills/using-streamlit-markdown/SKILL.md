@@ -170,19 +170,11 @@ In labels, images display as icons with max height equal to font height.
 
 ## HTML (use sparingly)
 
-Enable raw HTML with `unsafe_allow_html=True`. Use only when necessary—prefer native markdown.
+Mix markdown with HTML using `unsafe_allow_html=True`. For pure HTML without markdown processing, use `st.html()` instead.
 
 ```python
-st.markdown(
-    "<span style='color: coral'>Custom styled</span>",
-    unsafe_allow_html=True
-)
-```
-
-For pure HTML without markdown processing, use `st.html()`:
-
-```python
-st.html("<div class='custom'>Content</div>")
+st.markdown("**Status:** <span style='color: coral'>Custom styled</span>", unsafe_allow_html=True)
+st.html("<div class='custom'>Pure HTML content</div>")
 ```
 
 ## Markdown in element labels
