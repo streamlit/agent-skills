@@ -107,10 +107,8 @@ Material icons also work in `icon` parameters across many elements (`st.button`,
 Both Unicode emojis and shortcodes work.
 
 ```python
-st.markdown("Hello! :wave: :+1: :tada:")
+st.markdown("Hello! 👋 :+1: :tada: :streamlit:")
 ```
-
-Use `:streamlit:` to insert the Streamlit logo.
 
 ## LaTeX math
 
