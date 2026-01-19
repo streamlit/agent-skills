@@ -35,7 +35,6 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 | Small text | `:small[text]` | `:small[footnote]` |
 | LaTeX (inline) | `$formula$` | `$ax^2 + bx + c$` |
 | LaTeX (block) | `$$formula$$` | `$$\int_0^1 x^2 dx$$` |
-| Arrows/symbols | Auto-converted | `->` becomes → |
 
 ## Where markdown works
 
@@ -55,125 +54,42 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 
 **Label subset** supports: bold, italic, strikethrough, inline code, links, images, colored text, Material icons, and emojis. Unsupported elements are stripped to text content. Escape with backslash to show literally: `"1\. Not a list"`.
 
-## Basic formatting (GitHub-flavored)
+## GitHub-flavored markdown
 
-```python
-st.markdown("""
-**Bold** and *italic* and ~~strikethrough~~
-
-`inline code` for variables
-
-[Link text](https://streamlit.io)
-
-> Blockquote for callouts
-
----
-""")
-```
-
-### Code blocks
-
-Fenced code blocks with optional syntax highlighting:
+Standard GFM syntax works as expected. Headings automatically get anchor links for navigation.
 
 ~~~python
 st.markdown("""
+# Heading
+
+**Bold**, *italic*, ~~strikethrough~~, `inline code`, [links](url)
+
+- Unordered list
+- [x] Task list
+
+| Column | Column |
+|--------|--------|
+| Cell   | Cell   |
+
+> Blockquote
+
 ```python
-def hello():
-    return "Hello, World!"
+code_block = "with syntax highlighting"
 ```
 """)
 ~~~
 
-Supported languages include `python`, `javascript`, `sql`, `json`, `bash`, `yaml`, and many more.
-
-### Lists
+## Colored text, backgrounds, and badges
 
 ```python
-st.markdown("""
-- Unordered item
-- Another item
-  - Nested item
-
-1. Ordered item
-2. Second item
-
-- [ ] Task list item
-- [x] Completed task
-""")
+st.markdown(":red[Error] and :green[Success]")  # Colored text
+st.markdown(":blue-background[Highlighted]")     # Colored background
+st.markdown(":green-badge[Active] :red-badge[Inactive]")  # Inline badges
 ```
 
-### Tables
+**Available colors:** `red`, `orange`, `yellow`, `green`, `blue`, `violet`, `gray`/`grey`, `rainbow`, `primary`
 
-```python
-st.markdown("""
-| Feature | Status |
-|---------|--------|
-| Columns | Yes |
-| Alignment | Yes |
-""")
-```
-
-### Headings
-
-```python
-st.markdown("# Heading 1")
-st.markdown("## Heading 2")
-st.markdown("### Heading 3")
-```
-
-Headings automatically get anchor links for in-page navigation.
-
-## Colored text
-
-Wrap text in `:color[text]` syntax.
-
-```python
-st.markdown(":red[Error] - Something went wrong")
-st.markdown(":green[Success] - Operation completed")
-st.markdown(":blue[Info] - FYI")
-st.markdown(":orange[Warning] - Be careful")
-st.markdown(":violet[Note] - Something special")
-st.markdown(":gray[Disabled] - Not available")
-st.markdown(":rainbow[Celebration!]")
-st.markdown(":primary[Themed] - Uses your primary color")
-```
-
-**Available colors:** `red`, `orange`, `yellow`, `green`, `blue`, `violet`, `gray` (or `grey`), `rainbow`, `primary`
-
-## Colored backgrounds
-
-Add `-background` suffix for highlighted text.
-
-```python
-st.markdown(":red-background[Critical alert]")
-st.markdown(":green-background[All systems go]")
-st.markdown(":blue-background[New feature]")
-st.markdown(":orange-background[Deprecation notice]")
-```
-
-**Available:** `red`, `orange`, `yellow`, `green`, `blue`, `violet`, `gray`/`grey`, `primary`. Note: `rainbow` is not supported for backgrounds.
-
-## Badges
-
-For status indicators and labels.
-
-### Inline badge syntax
-
-```python
-st.markdown(":green-badge[Active] :red-badge[Inactive] :blue-badge[Beta]")
-st.markdown("Version :gray-badge[v2.1.0]")
-```
-
-### Standalone badges
-
-```python
-st.badge("Active", icon=":material/check:", color="green")
-st.badge("Pending", icon=":material/schedule:", color="orange")
-st.badge("Deprecated", color="red")
-st.badge("New", color="blue")
-```
-
-**Available colors:** `red`, `orange`, `yellow`, `green`, `blue`, `violet`, `gray`/`grey`, `primary`. Note: `rainbow` is not supported for badges.
+Note: `rainbow` is not supported for backgrounds or badges. Standalone badges also available via `st.badge()`.
 
 ## Small text
 
@@ -186,62 +102,23 @@ st.markdown("Regular text with :small[small annotation]")
 
 ## Material icons
 
-Use Google Material Symbols with `:material/icon_name:` syntax.
+Use Google Material Symbols with `:material/icon_name:` syntax. Find icons at [fonts.google.com/icons](https://fonts.google.com/icons)
 
 ```python
-st.markdown(":material/home: Home")
-st.markdown(":material/settings: Settings")
 st.markdown(":material/check_circle: Complete")
-st.markdown(":material/warning: Warning")
-st.markdown(":material/search: Search")
 ```
 
-Find icons at [fonts.google.com/icons](https://fonts.google.com/icons)
-
-**Common icons:**
-
-| Category | Icons |
-|----------|-------|
-| Navigation | `home`, `menu`, `arrow_back`, `arrow_forward`, `search` |
-| Actions | `send`, `save`, `delete`, `edit`, `refresh`, `download`, `upload` |
-| Status | `check_circle`, `error`, `warning`, `info`, `pending`, `help` |
-| Content | `folder`, `description`, `article`, `code`, `chat` |
-| Data | `table_chart`, `bar_chart`, `analytics`, `database` |
-
-### Icons in buttons and widgets
-
-```python
-st.button("Save", icon=":material/save:")
-st.button("Delete", icon=":material/delete:")
-
-with st.expander("Settings", icon=":material/settings:"):
-    st.write("Configure options")
-
-st.info("Complete!", icon=":material/check_circle:")
-```
+Material icons also work in `icon` parameters across many elements (`st.button`, `st.expander`, `st.info`, etc.).
 
 ## Emojis
 
 Both Unicode emojis and shortcodes work.
 
 ```python
-st.markdown("Hello! :wave:")
-st.markdown("Great job! :+1: :tada:")
-st.markdown("Status: :white_check_mark: Passed")
+st.markdown("Hello! :wave: :+1: :tada:")
 ```
 
-Or use Unicode directly:
-
-```python
-st.markdown("Hello! 👋")
-st.markdown("Great job! 👍 🎉")
-```
-
-## Streamlit logo
-
-```python
-st.markdown("Built with :streamlit:")
-```
+Use `:streamlit:` to insert the Streamlit logo.
 
 ## LaTeX math
 
@@ -260,28 +137,6 @@ $$
 
 # Dedicated LaTeX element
 st.latex(r"\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}")
-```
-
-## Typographic symbols
-
-These character sequences auto-convert to proper typography:
-
-| Input | Output | Description |
-|-------|--------|-------------|
-| `--` | – | En dash |
-| `---` | — | Em dash |
-| `->` | → | Right arrow |
-| `<-` | ← | Left arrow |
-| `<->` | ↔ | Bidirectional arrow |
-| `>=` | ≥ | Greater than or equal |
-| `<=` | ≤ | Less than or equal |
-| `~=` | ≈ | Approximately equal |
-| `!=` | ≠ | Not equal |
-
-```python
-st.markdown("Option A -> Option B -> Option C")
-st.markdown("The value is >= 100")
-st.markdown("A <-> B (bidirectional)")
 ```
 
 ## Text alignment and width
@@ -330,56 +185,14 @@ For pure HTML without markdown processing, use `st.html()`:
 st.html("<div class='custom'>Content</div>")
 ```
 
-## Markdown in tables
+## Markdown in element labels
 
-`st.table()` renders markdown in all cells including headers.
-
-```python
-import pandas as pd
-
-df = pd.DataFrame({
-    "Status": [":green-badge[Active]", ":red-badge[Inactive]"],
-    "Type": [":material/devices: Device", ":material/cloud: Cloud"],
-    "Priority": [":red[High]", ":gray[Low]"]
-})
-st.table(df)
-```
-
-## Markdown in metrics
-
-Labels, values, and deltas support the label subset.
-
-```python
-st.metric(
-    label=":material/trending_up: Revenue",
-    value="$1.2M",
-    delta=":green[+12%]"
-)
-```
-
-## Markdown in widget labels
-
-Widget labels accept the label subset.
+Widgets, containers, and other elements support markdown in their labels (using the label subset).
 
 ```python
 st.selectbox(":material/language: Language", ["English", "Spanish", "French"])
-st.checkbox(":material/notifications: Enable notifications")
-st.slider(":material/volume_up: Volume", 0, 100)
-```
-
-## Markdown in container labels
-
-Tabs, popovers, and dialogs support markdown in their labels.
-
-```python
 tab1, tab2 = st.tabs([":material/home: Home", ":material/settings: Settings"])
-
-with st.popover(":blue[Options]"):
-    st.write("Menu items here")
-
-@st.dialog(":material/edit: Edit Item")
-def edit_dialog():
-    st.text_input("Name")
+st.metric(label="Revenue", value="$1.2M", delta=":material/trending_up: 12%")
 ```
 
 ## Escaping special characters
