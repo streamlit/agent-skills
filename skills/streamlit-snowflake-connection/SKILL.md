@@ -28,6 +28,19 @@ st.dataframe(df)
 - Handles reconnection
 - Works with st.secrets
 
+## Caller's Rights Connection (Streamlit 1.53+)
+
+For apps running in Snowflake, use caller's rights to run queries with the viewer's permissions instead of the app owner's:
+
+```python
+conn = st.connection("snowflake", mode="caller")
+```
+
+This is useful when:
+- Different users should see different data based on their Snowflake roles
+- You want row-level security to apply based on the viewer
+- You don't want the app to have elevated permissions
+
 ## Cached Query Helper
 
 Wrap queries in a cached function for better control:

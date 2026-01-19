@@ -15,17 +15,19 @@ Small touches that make apps feel polished.
 
 ## Page Config
 
-Set browser tab title, icon, and layout at the top of your app:
+**Must be the first Streamlit command in your script.** Set browser tab title, icon, and layout:
 
 ```python
 st.set_page_config(
     page_title="My Dashboard",
     page_icon=":material/analytics:",
-    layout="wide",  # Use "wide" for dashboards
+    layout="wide",  # Use "wide" for dashboards with lots of data
 )
 ```
 
-Use `layout="wide"` for dashboards to display more data.
+**Layout options:**
+- `layout="centered"` (default) → Best for most apps, content is constrained to a readable width
+- `layout="wide"` → Full-width, good for dashboards and data-heavy apps
 
 ## App Logo
 
@@ -76,10 +78,9 @@ st.badge("Deprecated", color="red")
 
 For inline badges in text:
 ```python
-st.markdown(":green-badge[Active]")
-st.markdown(":orange-badge[Pending]")
-st.markdown(":red-badge[Deprecated]")
-st.markdown(":blue-badge[New]")
+st.markdown("""
+:green-badge[Active] :orange-badge[Pending] :red-badge[Deprecated] :blue-badge[New]
+""")
 ```
 
 Avoid the old verbose syntax:

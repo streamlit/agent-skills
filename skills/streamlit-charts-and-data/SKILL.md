@@ -82,11 +82,13 @@ st.dataframe(
 )
 ```
 
+**Note on hiding columns:** Setting a column to `None` hides it from the UI, but the data is still sent to the frontend. For truly sensitive data, pre-filter the DataFrame before displaying.
+
 **Dataframe best practices:**
 - **Always hide useless index:** `hide_index=True`
 - **Or make index meaningful:** `df = df.set_index("customer_name")` before displaying
 - **Use human-readable column labels:** `"rev"` → `"Revenue"`
-- **Hide internal/technical columns:** Set column to `None` in config
+- **Hide internal/technical columns:** Set column to `None` in config (but pre-filter for sensitive data)
 - **Use dedicated column types:** Numbers, dates, links, images, progress bars, sparklines
 
 **Column types:**
@@ -95,11 +97,16 @@ st.dataframe(
 - `LinkColumn` → Clickable links
 - `ImageColumn` → Images
 - `DatetimeColumn` → Dates with formatting
+- `DateColumn` → Date only (no time)
+- `TimeColumn` → Time only (no date)
 - `CheckboxColumn` → Boolean as checkbox
 - `SelectboxColumn` → Editable dropdown
 - `LineChartColumn` → Sparkline charts
 - `BarChartColumn` → Bar sparklines
 - `AreaChartColumn` → Area sparklines
+- `ListColumn` → Display lists/arrays
+- `JsonColumn` → Display JSON objects
+- `MultiselectColumn` → Multi-value selection
 - `TextColumn(pinned=True)` → Sticky column that stays visible when scrolling
 
 ## Pinned Columns

@@ -44,6 +44,9 @@ Components can break when Streamlit updates, so prefer core features when possib
 
 Text input that fires on every keystroke instead of waiting for enter/blur. Useful for live search.
 
+- **Repo:** https://github.com/blackary/streamlit-keyup
+- **Docs:** https://pypi.org/project/streamlit-keyup/
+
 ```bash
 uv add streamlit-keyup
 ```
@@ -58,7 +61,10 @@ st.dataframe(filtered)
 
 ### streamlit-aggrid
 
-Interactive dataframes with sorting, filtering, and cell editing.
+Interactive dataframes with sorting, filtering, cell editing, grouping, and pivoting. Use when you need customization beyond what `st.dataframe` and `st.data_editor` offer.
+
+- **Repo:** https://github.com/PablocFonseca/streamlit-aggrid
+- **Docs:** https://pypi.org/project/streamlit-aggrid/
 
 ```bash
 uv add streamlit-aggrid
@@ -70,9 +76,18 @@ from st_aggrid import AgGrid
 AgGrid(df, editable=True, filter=True)
 ```
 
+**When to use aggrid over st.dataframe:**
+- Interactive row grouping and pivoting
+- Advanced filtering and sorting UI
+- Complex cell editing workflows
+- Custom cell renderers
+
 ### streamlit-folium
 
 Interactive maps powered by Folium.
+
+- **Repo:** https://github.com/randyzwitch/streamlit-folium
+- **Docs:** https://folium.streamlit.app/
 
 ```bash
 uv add streamlit-folium
@@ -90,6 +105,9 @@ st_folium(m, width=700)
 
 Tableau-like drag-and-drop data exploration.
 
+- **Repo:** https://github.com/Kanaries/pygwalker
+- **Docs:** https://docs.kanaries.net/pygwalker
+
 ```bash
 uv add pygwalker
 ```
@@ -103,6 +121,9 @@ pyg.walk(df, env="Streamlit")
 ### streamlit-extras
 
 A collection of community utilities. Cherry-pick what you need.
+
+- **Repo:** https://github.com/arnaudmiribel/streamlit-extras
+- **Docs:** https://extras.streamlit.app/
 
 ```bash
 uv add streamlit-extras

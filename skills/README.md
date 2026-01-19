@@ -1,0 +1,57 @@
+# Streamlit Agent Skills
+
+A collection of agent skills for building production-grade Streamlit apps. Each skill focuses on a specific aspect of Streamlit development, from performance optimization to visual design.
+
+## Skills by Priority
+
+| Priority | Skill | Impact | When to Use |
+|----------|-------|--------|-------------|
+| 1 | [streamlit-performance](streamlit-performance/) | CRITICAL | Caching, fragments, static vs dynamic widgets |
+| 2 | [streamlit-selection-widgets](streamlit-selection-widgets/) | HIGH | Choosing the right selection widget |
+| 3 | [streamlit-layout](streamlit-layout/) | HIGH | Sidebar, columns, containers, dialogs |
+| 4 | [streamlit-visual-design](streamlit-visual-design/) | MEDIUM | Icons, badges, spacing, text styling |
+| 5 | [streamlit-charts-and-data](streamlit-charts-and-data/) | MEDIUM | Charts, dataframes, metrics with sparklines |
+| 6 | [streamlit-multipage](streamlit-multipage/) | MEDIUM | Multi-page app structure and navigation |
+| 7 | [streamlit-code-organization](streamlit-code-organization/) | MEDIUM | Separating UI from business logic, modules |
+| 8 | [streamlit-environment](streamlit-environment/) | MEDIUM | Python environment with uv |
+| 9 | [streamlit-chat](streamlit-chat/) | MEDIUM | Chat interfaces, chatbots, AI assistants |
+| 10 | [streamlit-theming](streamlit-theming/) | LOW | Custom colors via config.toml, avoiding CSS |
+| 11 | [streamlit-components](streamlit-components/) | LOW | Third-party components from the community |
+| 12 | [streamlit-snowflake-connection](streamlit-snowflake-connection/) | LOW | Connecting to Snowflake with st.connection |
+
+## How to Route
+
+**Performance issues or slow apps?** → `streamlit-performance`
+
+**Building a new UI?** → Start with `streamlit-selection-widgets` + `streamlit-layout`
+
+**Making it look good?** → `streamlit-visual-design` + `streamlit-selection-widgets` + `streamlit-charts-and-data` + `streamlit-layout`
+
+**Multi-page architecture?** → `streamlit-multipage`
+
+**Customizing appearance?** → `streamlit-theming`
+
+**Setting up a project?** → `streamlit-environment`
+
+**App getting complex?** → `streamlit-code-organization`
+
+**Connecting to Snowflake?** → `streamlit-snowflake-connection`
+
+**Building a chatbot or AI assistant?** → `streamlit-chat`
+
+**Need features not in core Streamlit?** → `streamlit-components`
+
+## Quick Wins Checklist
+
+- [ ] Replace `st.radio(..., horizontal=True)` → `st.segmented_control`
+- [ ] Add `@st.cache_data` to data loading functions
+- [ ] Add `@st.cache_resource` to connections
+- [ ] Use `@st.fragment` for isolated UI components
+- [ ] Replace static widgets with dynamic ones for heavy content
+- [ ] Use Material icons instead of emojis
+- [ ] Use sentence casing for titles
+- [ ] Configure dataframe columns with `column_config`
+
+## Resources
+
+- [Streamlit Documentation](https://docs.streamlit.io/develop/api-reference)

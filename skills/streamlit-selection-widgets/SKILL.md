@@ -1,12 +1,12 @@
 ---
-name: streamlit-widgets
-description: Streamlit widget selection patterns. Use when choosing between radio buttons, selectbox, segmented control, pills, or other input widgets. Helps pick the right widget for the number of options and selection type.
+name: streamlit-selection-widgets
+description: Streamlit selection widget patterns. Use when choosing between radio buttons, selectbox, segmented control, pills, or other option selection widgets. Helps pick the right widget for the number of options and selection type.
 license: Apache-2.0
 ---
 
-# Streamlit Widget Selection
+# Streamlit Selection Widgets
 
-The right widget for the job. Streamlit has evolved—many old patterns are now anti-patterns.
+The right selection widget for the job. Streamlit has evolved—many old patterns are now anti-patterns.
 
 ## Selection Widgets by Option Count
 
@@ -66,25 +66,6 @@ countries = st.multiselect(
     ["USA", "UK", "Canada", "Germany", "France", ...]
 )
 ```
-
-## Dialogs for Settings
-
-Use `@st.dialog` for settings, configuration, or any UI that doesn't need to be always visible.
-
-```python
-@st.dialog("Settings")
-def show_settings():
-    st.text_input("API key")
-    st.selectbox("Theme", ["Light", "Dark"])
-    if st.button("Save"):
-        st.session_state.saved = True
-        st.rerun()
-
-if st.button(":material/settings: Settings"):
-    show_settings()
-```
-
-Dialogs reduce sidebar clutter and keep the main UI focused.
 
 ## Toggle vs Checkbox
 

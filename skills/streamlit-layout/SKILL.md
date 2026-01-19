@@ -1,6 +1,6 @@
 ---
 name: streamlit-layout
-description: Streamlit layout patterns. Use when structuring apps with sidebars, columns, containers, or deciding where to place content. Covers sidebar usage, column limits, horizontal containers, and bordered cards.
+description: Streamlit layout patterns. Use when structuring apps with sidebars, columns, containers, dialogs, or deciding where to place content. Covers sidebar usage, column limits, horizontal containers, dialogs, and bordered cards.
 license: Apache-2.0
 ---
 
@@ -104,23 +104,30 @@ with cols[1]:
 - Helps users scan information
 - Great for KPI cards
 
-## Shareable URLs with st.query_params
+## Dialogs for Settings and Forms
 
-Use `st.query_params` to make app state shareable via URL.
+Use `@st.dialog` for settings, configuration, or any UI that doesn't need to be always visible.
 
 ```python
-# Read from URL on load
-if "tickers" not in st.session_state:
-    st.session_state.tickers = st.query_params.get("stocks", "AAPL,MSFT").split(",")
+@st.dialog("Settings")
+def show_settings():
+    st.text_input("API key")
+    st.selectbox("Theme", ["Light", "Dark"])
+    if st.button("Save"):
+        st.session_state.saved = True
+        st.rerun()
 
-# Update URL when state changes
-def on_change():
-    st.query_params["stocks"] = ",".join(st.session_state.tickers)
-
-st.multiselect("Stocks", options=STOCKS, key="tickers", on_change=on_change)
+if st.button("Settings", icon=":material/settings:"):
+    show_settings()
 ```
 
-Great for dashboards where users want to bookmark or share specific views.
+**When to use dialogs:**
+- Settings panels
+- Confirmation prompts
+- Forms that don't need to be always visible
+- Any UI that would clutter the sidebar
+
+Dialogs reduce sidebar clutter and keep the main UI focused.
 
 ## Tight Layouts with gap=None
 

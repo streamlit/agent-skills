@@ -57,6 +57,24 @@ def load_reference_data():
 - Reference data → `ttl=3600` or more
 - Static data → No TTL
 
+### Prevent Unbounded Cache Growth
+
+**Important:** Caches without `ttl` or `max_entries` can grow indefinitely and cause memory issues. For any cached function that stores changing objects (user-specific data, parameterized queries), always set limits:
+
+```python
+# BAD: Unbounded cache - memory will grow indefinitely
+@st.cache_data
+def get_user_data(user_id):
+    return fetch_user(user_id)
+
+# GOOD: Bounded cache
+@st.cache_data(ttl="1h", max_entries=100)
+def get_user_data(user_id):
+    return fetch_user(user_id)
+```
+
+Use `ttl` for time-based expiration, `max_entries` for size-based limits, or both.
+
 ## Fragments
 
 Use `@st.fragment` to isolate reruns for self-contained UI pieces.
