@@ -105,7 +105,7 @@ st.dataframe(
 - `BarChartColumn` → Bar sparklines
 - `AreaChartColumn` → Area sparklines
 - `ListColumn` → Display lists/arrays
-- `JsonColumn` → Display JSON objects
+- `JSONColumn` → Display JSON objects
 - `MultiselectColumn` → Multi-value selection
 - `TextColumn(pinned=True)` → Sticky column that stays visible when scrolling
 

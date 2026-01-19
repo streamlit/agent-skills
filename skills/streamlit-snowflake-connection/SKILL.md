@@ -33,7 +33,7 @@ st.dataframe(df)
 For apps running in Snowflake, use caller's rights to run queries with the viewer's permissions instead of the app owner's:
 
 ```python
-conn = st.connection("snowflake", mode="caller")
+conn = st.connection("snowflake", type="snowflake-callers-rights")
 ```
 
 This is useful when:
