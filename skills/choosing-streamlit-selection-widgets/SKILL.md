@@ -1,5 +1,5 @@
 ---
-name: choosing-streamlit-widgets
+name: choosing-streamlit-selection-widgets
 description: Choosing the right Streamlit selection widget. Use when deciding between radio buttons, selectbox, segmented control, pills, or other option selection widgets. Helps pick the right widget for the number of options and selection type.
 license: Apache-2.0
 ---

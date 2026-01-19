@@ -13,22 +13,27 @@ Present data clearly.
 Prefer Streamlit's native charts for simple cases.
 
 ```python
-st.line_chart(df, x="date", y="revenue", x_label="Date", y_label="Revenue")
-st.bar_chart(df, x="category", y="count", x_label="Category", y_label="Count")
-st.scatter_chart(df, x="age", y="salary", x_label="Age", y_label="Salary")
-st.area_chart(df, x="date", y="value", x_label="Date", y_label="Value")
+st.line_chart(df, x="date", y="revenue")
+st.bar_chart(df, x="category", y="count")
+st.scatter_chart(df, x="age", y="salary")
+st.area_chart(df, x="date", y="value")
 ```
+
+Native charts support additional parameters: `color` for series grouping, `stack` for bar/area stacking, `size` for scatter point sizing, `horizontal` for horizontal bars. See the [chart API reference](https://docs.streamlit.io/develop/api-reference/charts) for full options.
 
 ## Human-Readable Labels
 
-Always use clear labels—not column names or abbreviations.
+Use clear labels—not column names or abbreviations. Skip `x_label`/`y_label` if the column names are already readable.
 
 ```python
-# BAD
+# BAD: cryptic column names without labels
 st.line_chart(df, x="dt", y="rev")
 
-# GOOD
-st.line_chart(df, x="date", y="revenue", x_label="Date", y_label="Revenue")
+# GOOD: readable columns, no labels needed
+st.line_chart(df, x="date", y="revenue")
+
+# GOOD: cryptic columns, add labels
+st.line_chart(df, x="dt", y="rev", x_label="Date", y_label="Revenue")
 ```
 
 ## Altair for Complex Charts
@@ -51,8 +56,6 @@ st.altair_chart(chart, use_container_width=True)
 - Multiple series with legends
 - Interactive tooltips
 - Layered visualizations
-
-Native charts also support additional parameters (color, stack, y_label, etc.)—see the [chart API reference](https://docs.streamlit.io/develop/api-reference/charts) for details.
 
 ## Dataframe Column Configuration
 

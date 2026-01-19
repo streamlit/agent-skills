@@ -65,7 +65,7 @@ with st.chat_message("assistant", avatar=":material/robot:"):
 
 ## Suggestion Chips
 
-Offer clickable suggestions before the first message:
+Offer clickable suggestions before the first message. The pills disappear once the user sends a message, creating a clean onboarding experience:
 
 ```python
 SUGGESTIONS = {
@@ -73,9 +73,17 @@ SUGGESTIONS = {
     ":green[:material/code:] Show me an example": "Show a simple Streamlit example",
 }
 
+# Only show before first message - they disappear after
 if not st.session_state.messages:
-    st.pills("Try asking:", list(SUGGESTIONS.keys()), label_visibility="collapsed")
+    selected = st.pills("Try asking:", list(SUGGESTIONS.keys()), label_visibility="collapsed")
+    if selected:
+        # Use the selection as the first prompt
+        prompt = SUGGESTIONS[selected]
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
 ```
+
+The `if not st.session_state.messages` check ensures the suggestions only appear on an empty chat. Once a message is added, the pills vanish and the conversation takes over.
 
 ## Related Skills
 
