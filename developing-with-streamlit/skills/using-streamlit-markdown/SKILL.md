@@ -92,15 +92,6 @@ st.markdown(":green-badge[Active] :red-badge[Inactive]")  # Inline badges
 
 Note: `rainbow` is not supported for backgrounds or badges. Standalone badges also available via `st.badge()`.
 
-## Small text
-
-Render text in a smaller size.
-
-```python
-st.markdown(":small[Fine print goes here]")
-st.markdown("Regular text with :small[small annotation]")
-```
-
 ## Material icons
 
 Use Google Material Symbols with `:material/icon_name:` syntax. Find icons at [fonts.google.com/icons](https://fonts.google.com/icons)
