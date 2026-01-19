@@ -118,9 +118,6 @@ $$
 \\sum_{i=1}^{n} x_i = x_1 + x_2 + ... + x_n
 $$
 """)
-
-# Dedicated LaTeX element
-st.latex(r"\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}")
 ```
 
 ## Images in markdown
