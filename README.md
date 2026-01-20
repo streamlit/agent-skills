@@ -26,6 +26,7 @@ The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.
 | [using-streamlit-cli](developing-with-streamlit/skills/using-streamlit-cli/) | CLI commands, running apps |
 | [using-streamlit-custom-components](developing-with-streamlit/skills/using-streamlit-custom-components/) | Third-party components from the community |
 | [using-streamlit-layouts](developing-with-streamlit/skills/using-streamlit-layouts/) | Sidebar, columns, containers, dialogs |
+| [using-streamlit-markdown](developing-with-streamlit/skills/using-streamlit-markdown/) | Colored text, badges, icons, LaTeX, markdown features |
 | [using-streamlit-session-state](developing-with-streamlit/skills/using-streamlit-session-state/) | Session state, widget keys, callbacks, state persistence |
 
 ## Installation
