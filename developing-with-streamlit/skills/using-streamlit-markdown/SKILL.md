@@ -40,7 +40,7 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 
 Markdown is supported in most places where text is rendered. Streamlit has three levels of markdown support:
 
-**Full markdown** — All syntax including block elements (headings, lists, tables, code blocks):
+**Full markdown** — All syntax shown in the table above:
 - `st.markdown()`, `st.write()`, `st.caption()`, `st.info()`, `st.warning()`, `st.error()`, `st.success()`, `st.table` cells and  headers, tooltips (`help` parameter)
 
 **Label subset** — Inline formatting only (see table above). Block elements (e.g. headings, lists, tables) are silently stripped:
