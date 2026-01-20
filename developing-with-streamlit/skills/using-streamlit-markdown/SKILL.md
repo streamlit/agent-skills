@@ -1,12 +1,12 @@
 ---
 name: using-streamlit-markdown
-description: Covers all markdown features in Streamlit including GitHub-flavored syntax plus Streamlit extensions like colored text, badges, Material icons, and LaTeX. Use when formatting text, labels, tooltips, or any text-rendering element.
+description: Covers all Markdown features in Streamlit including GitHub-flavored syntax plus Streamlit extensions like colored text, badges, Material icons, and LaTeX. Use when formatting text, labels, tooltips, or any text-rendering element.
 license: Apache-2.0
 ---
 
-# Using markdown in Streamlit
+# Using Markdown in Streamlit
 
-Streamlit supports markdown throughout its API—in `st.markdown()`, widget labels, help tooltips, metrics, `st.table()` cells, and more. Beyond standard GitHub-flavored Markdown, Streamlit adds colored text, badges, icons, and LaTeX.
+Streamlit supports Markdown throughout its API—in `st.markdown()`, widget labels, help tooltips, metrics, `st.table()` cells, and more. Beyond standard GitHub-flavored Markdown, Streamlit adds colored text, badges, icons, and LaTeX.
 
 ## Quick reference
 
@@ -36,20 +36,20 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 | LaTeX (inline) | `$formula$` | `$ax^2 + bx + c$` | ✓ |
 | LaTeX (block) | `$$formula$$` | `$$\int_0^1 x^2 dx$$` | ✗ |
 
-## Where markdown works
+## Where Markdown works
 
 Markdown is supported in most places where text is rendered. Streamlit has three levels of markdown support:
 
-**Full markdown** — All syntax shown in the table above:
-- `st.markdown()`, `st.write()`, `st.caption()`, `st.info()`, `st.warning()`, `st.error()`, `st.success()`, `st.table` cells and  headers, tooltips (`help` parameter)
+**Full Markdown** — All syntax shown in the table above:
+- `st.markdown()`, `st.write()`, `st.caption()`, `st.info()`, `st.warning()`, `st.error()`, `st.success()`, `st.table` cells and headers, tooltips (`help` parameter)
 
 **Label subset** — Inline formatting only (see table above). Block elements (e.g. headings, lists, tables) are silently stripped:
-- Widget and element labels (`st.button`, `st.checkbox`, `st.radio`, `st.expander`, `st.page_link`, etc.), `st.radio` and `st.select_slider` options, `st.tabs` names, `st.metric` label/valus/delta, `st.title`, `st.header`, `st.subheader`, `st.image` caption, `st.dialog` title, `st.progress`, `st.spinner`.
+- Widget and element labels (`st.button`, `st.checkbox`, `st.radio`, `st.expander`, `st.page_link`, etc.), `st.radio` and `st.select_slider` options, `st.tabs` names, `st.metric` label/value/delta, `st.title`, `st.header`, `st.subheader`, `st.image` caption, `st.dialog` title, `st.progress`, `st.spinner`.
 
-**No markdown** — Text displays literally:
+**No Markdown** — Text displays literally:
 - `st.text()`, `st.json()`, `st.dataframe()` / `st.data_editor()` cells, `st.selectbox` / `st.multiselect` options, input placeholders, `st.Page` titles, chart/map labels
 
-## GitHub-flavored markdown
+## GitHub-flavored Markdown
 
 Standard GFM syntax works as expected. Headings automatically get anchor links for navigation.
 
@@ -122,7 +122,7 @@ $$
 """)
 ```
 
-## Images in markdown
+## Images in Markdown
 
 ```python
 st.markdown("![Alt text](https://example.com/image.png)")
@@ -133,7 +133,7 @@ In labels, images display as icons with max height equal to font height.
 
 ## Markdown in element labels
 
-Widgets, containers, and other elements support markdown in their labels (using the label subset).
+Widgets, containers, and other elements support Markdown in their labels (using the label subset).
 
 ```python
 st.radio(":material/palette: Choose **color**", [":red-background[Red]", ":blue-background[Blue]", ":green-background[Green]"])
@@ -152,7 +152,7 @@ st.button("1\\. Not a list")
 
 ## Markdown in st.table
 
-`st.table()` renders markdown in cells and headers.
+`st.table()` renders Markdown in cells and headers.
 
 ```python
 st.table({
@@ -191,7 +191,7 @@ st.markdown("Content width only", width="content")  # stretch, content, or pixel
 
 ## HTML (use very sparingly!)
 
-Mix markdown with HTML using `unsafe_allow_html=True`. For pure HTML without markdown processing, use `st.html()` instead.
+Mix Markdown with HTML using `unsafe_allow_html=True`. For pure HTML without markdown processing, use `st.html()` instead.
 
 ```python
 st.markdown("**Status:** <span style='color: coral'>Custom styled</span>", unsafe_allow_html=True)
