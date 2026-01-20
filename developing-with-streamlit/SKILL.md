@@ -45,6 +45,8 @@ Activate these skills when:
 
 **Using the Streamlit CLI?** → `using-streamlit-cli`
 
+**State management and session state?** → `using-streamlit-session-state`
+
 ## Skill map
 
 | Skill | Covers |
@@ -64,6 +66,7 @@ Activate these skills when:
 | [using-streamlit-cli](skills/using-streamlit-cli/SKILL.md) | CLI commands, running apps |
 | [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md) | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
 | [using-streamlit-markdown](skills/using-streamlit-markdown/SKILL.md) | Colored text, badges, icons, LaTeX, and all markdown features |
+| [using-streamlit-session-state](skills/using-streamlit-session-state/SKILL.md) | Session state, widget keys, callbacks, state persistence |
 
 ## Resources
 
