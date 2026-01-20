@@ -43,6 +43,9 @@ Don't use too many columns—they get cramped.
 # GOOD
 col1, col2 = st.columns(2)
 
+# Custom widths (ratios)
+col1, col2 = st.columns([2, 1])  # 2:1 ratio
+
 # OK with alignment
 cols = st.columns(4, vertical_alignment="center")
 
@@ -94,6 +97,71 @@ with st.container(border=True):
     st.write("Grouped content here")
 ```
 
+## Tabs
+
+Organize content into switchable views:
+
+```python
+tab1, tab2, tab3 = st.tabs(["Chart", "Data", "Settings"])
+
+with tab1:
+    st.line_chart(data)
+with tab2:
+    st.dataframe(df)
+with tab3:
+    st.slider("Threshold", 0, 100)
+```
+
+## Expander
+
+Collapsible sections for secondary content:
+
+```python
+with st.expander("See details"):
+    st.write("Hidden content here")
+    st.code("print('hello')")
+
+# Expanded by default
+with st.expander("Configuration", expanded=True):
+    st.text_input("API Key")
+```
+
+## Empty and placeholders
+
+`st.empty()` creates a single-element placeholder that can be updated or cleared:
+
+```python
+placeholder = st.empty()
+
+# Update the placeholder
+placeholder.text("Loading...")
+result = load_data()
+placeholder.dataframe(result)
+
+# Clear it
+placeholder.empty()
+```
+
+For multiple elements in a placeholder:
+
+```python
+placeholder = st.empty()
+
+with placeholder.container():
+    st.write("Line 1")
+    st.write("Line 2")
+```
+
+## Popover
+
+Click to reveal content:
+
+```python
+with st.popover("Settings"):
+    st.checkbox("Dark mode")
+    st.slider("Font size", 10, 24)
+```
+
 ## Dialogs for focused interactions
 
 Use `@st.dialog` for UI that doesn't need to be always visible:
@@ -109,6 +177,12 @@ def confirm_delete(item_name):
 if st.button("Delete item"):
     confirm_delete("My Document")
 ```
+
+**Key points:**
+- Dialogs rerun independently from the main script
+- Call `st.rerun()` to close dialog and refresh main app
+- Use `dismissible=False` for forced actions
+- `st.sidebar` is not supported inside dialogs
 
 **When to use dialogs:**
 - Confirmation prompts
@@ -160,7 +234,11 @@ st.container(height=300)
 
 ## References
 
-- [st.container](https://docs.streamlit.io/develop/api-reference/layout/st.container)
 - [st.columns](https://docs.streamlit.io/develop/api-reference/layout/st.columns)
+- [st.container](https://docs.streamlit.io/develop/api-reference/layout/st.container)
 - [st.sidebar](https://docs.streamlit.io/develop/api-reference/layout/st.sidebar)
+- [st.tabs](https://docs.streamlit.io/develop/api-reference/layout/st.tabs)
+- [st.expander](https://docs.streamlit.io/develop/api-reference/layout/st.expander)
+- [st.popover](https://docs.streamlit.io/develop/api-reference/layout/st.popover)
+- [st.empty](https://docs.streamlit.io/develop/api-reference/layout/st.empty)
 - [st.dialog](https://docs.streamlit.io/develop/api-reference/execution-flow/st.dialog)
