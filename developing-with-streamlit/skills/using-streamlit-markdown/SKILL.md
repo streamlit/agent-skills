@@ -38,16 +38,16 @@ Streamlit supports markdown throughout its API—in `st.markdown()`, widget labe
 
 ## Where markdown works
 
-Markdown works wherever text is rendered, with these exceptions:
-- `st.dataframe()` and `st.data_editor()` cells
-- `st.json()` values
-- `st.text()`
-- Charts and maps
-- `st.Page` titles
-- `st.selectbox` and `st.multiselect` options
-- Input widget placeholders
+Markdown is supported in most places where text is rendered. Streamlit has three levels of markdown support:
 
-Element labels and some other parameters use a **label subset**: bold, italic, strikethrough, inline code, links, images, colored text, Material icons, and emojis. Block elements are stripped. Escape with backslash: `"1\. Not a list"`.
+**Full markdown** — All syntax including block elements (headings, lists, tables, code blocks):
+- `st.markdown()`, `st.write()`, `st.caption()`, `st.info()`, `st.warning()`, `st.error()`, `st.success()`, `st.table` cells and  headers, tooltips (`help` parameter)
+
+**Label subset** — Inline formatting only (see table above). Block elements (e.g. headings, lists, tables) are silently stripped:
+- Widget and element labels (`st.button`, `st.checkbox`, `st.radio`, `st.expander`, `st.page_link`, etc.), `st.radio` and `st.select_slider` options, `st.tabs` names, `st.metric` label/valus/delta, `st.title`, `st.header`, `st.subheader`, `st.image` caption, `st.dialog` title, `st.progress`, `st.spinner`.
+
+**No markdown** — Text displays literally:
+- `st.text()`, `st.json()`, `st.dataframe()` / `st.data_editor()` cells, `st.selectbox` / `st.multiselect` options, input placeholders, `st.Page` titles, chart/map labels
 
 ## GitHub-flavored markdown
 
