@@ -295,7 +295,7 @@ def fetch_in_background(url, results, index):
     results[index] = requests.get(url).json()  # No st.* calls!
 
 # Collect results, then display in main thread
-results = [None] * 3
+results = [None] * len(urls)
 threads = [
     threading.Thread(target=fetch_in_background, args=(url, results, i))
     for i, url in enumerate(urls)
