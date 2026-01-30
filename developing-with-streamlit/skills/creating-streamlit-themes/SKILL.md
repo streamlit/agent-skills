@@ -1,6 +1,6 @@
 ---
 name: creating-streamlit-themes
-description: Creating and customizing Streamlit themes. Use when changing app colors, fonts, or appearance. Covers config.toml configuration, design principles, and CSS avoidance.
+description: Creating and customizing Streamlit themes. Use when changing app colors, fonts, or appearance, or aligning apps to brand guidelines. Covers config.toml configuration, design principles, and CSS avoidance.
 license: Apache-2.0
 ---
 
