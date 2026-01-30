@@ -425,6 +425,7 @@ backgroundColor = "#11567F"
 secondaryBackgroundColor = "#174D6A"
 textColor = "#ffffff"
 borderColor = "#1E6D94"
+...
 ```
 
 ## Avoid custom CSS
