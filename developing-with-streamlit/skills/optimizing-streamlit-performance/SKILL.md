@@ -39,6 +39,33 @@ def load_model():
     return torch.load("model.pt")
 ```
 
+**Critical warning:** Never mutate `@st.cache_resource` returns—changes affect all users:
+
+```python
+# BAD: Mutating shared resource
+@st.cache_resource
+def get_config():
+    return {"setting": "default"}
+
+config = get_config()
+config["setting"] = "custom"  # Affects ALL users!
+
+# GOOD: Copy before modifying
+config = get_config().copy()
+config["setting"] = "custom"
+```
+
+**Cleanup with `on_release`:** Clean up resources when evicted from cache:
+
+```python
+def cleanup_connection(conn):
+    conn.close()
+
+@st.cache_resource(on_release=cleanup_connection)
+def get_database():
+    return create_connection()
+```
+
 ### TTL for fresh data
 
 ```python
@@ -79,6 +106,44 @@ def get_user_data(user_id):
 ```
 
 Use `ttl` for time-based expiration OR `max_entries` for size-based limits. You usually don't need both.
+
+### Caching anti-patterns
+
+**Don't cache functions that read widgets:**
+
+```python
+# BAD: Widget inside cached function
+@st.cache_data
+def filtered_data():
+    query = st.text_input("Query")  # Widget inside cached function!
+    return df[df["name"].str.contains(query)]
+
+# GOOD: Pass widget values as parameters
+@st.cache_data
+def filtered_data(query: str):
+    return df[df["name"].str.contains(query)]
+
+query = st.text_input("Query")
+result = filtered_data(query)
+```
+
+**Cache at the right granularity:**
+
+```python
+# BAD: Caching too much - new cache entry per filter value
+@st.cache_data
+def get_and_filter_data(filter_value):
+    data = load_all_data()  # Expensive!
+    return data[data["col"] == filter_value]
+
+# GOOD: Cache the expensive part, filter separately
+@st.cache_data(ttl="1h")
+def load_all_data():
+    return fetch_from_database()
+
+data = load_all_data()
+filtered = data[data["col"] == filter_value]
+```
 
 ## Fragments
 
@@ -184,8 +249,74 @@ Move expensive work outside the main flow:
 - Pre-compute metrics in scheduled jobs
 - Use materialized views for complex queries
 
+## Large data handling
+
+### For datasets under ~100M rows
+
+```python
+@st.cache_data
+def load_data():
+    return pd.read_parquet("large_file.parquet")
+```
+
+### For very large datasets (over ~100M rows)
+
+> **Note:** This is only an escape hatch when serialization becomes too slow. In most cases, data this large shouldn't be loaded entirely into memory—prefer using a database that queries and loads data on demand.
+
+`@st.cache_data` uses pickle which slows with huge data. Use `@st.cache_resource` instead:
+
+```python
+@st.cache_resource  # No serialization overhead
+def load_huge_data():
+    return pd.read_parquet("huge_file.parquet")
+
+# WARNING: Don't mutate the returned DataFrame!
+```
+
+### Sampling for exploration
+
+When exploring large datasets, load a random sample instead of the full data:
+
+```python
+@st.cache_data(ttl="1h")
+def load_sample(n=10000):
+    df = pd.read_parquet("huge.parquet")
+    return df.sample(n=n)
+```
+
+## Multithreading
+
+Custom threads cannot call Streamlit commands (no session context).
+
+```python
+import threading
+
+def fetch_in_background(url, results, index):
+    results[index] = requests.get(url).json()  # No st.* calls!
+
+# Collect results, then display in main thread
+results = [None] * len(urls)
+threads = [
+    threading.Thread(target=fetch_in_background, args=(url, results, i))
+    for i, url in enumerate(urls)
+]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+
+# Now display in main thread
+for result in results:
+    st.write(result)
+```
+
+**Prefer alternatives when possible:**
+- `@st.cache_data` for expensive computations
+- `@st.fragment(run_every="5s")` for periodic updates
+
 ## References
 
+- [Caching overview](https://docs.streamlit.io/develop/concepts/architecture/caching)
 - [st.cache_data](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_data)
 - [st.cache_resource](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_resource)
 - [st.fragment](https://docs.streamlit.io/develop/api-reference/execution-flow/st.fragment)

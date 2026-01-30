@@ -114,6 +114,8 @@ st.session_state.user = get_user()
 st.session_state.settings = load_settings()
 ```
 
+**Tip:** Use `st.session_state.setdefault("key", default_value)` to initialize values only if they don't exist.
+
 **Why main module (for global state):**
 - Runs before every page
 - Ensures state is initialized
@@ -128,6 +130,45 @@ Use prefixed keys for page-specific state:
 if "analytics_date_range" not in st.session_state:
     st.session_state.analytics_date_range = default_range()
 ```
+
+## Share elements between pages
+
+Put shared UI in the entrypoint (before `page.run()`) so it appears on all pages:
+
+```python
+# streamlit_app.py
+import streamlit as st
+
+pages = [...]
+page = st.navigation(pages)
+
+# Shared title
+st.title(f"{page.icon} {page.title}")
+
+# Shared sidebar widgets
+with st.sidebar:
+    st.selectbox("Theme", ["Light", "Dark"])
+
+page.run()
+```
+
+## Programmatic navigation
+
+Navigate to another page programmatically:
+
+```python
+if st.button("Go to Settings"):
+    st.switch_page("app_pages/settings.py")
+```
+
+Create navigation links with `st.page_link`:
+
+```python
+st.page_link("app_pages/home.py", label="Home", icon=":material/home:")
+st.page_link("https://example.com", label="External", icon=":material/open_in_new:")
+```
+
+> **Note:** Prefer `st.navigation` over `st.page_link` for standard navigation. Do not use `st.page_link` to recreate the nav bar you get with `st.navigation`. Only use `st.page_link` when linking to pages from somewhere other than the sidebar, or when building a more complex navigation menu.
 
 ## Conditional pages
 
@@ -169,6 +210,9 @@ from ..utils.data import load_sales_data
 
 ## References
 
+- [Multipage apps docs](https://docs.streamlit.io/develop/concepts/multipage-apps)
 - [st.navigation](https://docs.streamlit.io/develop/api-reference/navigation/st.navigation)
 - [st.Page](https://docs.streamlit.io/develop/api-reference/navigation/st.page)
 - [st.session_state](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state)
+- [st.switch_page](https://docs.streamlit.io/develop/api-reference/navigation/st.switch_page)
+- [st.page_link](https://docs.streamlit.io/develop/api-reference/widgets/st.page_link)

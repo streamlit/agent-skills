@@ -8,6 +8,16 @@ license: Apache-2.0
 
 Present data clearly.
 
+## Choosing display elements
+
+| Element | Use Case |
+|---------|----------|
+| `st.dataframe` | Interactive exploration, sorting, filtering |
+| `st.data_editor` | User-editable tables |
+| `st.table` | Static display, no interaction needed |
+| `st.metric` | KPIs with delta indicators |
+| `st.json` | Structured data inspection |
+
 ## Native charts first
 
 Prefer Streamlit's native charts for simple cases.
@@ -48,7 +58,7 @@ chart = alt.Chart(df).mark_line().encode(
     y=alt.Y("revenue:Q", title="Revenue ($)"),
     color="region:N"
 )
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(chart)
 ```
 
 **When to use Altair:**
@@ -83,7 +93,6 @@ st.dataframe(
         "internal_id": None,  # Hide non-essential columns
     },
     hide_index=True,
-    use_container_width=True,
 )
 ```
 
@@ -128,6 +137,35 @@ st.dataframe(
 )
 ```
 
+## Data editor
+
+Use `st.data_editor` when users need to edit data directly:
+
+```python
+edited_df = st.data_editor(
+    df,
+    num_rows="dynamic",  # Allow adding/deleting rows
+    column_config={
+        "status": st.column_config.SelectboxColumn(
+            "Status",
+            options=["pending", "approved", "rejected"]
+        ),
+    },
+)
+
+# React to edits
+if not edited_df.equals(df):
+    save_changes(edited_df)
+```
+
+## JSON display
+
+For structured data inspection. Accepts dicts, lists, or any JSON-serializable object:
+
+```python
+st.json({"name": "John", "scores": [95, 87, 92]})
+```
+
 ## Sparklines in metrics
 
 Add `chart_data` and `chart_type` to metrics for visual context.
@@ -152,8 +190,10 @@ See `building-streamlit-dashboards` for composing metrics into dashboard layouts
 ## References
 
 - [st.dataframe](https://docs.streamlit.io/develop/api-reference/data/st.dataframe)
+- [st.data_editor](https://docs.streamlit.io/develop/api-reference/data/st.data_editor)
 - [st.column_config](https://docs.streamlit.io/develop/api-reference/data/st.column_config)
 - [st.metric](https://docs.streamlit.io/develop/api-reference/data/st.metric)
+- [st.json](https://docs.streamlit.io/develop/api-reference/data/st.json)
 - [st.line_chart](https://docs.streamlit.io/develop/api-reference/charts/st.line_chart)
 - [st.bar_chart](https://docs.streamlit.io/develop/api-reference/charts/st.bar_chart)
 - [st.altair_chart](https://docs.streamlit.io/develop/api-reference/charts/st.altair_chart)
