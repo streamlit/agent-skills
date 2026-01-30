@@ -1,0 +1,483 @@
+---
+name: creating-streamlit-themes
+description: Creating and customizing Streamlit themes. Use when changing app colors, fonts, or appearance. Covers config.toml configuration, design principles, and CSS avoidance.
+license: Apache-2.0
+---
+
+# Creating Streamlit themes
+
+Build professional, brand-aligned themes using `.streamlit/config.toml`. This skill covers design principles and complete configuration for polished, cohesive themes.
+
+## Theme file setup
+
+Create `.streamlit/config.toml` in your project root:
+
+```
+your-app/
+├── .streamlit/
+│   └── config.toml
+└── app.py
+```
+
+All theme settings go under `[theme]`:
+
+```toml
+[theme]
+primaryColor = "#0969da"
+backgroundColor = "#ffffff"
+# ... more settings
+```
+
+## Theme inheritance
+
+Start from a built-in theme or external file:
+
+```toml
+[theme]
+base = "light"                         # or "dark"
+# base = "./my-base-theme.toml"        # Local file
+# base = "https://example.com/theme.toml"  # Remote URL
+```
+
+When using `base`, you only need to override the values you want to change.
+
+## Color configuration
+
+### Primary colors
+
+```toml
+[theme]
+primaryColor = "#0969da"           # Buttons, links, active elements
+backgroundColor = "#ffffff"        # Main content background
+secondaryBackgroundColor = "#f6f8fa"  # Widget backgrounds, code blocks
+textColor = "#1F2328"              # Body text
+```
+
+**Design principle:** Choose a `primaryColor` dark enough to contrast with white text. Streamlit renders button text white against the primary color.
+
+### Extended colors
+
+```toml
+[theme]
+linkColor = "#0969da"              # Markdown links (defaults to primaryColor)
+codeTextColor = "#1F2328"          # Inline code text
+codeBackgroundColor = "#f6f8fa"    # Code block background
+borderColor = "#d0d7de"            # Widget borders
+```
+
+### Color palette
+
+Define semantic colors for status indicators, markdown text coloring, and sparklines:
+
+```toml
+[theme]
+redColor = "#cf222e"
+orangeColor = "#bf8700"
+yellowColor = "#dbab09"
+greenColor = "#1a7f37"
+blueColor = "#0969da"
+violetColor = "#8250df"
+grayColor = "#57606a"
+```
+
+Each color supports background and text variants (auto-derived if not set):
+
+```toml
+[theme]
+greenColor = "#1a7f37"
+greenBackgroundColor = "#dafbe1"   # Light tint for badges
+greenTextColor = "#116329"         # Darkened for readability
+```
+
+### Chart colors
+
+Define colors for Plotly, Altair, and Vega-Lite charts:
+
+```toml
+[theme]
+# Categorical data (bars, pie slices, series)
+chartCategoricalColors = ["#0969da", "#1a7f37", "#bf3989", "#8250df", "#cf222e", "#bf8700", "#57606a"]
+
+# Sequential/gradient data (heatmaps) - exactly 10 colors required
+chartSequentialColors = ["#f0f6fc", "#c8e1ff", "#79c0ff", "#58a6ff", "#388bfd", "#1f6feb", "#1158c7", "#0d419d", "#0a3069", "#04244a"]
+```
+
+### Dataframe styling
+
+```toml
+[theme]
+dataframeBorderColor = "#d0d7de"
+dataframeHeaderBackgroundColor = "#f6f8fa"
+```
+
+## Typography
+
+### Font families
+
+Use built-in fonts or load from Google Fonts:
+
+```toml
+[theme]
+# Built-in options
+font = "sans-serif"  # or "serif" or "monospace"
+
+# Google Fonts
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+
+# Font with spaces in name
+font = "'IBM Plex Sans':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+```
+
+### Heading and code fonts
+
+```toml
+[theme]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap"
+codeFont = "'JetBrains Mono':https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+```
+
+### Font sizing and weight
+
+```toml
+[theme]
+baseFontSize = 14                  # Root size in pixels (default: 16)
+baseFontWeight = 400               # Normal weight
+codeFontSize = "0.875rem"          # Relative to base, or use "13px"
+codeFontWeight = 400
+
+# Heading hierarchy (h1 through h6)
+headingFontSizes = ["32px", "24px", "20px", "16px", "14px", "12px"]
+headingFontWeights = [600, 600, 600, 500, 500, 500]
+```
+
+### Link styling
+
+```toml
+[theme]
+linkUnderline = false              # Remove underlines for cleaner look
+```
+
+### Self-hosting custom fonts
+
+Use `[[theme.fontFaces]]` tables to load fonts from local files:
+
+```toml
+[[theme.fontFaces]]
+family = "CustomFont"
+url = "app/static/CustomFont-Regular.woff2"
+weight = 400
+
+[[theme.fontFaces]]
+family = "CustomFont"
+url = "app/static/CustomFont-Bold.woff2"
+weight = 700
+
+[theme]
+font = "CustomFont"
+```
+
+**Attributes:** `family` (name), `url` (path to OTF/TTF/WOFF/WOFF2), `weight` (400, "200 800", or "bold"), `style` ("normal"/"italic"/"oblique"), `unicodeRange` (e.g., "U+0000-00FF").
+
+Changes to `fontFaces` require a server restart.
+
+## Border and radius
+
+```toml
+[theme]
+baseRadius = "8px"                 # All components (none/small/medium/large/full/px/rem)
+buttonRadius = "8px"               # Buttons specifically (defaults to baseRadius)
+showWidgetBorder = true            # Show borders on unfocused widgets
+showSidebarBorder = true           # Show divider between sidebar and content
+```
+
+**Radius keywords:** `"none"` (0), `"small"` (4px), `"medium"` (8px), `"large"` (12px), `"full"` (pill shape).
+
+## Sidebar customization
+
+Style the sidebar independently:
+
+```toml
+[theme.sidebar]
+backgroundColor = "#f6f8fa"
+secondaryBackgroundColor = "#eaeef2"
+codeBackgroundColor = "#eaeef2"
+textColor = "#1F2328"
+borderColor = "#d0d7de"
+primaryColor = "#0969da"           # Active elements in sidebar
+```
+
+## Light and dark modes
+
+Define separate themes for each mode:
+
+```toml
+[theme.light]
+primaryColor = "#0969da"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f6f8fa"
+textColor = "#1F2328"
+
+[theme.dark]
+primaryColor = "#58a6ff"
+backgroundColor = "#0d1117"
+secondaryBackgroundColor = "#161b22"
+textColor = "#e6edf3"
+
+[theme.light.sidebar]
+backgroundColor = "#f6f8fa"
+
+[theme.dark.sidebar]
+backgroundColor = "#010409"
+```
+
+Users can switch between modes in the app settings menu.
+
+## Detecting current theme
+
+Use `st.context.theme.base` to adapt your app to the active theme:
+
+```python
+if st.context.theme.base == "dark":
+    chart_color = "#58a6ff"
+else:
+    chart_color = "#0969da"
+```
+
+## Design principles
+
+### Color contrast
+
+Ensure WCAG AA compliance (4.5:1 ratio for text):
+- Light themes: Dark text (#1F2328) on light backgrounds (#ffffff)
+- Dark themes: Light text (#e6edf3) on dark backgrounds (#0d1117)
+- Primary colors must contrast with white button text
+
+### Color harmony
+
+Build cohesive palettes using these approaches:
+
+**Monochromatic:** Single hue with varying lightness (e.g., shadcn's zinc grays)
+```toml
+primaryColor = "#18181B"
+textColor = "#09090B"
+borderColor = "#E4E4E7"
+grayColor = "#71717A"
+```
+
+**Brand accent:** Neutral base with one brand color (e.g., Stripe's purple)
+```toml
+primaryColor = "#635bff"           # Brand purple
+backgroundColor = "#ffffff"
+textColor = "#425466"              # Neutral gray
+```
+
+**Complementary:** Brand primary with supporting accent colors
+```toml
+primaryColor = "#29B5E8"           # Brand blue (Snowflake)
+textColor = "#11567F"              # Darker blue for text
+greenColor = "#36B37E"             # Success states
+redColor = "#DE350B"               # Error states
+```
+
+### Typography guidelines
+
+- **Body text:** 14-16px, weight 400
+- **Headings:** Decreasing scale from h1 (28-40px) to h6 (12-14px)
+- **Code:** Monospace font, slightly smaller than body (0.85-0.875rem)
+- **Font pairing:** Use one font family for consistency, or pair a sans-serif body with monospace code
+
+### Visual hierarchy
+
+Create depth with background layers:
+```
+Main content:        #ffffff (lightest)
+Secondary elements:  #f6f8fa (slightly darker)
+Sidebar:             #f6f8fa or contrasting brand color
+Code blocks:         #f6f8fa (matches secondary or distinct)
+```
+
+## Example: Snowflake brand theme
+
+Clean, professional theme with brand blue accents:
+
+```toml
+[theme]
+primaryColor = "#29B5E8"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f9fc"
+codeBackgroundColor = "#e8f4f8"
+textColor = "#11567F"
+linkColor = "#29B5E8"
+borderColor = "#d0e8f2"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "8px"
+buttonRadius = "8px"
+
+font = "'Inter':https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+codeFont = "'JetBrains Mono':https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+codeFontSize = "13px"
+codeTextColor = "#11567F"
+baseFontSize = 14
+baseFontWeight = 400
+headingFontSizes = ["32px", "24px", "20px", "16px", "14px", "12px"]
+headingFontWeights = [600, 600, 600, 500, 500, 500]
+linkUnderline = false
+
+chartCategoricalColors = ["#29B5E8", "#11567F", "#71C8E5", "#174D6A", "#A5DDF2", "#0E4D6B", "#52B8D9"]
+
+blueColor = "#29B5E8"
+greenColor = "#36B37E"
+yellowColor = "#FFAB00"
+redColor = "#DE350B"
+violetColor = "#6554C0"
+
+dataframeBorderColor = "#d0e8f2"
+dataframeHeaderBackgroundColor = "#e8f4f8"
+
+[theme.sidebar]
+backgroundColor = "#11567F"
+secondaryBackgroundColor = "#174D6A"
+codeBackgroundColor = "#0E4D6B"
+textColor = "#ffffff"
+borderColor = "#1E6D94"
+```
+
+## Example: VS Code dark theme
+
+Developer-focused dark theme with syntax-inspired colors:
+
+```toml
+[theme]
+base = "dark"
+primaryColor = "#0078d4"
+backgroundColor = "#1e1e1e"
+secondaryBackgroundColor = "#252526"
+codeBackgroundColor = "#1e1e1e"
+textColor = "#cccccc"
+linkColor = "#3794ff"
+borderColor = "#3c3c3c"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "4px"
+buttonRadius = "4px"
+
+font = "'Segoe UI', 'Open Sans':https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+codeFont = "'Fira Code':https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap"
+codeFontSize = "13px"
+codeTextColor = "#d4d4d4"
+baseFontSize = 14
+baseFontWeight = 400
+headingFontSizes = ["28px", "22px", "18px", "16px", "14px", "12px"]
+headingFontWeights = [600, 600, 600, 600, 600, 600]
+linkUnderline = false
+
+chartCategoricalColors = ["#0078d4", "#4ec9b0", "#dcdcaa", "#ce9178", "#c586c0", "#569cd6", "#6a9955"]
+
+blueColor = "#569cd6"
+greenColor = "#6a9955"
+yellowColor = "#dcdcaa"
+orangeColor = "#ce9178"
+violetColor = "#c586c0"
+
+[theme.sidebar]
+backgroundColor = "#252526"
+secondaryBackgroundColor = "#333333"
+codeBackgroundColor = "#1e1e1e"
+borderColor = "#3c3c3c"
+```
+
+## Common mistakes
+
+### Primary color too light
+
+```toml
+# BAD: White text on yellow is unreadable
+primaryColor = "#FFEB3B"
+
+# GOOD: Use a darker shade
+primaryColor = "#F59E0B"
+```
+
+### Insufficient contrast
+
+```toml
+# BAD: Light gray text on white
+textColor = "#CCCCCC"
+backgroundColor = "#FFFFFF"
+
+# GOOD: Dark text on light background
+textColor = "#1F2328"
+backgroundColor = "#FFFFFF"
+```
+
+### Mismatched backgrounds
+
+```toml
+# BAD: Secondary lighter than primary
+backgroundColor = "#f6f8fa"
+secondaryBackgroundColor = "#ffffff"
+
+# GOOD: Secondary should be darker/distinct
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f6f8fa"
+```
+
+### Forgetting sidebar contrast
+
+```toml
+# BAD: Dark sidebar with dark text
+[theme.sidebar]
+backgroundColor = "#11567F"
+textColor = "#11567F"  # Same as background!
+
+# GOOD: Light text on dark sidebar
+[theme.sidebar]
+backgroundColor = "#11567F"
+textColor = "#ffffff"
+```
+
+## Avoid custom CSS
+
+Custom CSS breaks with Streamlit updates and is hard to maintain:
+
+```python
+# BAD: Will break with updates
+st.markdown("""
+<style>
+.stButton button { background-color: #FF4B4B; }
+</style>
+""", unsafe_allow_html=True)
+
+# GOOD: Use config.toml instead
+```
+
+If you must use CSS, use `key=` to create targetable classes:
+
+```python
+st.button("Submit", key="submit")
+# Generates: .st-key-submit
+
+st.html("""<style>.st-key-submit button { width: 100%; }</style>""")
+```
+
+**Only use CSS as a last resort.**
+
+## Development workflow
+
+Most theme options update live after saving `config.toml` and rerunning. Font-related options (`fontFaces`) require a server restart.
+
+Test your theme with: buttons (primary contrast), forms (borders, focus), dataframes (headers), code blocks, charts, and sidebar.
+
+## Related skills
+
+- [improving-streamlit-design](../improving-streamlit-design/SKILL.md) - Visual polish with icons, badges, spacing
+
+## References
+
+- [Theming overview](https://docs.streamlit.io/develop/concepts/configuration/theming)
+- [Colors and borders](https://docs.streamlit.io/develop/concepts/configuration/theming-customize-colors-and-borders)
+- [Fonts](https://docs.streamlit.io/develop/concepts/configuration/theming-customize-fonts)
+- [config.toml reference](https://docs.streamlit.io/develop/api-reference/configuration/config.toml)
+- [st.context](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.context)

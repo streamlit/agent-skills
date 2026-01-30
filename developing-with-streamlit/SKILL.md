@@ -31,7 +31,7 @@ Activate these skills when:
 
 **Multi-page architecture?** → `building-streamlit-multipage-apps`
 
-**Customizing appearance?** → `customizing-streamlit-theme`
+**Customizing appearance or creating a custom theme?** → `creating-streamlit-themes`
 
 **Setting up a project?** → `setting-up-streamlit-environment`
 
@@ -56,7 +56,7 @@ Activate these skills when:
 | [building-streamlit-multipage-apps](skills/building-streamlit-multipage-apps/SKILL.md) | Page structure, navigation, shared state |
 | [choosing-streamlit-selection-widgets](skills/choosing-streamlit-selection-widgets/SKILL.md) | Selectbox vs radio vs segmented control vs pills vs multiselect |
 | [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/SKILL.md) | st.connection, query caching, credentials |
-| [customizing-streamlit-theme](skills/customizing-streamlit-theme/SKILL.md) | Custom colors via config.toml, light/dark modes |
+| [creating-streamlit-themes](skills/creating-streamlit-themes/SKILL.md) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
 | [displaying-streamlit-data](skills/displaying-streamlit-data/SKILL.md) | Dataframes, column config, charts |
 | [improving-streamlit-design](skills/improving-streamlit-design/SKILL.md) | Icons, badges, colored text, visual polish |
 | [optimizing-streamlit-performance](skills/optimizing-streamlit-performance/SKILL.md) | Caching, fragments, forms, static vs dynamic widgets |
