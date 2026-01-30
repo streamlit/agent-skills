@@ -180,6 +180,7 @@ if st.button("Delete item"):
 
 **Key points:**
 - Dialogs rerun independently from the main script
+- Use `st.session_state` to pass widget values from the dialog to the main app
 - Call `st.rerun()` to close dialog and refresh main app
 - Use `dismissible=False` for forced actions
 - `st.sidebar` is not supported inside dialogs

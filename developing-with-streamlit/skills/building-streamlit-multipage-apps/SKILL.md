@@ -147,7 +147,7 @@ st.title(f"{page.icon} {page.title}")
 
 # Shared sidebar widgets
 with st.sidebar:
-    st.session_state.theme = st.selectbox("Theme", ["Light", "Dark"])
+    st.selectbox("Theme", ["Light", "Dark"])
 
 page.run()
 ```
@@ -161,12 +161,14 @@ if st.button("Go to Settings"):
     st.switch_page("app_pages/settings.py")
 ```
 
-Create navigation links:
+Create navigation links with `st.page_link`:
 
 ```python
 st.page_link("app_pages/home.py", label="Home", icon=":material/home:")
 st.page_link("https://example.com", label="External", icon=":material/open_in_new:")
 ```
+
+> **Note:** Prefer `st.navigation` over `st.page_link` for standard navigation. Do not use `st.page_link` to recreate the nav bar you get with `st.navigation`. Only use `st.page_link` when linking to pages from somewhere other than the sidebar, or when building a more complex navigation menu.
 
 ## Conditional pages
 

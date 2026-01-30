@@ -58,7 +58,7 @@ chart = alt.Chart(df).mark_line().encode(
     y=alt.Y("revenue:Q", title="Revenue ($)"),
     color="region:N"
 )
-st.altair_chart(chart, width="stretch")
+st.altair_chart(chart)
 ```
 
 **When to use Altair:**
@@ -93,7 +93,6 @@ st.dataframe(
         "internal_id": None,  # Hide non-essential columns
     },
     hide_index=True,
-    width="stretch",
 )
 ```
 
@@ -161,7 +160,7 @@ if not edited_df.equals(df):
 
 ## JSON display
 
-For structured data inspection:
+For structured data inspection. Accepts dicts, lists, or any JSON-serializable object:
 
 ```python
 st.json({"name": "John", "scores": [95, 87, 92]})

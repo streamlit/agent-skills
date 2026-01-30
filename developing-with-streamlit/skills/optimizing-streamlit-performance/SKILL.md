@@ -259,7 +259,8 @@ def load_data():
     return pd.read_parquet("large_file.parquet")
 ```
 
-### For very large datasets
+### For very large datasets (over ~100M rows)
+> **Note:** This is only an escape hatch when serialization becomes too slow. In most cases, data this large shouldn't be loaded entirely into memory—prefer using a database that queries and loads data on demand.
 
 `@st.cache_data` uses pickle which slows with huge data. Use `@st.cache_resource` instead:
 
@@ -272,6 +273,8 @@ def load_huge_data():
 ```
 
 ### Sampling for exploration
+
+When exploring large datasets, load a random sample instead of the full data:
 
 ```python
 @st.cache_data(ttl="1h")
@@ -312,6 +315,7 @@ for result in results:
 
 ## References
 
+- [Caching overview](https://docs.streamlit.io/develop/concepts/architecture/caching)
 - [st.cache_data](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_data)
 - [st.cache_resource](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_resource)
 - [st.fragment](https://docs.streamlit.io/develop/api-reference/execution-flow/st.fragment)

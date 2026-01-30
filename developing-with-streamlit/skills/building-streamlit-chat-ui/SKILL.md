@@ -169,10 +169,7 @@ with st.chat_message("assistant"):
     st.markdown(response)
     feedback = st.feedback("thumbs")
     if feedback is not None:
-        log_feedback(
-            message=response,
-            rating="positive" if feedback == 1 else "negative"
-        )
+        st.toast(f"Feedback received: {'👍' if feedback == 1 else '👎'}")
 ```
 
 ## Clear chat
@@ -180,9 +177,10 @@ with st.chat_message("assistant"):
 Add a button to reset the conversation:
 
 ```python
-if st.sidebar.button("Clear chat"):
+def clear_chat():
     st.session_state.messages = []
-    st.rerun()
+
+st.button("Clear chat", on_click=clear_chat)
 ```
 
 ## Related skills
