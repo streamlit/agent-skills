@@ -162,7 +162,7 @@ if prompt and prompt.audio:
 
 ## User feedback
 
-Add thumbs up/down feedback to assistant messages:
+Add thumbs up/down feedback to assistant messages. Also supports `"stars"` and `"faces"` ratings:
 
 ```python
 with st.chat_message("assistant"):
