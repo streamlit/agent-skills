@@ -10,23 +10,7 @@ Build professional, brand-aligned themes using `.streamlit/config.toml`. This sk
 
 ## Theme file setup
 
-Create `.streamlit/config.toml` in your project root:
-
-```
-your-app/
-├── .streamlit/
-│   └── config.toml
-└── app.py
-```
-
-All theme settings go under `[theme]`:
-
-```toml
-[theme]
-primaryColor = "#0969da"
-backgroundColor = "#ffffff"
-# ... more settings
-```
+Theme options go in Streamlit's `config.toml` under the `[theme]` section:
 
 ## Theme inheritance
 
@@ -43,7 +27,7 @@ When using `base`, you only need to override the values you want to change. Them
 
 ## Color configuration
 
-### Primary colors
+### Theme colors
 
 ```toml
 [theme]
@@ -51,19 +35,15 @@ primaryColor = "#0969da"           # Buttons, links, active elements
 backgroundColor = "#ffffff"        # Main content background
 secondaryBackgroundColor = "#f6f8fa"  # Widget backgrounds, code blocks
 textColor = "#1F2328"              # Body text
-```
 
-**Design principle:** Choose a `primaryColor` dark enough to contrast with white text. Streamlit renders button text white against the primary color.
-
-### Extended colors
-
-```toml
-[theme]
+# Optional refinements
 linkColor = "#0969da"              # Markdown links (defaults to primaryColor)
 codeTextColor = "#1F2328"          # Inline code text
 codeBackgroundColor = "#f6f8fa"    # Code block background
 borderColor = "#d0d7de"            # Widget borders
 ```
+
+**Design principle:** Choose a `primaryColor` dark enough to contrast with white text. Streamlit renders the text of primary buttons white against the primary color.
 
 ### Color palette
 
@@ -116,7 +96,7 @@ Ensure `textColor` is readable against `dataframeHeaderBackgroundColor`—header
 
 ### Font families
 
-Use built-in fonts or load from Google Fonts:
+Use built-in fonts, load from Google Fonts, or define custom fonts from font files (see below):
 
 ```toml
 [theme]
@@ -130,39 +110,11 @@ font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;60
 font = "'IBM Plex Sans':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
 ```
 
-### Heading and code fonts
-
-```toml
-[theme]
-font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap"
-codeFont = "'JetBrains Mono':https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
-```
-
-### Font sizing and weight
-
-```toml
-[theme]
-baseFontSize = 14                  # Root size in pixels (default: 16)
-baseFontWeight = 400               # Normal weight
-codeFontSize = "0.875rem"          # Relative to base, or use "13px"
-codeFontWeight = 400
-
-# Heading hierarchy (h1 through h6)
-headingFontSizes = ["32px", "24px", "20px", "16px", "14px", "12px"]
-headingFontWeights = [600, 600, 600, 500, 500, 500]
-```
-
-### Link styling
-
-```toml
-[theme]
-linkUnderline = false              # Remove underlines for cleaner look
-```
-
 ### Self-hosting custom fonts
 
-Use `[[theme.fontFaces]]` tables to load fonts from local files:
+Use `[[theme.fontFaces]]` tables to load fonts via Streamlit's static file serving. Font files must be placed in a `static/` directory and served through the app—they cannot be arbitrary local file paths.
+
+**Before adding fonts to config.toml:** Verify the font files exist in the static directory.
 
 ```toml
 [[theme.fontFaces]]
@@ -182,6 +134,35 @@ font = "CustomFont"
 **Attributes:** `family` (name), `url` (path to OTF/TTF/WOFF/WOFF2), `weight` (400, "200 800", or "bold"), `style` ("normal"/"italic"/"oblique"), `unicodeRange` (e.g., "U+0000-00FF").
 
 Changes to `fontFaces` require a server restart.
+
+### Heading and code fonts
+
+```toml
+[theme]
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap"
+codeFont = "'JetBrains Mono':https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+```
+
+### Font sizing and weight
+
+```toml
+[theme]
+baseFontSize = 14                  # Root size in pixels (default: 16)
+baseFontWeight = 400               # Normal weight
+codeFontSize = "0.875rem"          # Relative to base, or use "13px"
+codeFontWeight = 400
+
+# Heading hierarchy (h1 through h6), or use a single value for all
+headingFontSizes = ["32px", "24px", "20px", "16px", "14px", "12px"]
+headingFontWeights = [600, 600, 600, 500, 500, 500]
+```
+
+### Link styling
+
+```toml
+[theme]
+linkUnderline = false              # Remove underlines for cleaner look
+```
 
 ## Border and radius
 
@@ -233,17 +214,20 @@ backgroundColor = "#f6f8fa"
 backgroundColor = "#010409"
 ```
 
-Users can switch between modes in the app settings menu.
+Users can switch between modes in the app settings menu only if both `[theme.light]` and `[theme.dark]` are defined. A custom theme with just `[theme]` locks the app to a single mode.
 
 ## Detecting current theme
 
-Use `st.context.theme.base` to adapt your app to the active theme:
+Use `st.context.theme.base` to adapt your app to the active theme. Useful for:
+
+- Adjusting specific chart colors for better contrast
+- Swapping logos or images (e.g., dark logo on light, light logo on dark)
+- Styling third-party components that don't auto-adapt
+- Applying conditional CSS or custom styling
 
 ```python
 if st.context.theme.base == "dark":
-    chart_color = "#58a6ff"
-else:
-    chart_color = "#0969da"
+    # Do something for dark mode
 ```
 
 ## Design principles
