@@ -110,6 +110,8 @@ dataframeBorderColor = "#d0d7de"
 dataframeHeaderBackgroundColor = "#f6f8fa"
 ```
 
+Ensure `textColor` is readable against `dataframeHeaderBackgroundColor`—headers use the main text color.
+
 ## Typography
 
 ### Font families
