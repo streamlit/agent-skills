@@ -271,7 +271,7 @@ redColor = "#DE350B"               # Error states
 - **Body text:** 14-16px, weight 400
 - **Headings:** Decreasing scale from h1 (28-40px) to h6 (12-14px)
 - **Code:** Monospace font, slightly smaller than body (0.85-0.875rem)
-- **Font pairing:** Use one font family for consistency, or pair a sans-serif body with monospace code
+- **Font pairing:** Use the same font for body and headings for consistency, or pair complementary fonts (e.g., serif headings with sans-serif body). Code should always use a distinct monospace font.
 
 ### Visual hierarchy
 
