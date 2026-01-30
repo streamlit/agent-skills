@@ -412,16 +412,19 @@ secondaryBackgroundColor = "#f6f8fa"
 
 ### Forgetting sidebar contrast
 
-```toml
-# BAD: Dark sidebar with dark text
-[theme.sidebar]
-backgroundColor = "#11567F"
-textColor = "#11567F"  # Same as background!
+When using a dark sidebar with a light main section, adjust all sidebar colors—not just `textColor`:
 
-# GOOD: Light text on dark sidebar
+```toml
+# BAD: Only changed backgroundColor
 [theme.sidebar]
 backgroundColor = "#11567F"
+
+# GOOD: Adjust all colors for dark sidebar
+[theme.sidebar]
+backgroundColor = "#11567F"
+secondaryBackgroundColor = "#174D6A"
 textColor = "#ffffff"
+borderColor = "#1E6D94"
 ```
 
 ## Avoid custom CSS
