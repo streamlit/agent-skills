@@ -39,7 +39,7 @@ base = "light"                         # or "dark"
 # base = "https://example.com/theme.toml"  # Remote URL
 ```
 
-When using `base`, you only need to override the values you want to change.
+When using `base`, you only need to override the values you want to change. External theme files (local or remote) can only contain a single `[theme]` section—`[theme.light]` and `[theme.dark]` variants are not supported in dedicated theme files.
 
 ## Color configuration
 
