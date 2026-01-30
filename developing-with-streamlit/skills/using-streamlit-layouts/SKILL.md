@@ -102,14 +102,12 @@ with st.container(border=True):
 Organize content into switchable views:
 
 ```python
-tab1, tab2, tab3 = st.tabs(["Chart", "Data", "Settings"])
+tab1, tab2 = st.tabs(["Chart", "Data"])
 
 with tab1:
     st.line_chart(data)
 with tab2:
     st.dataframe(df)
-with tab3:
-    st.slider("Threshold", 0, 100)
 ```
 
 ## Expander
@@ -120,10 +118,6 @@ Collapsible sections for secondary content:
 with st.expander("See details"):
     st.write("Hidden content here")
     st.code("print('hello')")
-
-# Expanded by default
-with st.expander("Configuration", expanded=True):
-    st.text_input("API Key")
 ```
 
 ## Empty and placeholders
@@ -140,16 +134,6 @@ placeholder.dataframe(result)
 
 # Clear it
 placeholder.empty()
-```
-
-For multiple elements in a placeholder:
-
-```python
-placeholder = st.empty()
-
-with placeholder.container():
-    st.write("Line 1")
-    st.write("Line 2")
 ```
 
 ## Popover
