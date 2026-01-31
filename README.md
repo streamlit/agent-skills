@@ -17,7 +17,7 @@ The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.
 | [building-streamlit-multipage-apps](developing-with-streamlit/skills/building-streamlit-multipage-apps/) | Multi-page app structure and navigation |
 | [choosing-streamlit-selection-widgets](developing-with-streamlit/skills/choosing-streamlit-selection-widgets/) | Choosing the right selection widget |
 | [connecting-streamlit-to-snowflake](developing-with-streamlit/skills/connecting-streamlit-to-snowflake/) | Connecting to Snowflake with st.connection |
-| [customizing-streamlit-theme](developing-with-streamlit/skills/customizing-streamlit-theme/) | Custom colors via config.toml |
+| [creating-streamlit-themes](developing-with-streamlit/skills/creating-streamlit-themes/) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
 | [displaying-streamlit-data](developing-with-streamlit/skills/displaying-streamlit-data/) | Dataframes, column config, charts |
 | [improving-streamlit-design](developing-with-streamlit/skills/improving-streamlit-design/) | Icons, badges, spacing, text styling |
 | [optimizing-streamlit-performance](developing-with-streamlit/skills/optimizing-streamlit-performance/) | Caching, fragments, forms, static vs dynamic widgets |
