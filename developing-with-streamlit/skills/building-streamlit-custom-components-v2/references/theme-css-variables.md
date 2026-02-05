@@ -4,6 +4,20 @@ Streamlit injects a set of `--st-*` CSS custom properties into CCv2 components s
 
 **Highly recommended:** prefer these variables over hard-coded colors. They automatically adapt to a user’s current Streamlit theme (light/dark/custom), so component authors typically **do not** need separate “dark mode vs light mode” styling.
 
+## Contents
+
+- Usage example
+- Serialization rules
+- Variable list (`--st-*`)
+  - Core colors and typography
+  - Radii and sizing
+  - Heading sizes and weights
+  - Borders and dataframe colors
+  - Code styling
+  - Chart palettes
+  - Computed / derived values
+  - Color palette (semantic colors)
+
 Use them like any CSS variable:
 
 ```css

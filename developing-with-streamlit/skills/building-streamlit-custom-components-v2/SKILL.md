@@ -1,7 +1,8 @@
 ---
 name: building-streamlit-custom-components-v2
-description: Builds Streamlit Custom Components v2 (CCv2). Use when authoring a bidirectional Streamlit component using `st.components.v2.component`, including inline HTML/CSS/JS prototypes and packaged components with `asset_dir` manifests (bundled JS/CSS assets, JS/CSS globs, TypeScript typings via `@streamlit/component-v2-lib`, state/trigger callbacks).
+description: Builds bidirectional Streamlit Custom Components v2 (CCv2) using `st.components.v2.component`. Use when authoring inline HTML/CSS/JS components or packaged components (manifest `asset_dir`, js/css globs), wiring state/trigger callbacks, theming via `--st-*` CSS variables, or bundling with Vite / `component-template` v2.
 license: Apache-2.0
+compatibility: Requires Streamlit with Custom Components v2 (`st.components.v2`). Packaged components require Node.js + npm; examples use `uv` + `cookiecutter` for project generation and editable installs.
 ---
 
 # Building Streamlit custom components v2
@@ -234,6 +235,20 @@ Then follow the generated project’s README for the dev loop and build steps. T
 - where the CCv2 manifest lives (it must ship _inside_ the Python package)
 - the `asset_dir` layout and where Vite writes outputs
 - the `js="index-*.js"` registration pattern and hashed build hygiene
+
+### Packaged component workflow (copy/paste checklist)
+
+Use this when you’re debugging or deviating; it’s designed to prevent the common “built assets exist but Streamlit can’t load them” failure modes.
+
+```
+Packaged CCv2 checklist
+- [ ] Generate project from `component-template` v2
+- [ ] Editable install the Python package (`uv pip install -e .` or equivalent)
+- [ ] Build frontend assets into the manifest’s `asset_dir` (template: `frontend/build/`)
+- [ ] Verify `js=`/`css=` globs match exactly one file each under `asset_dir`
+- [ ] Run the example app and confirm the component renders
+- [ ] If something breaks: read `references/troubleshooting.md`, fix, rebuild, re-verify glob uniqueness
+```
 
 ### Study official components (recommended)
 

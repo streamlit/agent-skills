@@ -6,6 +6,11 @@ For packaged CCv2 components, the best practice is to **avoid bespoke packaging/
 
 Follow your generated project’s README. **Only keep reading if you need to debug template wiring or intentionally deviate from it.**
 
+### Prerequisites (packaged components)
+
+- **Python build tooling**: `uv` (recommended) + `cookiecutter`.
+- **Frontend build tooling**: Node.js + npm.
+
 ### Start inline, then graduate to packaged
 
 Inline components are great for getting started quickly. Move to a packaged component when you hit any of these:
@@ -63,6 +68,13 @@ From the generated project:
    ```bash
    streamlit run <import_name>/example.py
    ```
+
+### Verify the build output (prevents most load failures)
+
+- Ensure the manifest’s `asset_dir` exists and contains the built assets.
+- Ensure each glob you register from Python matches **exactly one** file under `asset_dir`:
+  - Typical: `js="index-*.js"` and `css="index-*.css"`
+  - If multiple matches: clean the build output (template: `npm run clean`) and rebuild.
 
 ### Template invariants (don’t break these)
 
