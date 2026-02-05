@@ -35,19 +35,83 @@ Developer story: **start inline**, prove the interaction loop, then **graduate t
 3. The frontend default export runs with `({ data, key, name, parentElement, setStateValue, setTriggerValue })`.
 4. The component returns a **result object** whose attributes correspond to **state keys** and **trigger keys**.
 
-## Inline quickstart (HTML + JS trigger)
+## Best practice: wrap the mount callable in your own Python API
 
-This is the quickest possible “frontend event → Python” component.
+Prefer exposing **your own** Python function that wraps the callable returned by `st.components.v2.component(...)`.
+
+This gives you a clean, stable API surface for end users (typed parameters, validation, friendly defaults) and keeps `data=...`, `default=...`, and callback wiring as an internal detail.
+
+Important:
+
+- Declare the component **once** (usually at module import time). Avoid defining and registering the component inside a function you call multiple times; you can accidentally re-register the component name and get confusing behavior.
+
+References:
+
+- `https://docs.streamlit.io/develop/api-reference/custom-components/st.components.v2.component`
+- `https://docs.streamlit.io/develop/api-reference/custom-components/st.components.v2.types.bidicomponentcallable`
+
+Example pattern:
+
+```python
+import streamlit as st
+from collections.abc import Callable
+
+_MY_COMPONENT = st.components.v2.component(
+    "my_package.my_component",
+    html="<div class='root'></div>",
+    js="index-*.js",
+    # css="index-*.css",
+)
+
+
+def my_component(
+    label: str,
+    *,
+    key: str | None = None,
+    on_value_change: Callable[[], None] | None = None,
+    on_submitted_change: Callable[[], None] | None = None,
+):
+    # If you want result attributes to always exist, provide (even empty) callbacks.
+    if on_value_change is None:
+        on_value_change = lambda: None
+    if on_submitted_change is None:
+        on_submitted_change = lambda: None
+
+    return _MY_COMPONENT(
+        data={"label": label},
+        key=key,
+        on_value_change=on_value_change,
+        on_submitted_change=on_submitted_change,
+    )
+```
+
+## Inline quickstart (state + trigger)
+
+This demonstrates the two core interaction models:
+
+- `setStateValue(...)` for **persistent state**
+- `setTriggerValue(...)` for **one-shot events**
 
 ```python
 import streamlit as st
 
 HTML = """
-<button id="btn" type="button">Click me</button>
+<label for="txt">Enter text</label>
+<input id="txt" type="text" />
+<button id="btn" type="button">Submit</button>
 """
 
 CSS = """
+label { margin-right: 0.5rem; }
+input {
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--st-border-color);
+  background: var(--st-secondary-background-color);
+  color: var(--st-text-color);
+}
 button {
+  margin-left: 0.5rem;
   border-radius: 0.5rem;
   padding: 0.4rem 0.75rem;
   border: 1px solid var(--st-border-color);
@@ -59,26 +123,46 @@ button:hover { border-color: var(--st-primary-color); }
 
 JS = """
 export default function (component) {
-  const { parentElement, setTriggerValue } = component
+  const { data, parentElement, setStateValue, setTriggerValue } = component
 
+  const input = parentElement.querySelector("#txt")
   const btn = parentElement.querySelector("#btn")
-  if (!btn) return
+  if (!input || !btn) return
+
+  const nextValue = (data && data.value) ?? ""
+  if (input.value !== nextValue) input.value = nextValue
+
+  input.oninput = (e) => {
+    setStateValue("value", e.target.value)
+  }
 
   btn.onclick = () => {
-    setTriggerValue("clicked", true)
+    setTriggerValue("submitted", input.value)
   }
 }
 """
 
-my_button = st.components.v2.component(
-    "my_inline_button",
+my_text_input = st.components.v2.component(
+    "my_inline_text_input",
     html=HTML,
     css=CSS,
     js=JS,
 )
 
-result = my_button(key="btn-1", on_clicked_change=lambda: None)
-st.write("clicked:", bool(result.clicked))
+KEY = "txt-1"
+component_state = st.session_state.get(KEY, {})
+value = component_state.get("value", "")
+
+result = my_text_input(
+    key=KEY,
+    data={"value": value},
+    default={"value": value},
+    on_value_change=lambda: None,
+    on_submitted_change=lambda: None,
+)
+
+st.write("value (state):", result.value)
+st.write("submitted (trigger):", result.submitted)
 ```
 
 Notes:
@@ -89,8 +173,31 @@ Notes:
 ## State and triggers (how to think about keys)
 
 - **State** (`setStateValue("value", ...)`): persists across app reruns.
-- **Trigger** (`setTriggerValue("submit", ...)`): one-rerun event (resets after the rerun).
-- In Python, keys show up as attributes on the result: `result.value`, `result.submit`, etc.
+- **Trigger** (`setTriggerValue("submitted", ...)`): one-rerun event (resets after the rerun).
+- In Python, keys show up as attributes on the result: `result.value`, `result.submitted`, etc.
+- If you mount with a `key=...`, Streamlit also makes the component’s **state** available in Session State under `st.session_state[key]` (a dict-like object). This enables programmatic reads/writes of persistent component state.
+  - Triggers are transient and should be handled from the **return value** (`result`) instead.
+
+Example (result vs Session State):
+
+```python
+import streamlit as st
+
+result = my_component(
+    "Label",
+    key="my_comp",
+    on_value_change=lambda: None,
+    on_submitted_change=lambda: None,
+)
+
+st.write("result.value:", result.value)
+st.write("result.submitted:", result.submitted)
+st.write("session_state value:", st.session_state.get("my_comp", {}).get("value"))
+
+if st.button("Set value programmatically"):
+    st.session_state.setdefault("my_comp", {})["value"] = "Hello from Python"
+    st.rerun()
+```
 
 ### Default values and callbacks
 
@@ -103,7 +210,7 @@ Use this when you want a distributable component package (multi-file frontend co
 
 Notes:
 
-- The official Streamlit template is set up for **React + Vite**, but CCv2 works with **any frontend framework** (Svelte/Vue/Angular/etc.) as long as you compile to JavaScript and register the resulting JS/CSS assets.
+- The official Streamlit `component-template` v2 supports both **React + TypeScript (Vite)** and **Pure TypeScript (Vite)** (no React). CCv2 also works with **any frontend framework** (Svelte/Vue/Angular/etc.) as long as you compile to JavaScript and register the resulting JS/CSS assets.
 - For type-safe frontend authoring, use TypeScript with `@streamlit/component-v2-lib` (npm: `https://www.npmjs.com/package/@streamlit/component-v2-lib`). Your TypeScript compiles to JS, but the package gives you **typed renderer args** and **typed state/data contracts** while developing.
 
 ### Best practice: always start from `component-template` v2
@@ -128,30 +235,30 @@ Then follow the generated project’s README for the dev loop and build steps. T
 - the `asset_dir` layout and where Vite writes outputs
 - the `js="index-*.js"` registration pattern and hashed build hygiene
 
+### Study official components (recommended)
+
+If you want reference implementations maintained by Streamlit, start with:
+
+- `https://github.com/streamlit/streamlit-pdf`
+- `https://github.com/streamlit/streamlit-bokeh`
+
 If you need the “why” or hit edge cases (globs, manifest discovery, editable installs), see:
 
 - [references/packaged-components.md](references/packaged-components.md)
 
-## React frontend entrypoint (CCv2 pattern)
+## Frontend renderer lifecycle (framework-agnostic)
 
-React is a common choice (and the official template default). The same lifecycle principles apply to other frameworks: mount under `parentElement`, keep per-instance state keyed by `parentElement`, and return a cleanup function.
+Your frontend entrypoint is the **default export** function. A few rules keep components reliable across reruns and across multiple instances in the same app:
 
-For React specifically, the reliable pattern is:
-
-- Include a placeholder element in `html` (e.g. `<div class="react-root"></div>`).
-- In your default export, mount React into that element.
-- Use a `WeakMap` keyed by `parentElement` so multiple instances don’t collide.
-- Return a cleanup function that unmounts.
-
-See:
-
-- [references/react-vite-entrypoint.md](references/react-vite-entrypoint.md)
+- Render under `parentElement` (not `document`) so instances don’t collide.
+- If you create per-instance resources (React roots, observers, subscriptions), key them by `parentElement` (e.g. `WeakMap`) so multiple instances don’t overwrite each other.
+- Return a cleanup function to tear down event listeners / UI roots / observers when Streamlit unmounts the component.
 
 ## Styling and theming
 
 - Prefer **`isolate_styles=True`** (default). Your component runs in a shadow root and won’t leak styles into the app.
 - Set `isolate_styles=False` only when you need global styling behavior (e.g. Tailwind, global font injection).
-- Streamlit injects a broad set of `--st-*` theme CSS variables (colors, typography, chart palettes, radii, borders, etc.). Start with the common ones (`--st-text-color`, `--st-primary-color`, `--st-secondary-background-color`) and refer to the full list when you need it:
+- Streamlit injects a broad set of `--st-*` theme CSS variables (colors, typography, chart palettes, radii, borders, etc.). **Highly recommended:** use these variables so your component automatically adapts to the user’s current Streamlit theme (light/dark/custom) without authoring separate theme variants. Start with the common ones (`--st-text-color`, `--st-primary-color`, `--st-secondary-background-color`) and refer to the full list when you need it:
   - [references/theme-css-variables.md](references/theme-css-variables.md)
 
 ## Troubleshooting and gotchas

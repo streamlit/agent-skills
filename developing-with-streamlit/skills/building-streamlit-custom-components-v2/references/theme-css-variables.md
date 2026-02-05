@@ -2,6 +2,8 @@
 
 Streamlit injects a set of `--st-*` CSS custom properties into CCv2 components so you can match the app’s theme from within your component CSS (including when `isolate_styles=True` and you’re rendering inside a shadow root).
 
+**Highly recommended:** prefer these variables over hard-coded colors. They automatically adapt to a user’s current Streamlit theme (light/dark/custom), so component authors typically **do not** need separate “dark mode vs light mode” styling.
+
 Use them like any CSS variable:
 
 ```css

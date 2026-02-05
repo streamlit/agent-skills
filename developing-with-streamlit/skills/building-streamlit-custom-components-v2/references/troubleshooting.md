@@ -30,6 +30,14 @@ Fix:
 - Make your bundler output a predictable `index-<hash>.js` / `index-<hash>.css` (or `assets/index-<hash>...` if you emit into an `assets/` subdir).
 - If you started from Streamlit’s `component-template`, run `npm run clean` from your `frontend/` directory to clear the `build/` output so `index-*.js` matches exactly one file.
 
+### Vite-specific build gotchas
+
+If you deviate from the template’s Vite config (or you’re wiring Vite into an existing repo), these are the common footguns:
+
+- **Missing `base: "./"`**: relative asset URLs can break when served from Streamlit’s component URL path.
+- **CSS splitting on while loading a single CSS glob**: if your build emits multiple CSS files but you register only `css="index-*.css"`, most CSS won’t load. Either disable CSS splitting or register all emitted CSS explicitly.
+- **Stale build artifacts**: Vite outputs hashed filenames; if you keep old builds around, `index-*.js` can match multiple files. Clean the build dir before rebuilding.
+
 ### `default={...}` doesn’t apply / missing result attributes
 
 Defaults only apply to **state keys**, and Streamlit expects those keys to be declared via `on_<key>_change` callback parameters at mount time.

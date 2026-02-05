@@ -14,9 +14,9 @@ Inline components are great for getting started quickly. Move to a packaged comp
 - You want to pull in **frontend libraries** (npm deps) and run a bundler.
 - You need **tests**, CI, versioning, or distribution (PyPI/private index).
 
-### Frontend framework note (React is just the default)
+### Frontend framework note (React is optional)
 
-The official template uses **React + Vite**, but CCv2 works with **any frontend framework that compiles to JavaScript** (Svelte, Vue, Angular, vanilla TS/JS, etc.).
+The official Streamlit `component-template` v2 supports both **React + TypeScript (Vite)** and **Pure TypeScript (Vite)** (no React). CCv2 also works with **any frontend framework that compiles to JavaScript** (Svelte, Vue, Angular, vanilla TS/JS, etc.).
 
 The only requirement is that you produce JS/CSS assets into your component’s `asset_dir`, then register them from Python via `html=...`, `js="..."`, and `css="..."` using **asset-dir-relative** paths/globs.
 
