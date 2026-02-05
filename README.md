@@ -15,6 +15,7 @@ The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.
 | [building-streamlit-chat-ui](developing-with-streamlit/skills/building-streamlit-chat-ui/) | Chat interfaces, chatbots, AI assistants |
 | [building-streamlit-dashboards](developing-with-streamlit/skills/building-streamlit-dashboards/) | KPI cards, metrics, dashboard layouts |
 | [building-streamlit-multipage-apps](developing-with-streamlit/skills/building-streamlit-multipage-apps/) | Multi-page app structure and navigation |
+| [building-streamlit-custom-components-v2](developing-with-streamlit/skills/building-streamlit-custom-components-v2/) | Writing Streamlit Custom Components v2 (inline and packaged), bundling, state/trigger callbacks |
 | [choosing-streamlit-selection-widgets](developing-with-streamlit/skills/choosing-streamlit-selection-widgets/) | Choosing the right selection widget |
 | [connecting-streamlit-to-snowflake](developing-with-streamlit/skills/connecting-streamlit-to-snowflake/) | Connecting to Snowflake with st.connection |
 | [creating-streamlit-themes](developing-with-streamlit/skills/creating-streamlit-themes/) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
