@@ -6,6 +6,29 @@ For packaged CCv2 components, the best practice is to **avoid bespoke packaging/
 
 Follow your generated project’s README. **Only keep reading if you need to debug template wiring or intentionally deviate from it.**
 
+### Start inline, then graduate to packaged
+
+Inline components are great for getting started quickly. Move to a packaged component when you hit any of these:
+
+- You need **multiple frontend files** (components/modules) instead of one big string.
+- You want to pull in **frontend libraries** (npm deps) and run a bundler.
+- You need **tests**, CI, versioning, or distribution (PyPI/private index).
+
+### Frontend framework note (React is just the default)
+
+The official template uses **React + Vite**, but CCv2 works with **any frontend framework that compiles to JavaScript** (Svelte, Vue, Angular, vanilla TS/JS, etc.).
+
+The only requirement is that you produce JS/CSS assets into your component’s `asset_dir`, then register them from Python via `html=...`, `js="..."`, and `css="..."` using **asset-dir-relative** paths/globs.
+
+### TypeScript support (recommended)
+
+For end-to-end type safety while authoring the frontend, install `@streamlit/component-v2-lib`:
+
+- npm: `https://www.npmjs.com/package/@streamlit/component-v2-lib`
+- docs: `https://docs.streamlit.io/develop/api-reference/custom-components/component-v2-lib`
+
+It provides TypeScript types like `FrontendRenderer` / `FrontendRendererArgs` so your `export default` renderer gets a **typed** `data` payload and typed state/trigger keys via generics.
+
 ### Generate a new CCv2 component project
 
 ```bash
@@ -56,4 +79,3 @@ Keep the blast radius small:
 
 - If you change output layout, update only the `js=`/`css=` asset-dir-relative globs in the Python wrapper.
 - For Vite, keep `base: "./"` so relative URLs work when served from Streamlit’s component URLs.
-

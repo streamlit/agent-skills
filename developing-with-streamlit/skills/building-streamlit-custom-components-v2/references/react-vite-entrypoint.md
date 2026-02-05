@@ -2,6 +2,8 @@
 
 This reference shows a proven CCv2 frontend entrypoint shape for React and a Vite config that plays nicely with Streamlit asset serving.
 
+Even if you’re not using React, the same CCv2 lifecycle principles apply to other frameworks (Svelte/Vue/Angular/etc.): render under `parentElement`, keep per-instance resources keyed by `parentElement`, and return a cleanup function that tears down event listeners / UI roots on unmount.
+
 ### If you started from `component-template`
 
 Streamlit’s official [component-template](https://github.com/streamlit/component-template) v2 already follows this pattern:
@@ -21,7 +23,7 @@ st.components.v2.component(
 )
 ```
 
-### Frontend entrypoint (React)
+### Frontend entrypoint (React example)
 
 Key points:
 
@@ -87,7 +89,7 @@ st.components.v2.component(
 
 ### Vite build config (library-style output)
 
-If you started from `component-template`, prefer keeping and iterating on the template’s `vite.config.ts` rather than copying a bespoke config. The example below is for cases where you’re *not* using the template or you’re intentionally changing the output layout.
+If you started from `component-template`, prefer keeping and iterating on the template’s `vite.config.ts` rather than copying a bespoke config. The example below is for cases where you’re _not_ using the template or you’re intentionally changing the output layout.
 
 The key goals:
 
@@ -97,34 +99,34 @@ The key goals:
 - Keep CSS in a single file if you plan to load it via a single glob (`cssCodeSplit: false`)
 
 ```ts
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
-  base: "./",
+  base: './',
   plugins: [react()],
   build: {
-    outDir: "build",
-    assetsDir: "assets",
+    outDir: 'build',
+    assetsDir: 'assets',
     cssCodeSplit: false,
     lib: {
-      entry: "src/index.tsx",
-      formats: ["es"],
-      fileName: () => "assets/index-[hash].js",
+      entry: 'src/index.tsx',
+      formats: ['es'],
+      fileName: () => 'assets/index-[hash].js',
     },
     rollupOptions: {
       output: {
-        entryFileNames: "assets/index-[hash].js",
-        chunkFileNames: "assets/chunk-[hash].js",
-        assetFileNames: assetInfo => {
-          const name = assetInfo.name || "asset"
-          if (name.endsWith(".css")) return "assets/index-[hash][extname]"
-          return "assets/[name]-[hash][extname]"
+        entryFileNames: 'assets/index-[hash].js',
+        chunkFileNames: 'assets/chunk-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const name = assetInfo.name || 'asset';
+          if (name.endsWith('.css')) return 'assets/index-[hash][extname]';
+          return 'assets/[name]-[hash][extname]';
         },
       },
     },
   },
-}))
+}));
 ```
 
 ### Common mistakes
@@ -132,4 +134,3 @@ export default defineConfig(() => ({
 - **Multiple hashed outputs** left in `build/` ⇒ your `assets/index-*.js` glob matches multiple files.
 - **Forgetting `base: "./"`** ⇒ assets may 404 when served from Streamlit’s component URL path.
 - **CSS splitting on** while loading a single CSS glob ⇒ extra CSS files won’t load unless you explicitly include them.
-
