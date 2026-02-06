@@ -35,7 +35,6 @@ Fix:
 If you deviate from the template’s Vite config (or you’re wiring Vite into an existing repo), these are the common footguns:
 
 - **Missing `base: "./"`**: relative asset URLs can break when served from Streamlit’s component URL path.
-- **CSS splitting on while loading a single CSS glob**: if your build emits multiple CSS files but you register only `css="index-*.css"`, most CSS won’t load. Either disable CSS splitting or register all emitted CSS explicitly.
 - **Stale build artifacts**: Vite outputs hashed filenames; if you keep old builds around, `index-*.js` can match multiple files. Clean the build dir before rebuilding.
 
 ### `default={...}` doesn’t apply / missing result attributes
@@ -77,4 +76,3 @@ Fix:
 
 - Prefer `querySelector` + modifying children.
 - If you need dynamic HTML, create a new child element and set **that** element’s `innerHTML`.
-

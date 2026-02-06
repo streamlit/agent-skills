@@ -58,10 +58,14 @@ import streamlit as st
 from collections.abc import Callable
 
 _MY_COMPONENT = st.components.v2.component(
-    "my_package.my_component",
-    html="<div class='root'></div>",
-    js="index-*.js",
-    # css="index-*.css",
+    "my_inline_component",
+    html="<div id='root'></div>",
+    js="""
+export default function (component) {
+  const { data, parentElement } = component
+  parentElement.querySelector("#root").textContent = data?.label ?? ""
+}
+""",
 )
 
 
@@ -72,7 +76,8 @@ def my_component(
     on_value_change: Callable[[], None] | None = None,
     on_submitted_change: Callable[[], None] | None = None,
 ):
-    # If you want result attributes to always exist, provide (even empty) callbacks.
+    # Callbacks are optional, but if you want result attributes to always exist,
+    # provide (even empty) callbacks.
     if on_value_change is None:
         on_value_change = lambda: None
     if on_submitted_change is None:
@@ -174,36 +179,107 @@ Notes:
 ## State and triggers (how to think about keys)
 
 - **State** (`setStateValue("value", ...)`): persists across app reruns.
-- **Trigger** (`setTriggerValue("submitted", ...)`): one-rerun event (resets after the rerun).
+- **Trigger** (`setTriggerValue("submitted", ...)`): transient event payload (resets after the rerun).
 - In Python, keys show up as attributes on the result: `result.value`, `result.submitted`, etc.
-- If you mount with a `key=...`, Streamlit also makes the component’s **state** available in Session State under `st.session_state[key]` (a dict-like object). This enables programmatic reads/writes of persistent component state.
-  - Triggers are transient and should be handled from the **return value** (`result`) instead.
+- If you mount with a `key=...`, Streamlit stores the component’s **persistent state** in Session State under `st.session_state[key]` (a dict-like object). Streamlit also **presents** the latest trigger payloads alongside that state in the same mapping for convenience—but trigger values still reset after one run.
+  - Use `result.<trigger>` when you’re handling triggers _after_ mounting the component in your script.
+  - Use `st.session_state[key].<trigger>` when you’re handling triggers _inside_ an `on_<trigger>_change` callback (callbacks run before your script body, so you won’t have `result` yet).
+
+## Handling state bidirectionally (JS ↔ Python)
+
+CCv2 does not magically sync your UI. You have to explicitly implement both directions:
+
+- **JS → Python**: call `setStateValue(k, v)` (persistent) or `setTriggerValue(k, v)` (one-shot).
+- **Python → JS**: send the next “source of truth” down via `data=...` when you mount the component.
+
+### JS → Python (emit updates)
+
+- Use `setStateValue("value", ...)` for values you want to persist across reruns and be writable in `st.session_state[key]`.
+- Use `setTriggerValue("submitted", ...)` for events (button clicks, submit actions).
+  - After you mount the component, read trigger payloads from the return value (`result.submitted`).
+  - Inside an `on_<trigger>_change` callback, read the trigger payload from `st.session_state[key].submitted` (callbacks run before your script body, so you won’t have `result` yet).
+- Pick state/trigger keys intentionally and wire them in Python using `on_<key>_change=...`.
+  - Streamlit dispatches these callbacks with **per-key granularity**: `on_value_change` runs only when `value` changes; `on_submitted_change` runs only when the `submitted` trigger fires.
+
+### Python → JS (hydrate/sync the UI)
+
+- The frontend only receives what you pass as `data`. If you want Python to drive the UI, pass current state in `data` _on every run_.
+- Canonical pattern:
+  - Read current component state from `st.session_state.get(key, {})`
+  - Compute the next value(s) you want the UI to show
+  - Mount with `data={...}` containing those values
+  - In JS, reconcile DOM from `data` without clobbering user input unnecessarily
+
+**Important:** Don’t mutate `st.session_state[key][...]` after the component is instantiated in the same run. Set it **before** mounting (or in a different run) to avoid Streamlit raising.
+
+For the full controlled-input pattern and common pitfalls, see:
+
+- [references/state-sync.md](references/state-sync.md)
 
 Example (result vs Session State):
 
 ```python
 import streamlit as st
 
-result = my_component(
-    "Label",
-    key="my_comp",
+# Assume `my_text_input` is defined as in the inline quickstart above.
+KEY = "txt-1"
+
+# IMPORTANT: If you want to programmatically set component state, do it
+# *before* mounting the component in that run.
+if st.button("Set value programmatically"):
+    if KEY not in st.session_state:
+        st.session_state[KEY] = {}
+    st.session_state[KEY]["value"] = "Hello from Python"
+    st.rerun()
+
+component_state = st.session_state.get(KEY, {})
+value = component_state.get("value", "")
+
+result = my_text_input(
+    key=KEY,
+    data={"value": value},
+    default={"value": value},
     on_value_change=lambda: None,
     on_submitted_change=lambda: None,
 )
 
-st.write("result.value:", result.value)
-st.write("result.submitted:", result.submitted)
-st.write("session_state value:", st.session_state.get("my_comp", {}).get("value"))
-
-if st.button("Set value programmatically"):
-    st.session_state.setdefault("my_comp", {})["value"] = "Hello from Python"
-    st.rerun()
+st.write("result.value (state):", result.value)
+st.write("result.submitted (trigger):", result.submitted)
+st.write("session_state value:", st.session_state.get(KEY, {}).get("value"))
+st.write("session_state submitted:", st.session_state.get(KEY, {}).get("submitted"))
 ```
 
 ### Default values and callbacks
 
 - To set **default** state, pass `default={...}` **and** include a matching `on_<key>_change` callback parameter (it can be a no-op `lambda: None`).
 - If you want the result to **always** include a given attribute, pass an `on_<key>_change` callback for that key (even if you don’t need to run code).
+
+Callback power move:
+
+- Use many small callbacks instead of one big `if/elif` handler. Streamlit will only call the callbacks for the **specific keys that changed / events that fired**, which gives you very fine-grained control over side effects.
+
+Minimal example (granular callbacks):
+
+```python
+import streamlit as st
+
+KEY = "txt-1"
+
+def on_value_change():
+    # Runs only when the component's state key `value` changes.
+    st.session_state["last_value"] = st.session_state[KEY].value
+
+def on_submitted_change():
+    # Runs only when the component fires the `submitted` trigger.
+    st.session_state["last_submit"] = st.session_state[KEY].submitted
+    st.session_state["submit_count"] = st.session_state.get("submit_count", 0) + 1
+
+result = my_text_input(
+    key=KEY,
+    on_value_change=on_value_change,
+    on_submitted_change=on_submitted_change,
+)
+```
 
 ## Packaged components (template-first)
 

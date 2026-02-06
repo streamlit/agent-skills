@@ -1,22 +1,22 @@
-## Streamlit theme CSS variables injected into CCv2 components
+## Streamlit theme CSS variables for CCv2 components (`--st-*`)
 
-Streamlit injects a set of `--st-*` CSS custom properties into CCv2 components so you can match the app’s theme from within your component CSS (including when `isolate_styles=True` and you’re rendering inside a shadow root).
+Streamlit injects a set of `--st-*` CSS custom properties into CCv2 components so your component can match the app’s active theme from within your component CSS (including when `isolate_styles=True` and you’re rendering inside a shadow root).
 
-**Highly recommended:** prefer these variables over hard-coded colors. They automatically adapt to a user’s current Streamlit theme (light/dark/custom), so component authors typically **do not** need separate “dark mode vs light mode” styling.
+**Recommendation:** Prefer `var(--st-…)` over hard-coded colors and sizes. These variables automatically adapt to a user's current Streamlit theme (light/dark/custom), so most components **do not** need separate “dark mode vs light mode” styling.
 
 ## Contents
 
-- Usage example
-- Serialization rules
-- Variable list (`--st-*`)
-  - Core colors and typography
-  - Radii and sizing
-  - Heading sizes and weights
-  - Borders and dataframe colors
-  - Code styling
-  - Chart palettes
-  - Computed / derived values
-  - Color palette (semantic colors)
+- Quick start
+- Gotchas: serialization + fallbacks
+- Cheat sheet: the 90% variables (intent → `--st-*`)
+- Foundation tokens (surfaces, text, borders, shape)
+- Typography tokens
+- Data display tokens (dataframes/tables)
+- Data visualization tokens (chart palettes)
+- Semantic/status palette (red/green/etc.)
+- Appendix: full variable index (alphabetical)
+
+### Quick start
 
 Use them like any CSS variable:
 
@@ -27,9 +27,15 @@ Use them like any CSS variable:
   border: 1px solid var(--st-border-color);
   border-radius: var(--st-base-radius);
 }
+
+.primaryButton {
+  background: var(--st-primary-color);
+  color: var(--st-background-color);
+  border-radius: var(--st-button-radius);
+}
 ```
 
-### Serialization rules (important)
+### Gotchas: serialization rules + safe fallbacks
 
 These variables originate from Streamlit’s theme object and are serialized into strings:
 
@@ -40,39 +46,72 @@ These variables originate from Streamlit’s theme object and are serialized int
   - If you need individual items in JS, split on `","`.
 - **Missing values (`null` / `undefined`)**: become `unset` so consumers fall back to initial/inherited CSS behavior.
 
-### Exhaustive variable list (`--st-*`)
+### Cheat sheet: the 90% variables (intent → `--st-*`)
 
-Below is the full set of theme variables exposed to components. The variable name is derived from the theme key by converting to kebab-case and prefixing with `--st-`.
+Use this section as your starting point. It covers what most components need most of the time.
 
-#### Core colors and typography (theme config inputs)
+| Intent                    | Variables                                                              |
+| ------------------------- | ---------------------------------------------------------------------- |
+| App/page background       | `--st-background-color`                                                |
+| Panel/card background     | `--st-secondary-background-color`                                      |
+| Body text                 | `--st-text-color`                                                      |
+| Headings                  | `--st-heading-color`, `--st-heading-font`                              |
+| Primary accent / emphasis | `--st-primary-color`                                                   |
+| Links                     | `--st-link-color`, `--st-link-underline`                               |
+| Borders / dividers        | `--st-border-color`, `--st-border-color-light`                         |
+| Widget outline borders    | `--st-widget-border-color`                                             |
+| Corner radius             | `--st-base-radius`, `--st-button-radius`                               |
+| Code blocks               | `--st-code-background-color`, `--st-code-text-color`, `--st-code-font` |
 
-- `--st-primary-color`
-- `--st-background-color`
-- `--st-secondary-background-color`
-- `--st-text-color`
-- `--st-link-color`
+### Foundation tokens (surfaces, text, borders, shape)
+
+#### Surfaces and content colors
+
+- `--st-background-color` (page background)
+- `--st-secondary-background-color` (panels, cards, containers)
+- `--st-text-color` (default text)
+- `--st-heading-color` (derived heading color)
+- `--st-primary-color` (brand / accent)
+- `--st-link-color` (link color)
 - `--st-link-underline` (boolean serialized to `"1"` / `"0"`)
-- `--st-heading-font`
-- `--st-code-font`
-- `--st-font` (body font)
 
-#### Radii and sizing
+#### Borders and separators
+
+- `--st-border-color` (default borders/dividers)
+- `--st-border-color-light` (derived lighter border)
+- `--st-widget-border-color` (widget borders)
+
+#### Shape (radii)
 
 - `--st-base-radius`
 - `--st-button-radius`
+
+#### Code block colors
+
+- `--st-code-background-color`
+- `--st-code-text-color`
+
+### Typography tokens
+
+#### Font families
+
+- `--st-font` (body font)
+- `--st-heading-font`
+- `--st-code-font`
+
+#### Body sizing and weights
+
 - `--st-base-font-size`
 - `--st-base-font-weight` (number)
-- `--st-code-font-weight` (number)
-- `--st-code-font-size`
 
-#### Heading sizes and weights
+#### Headings (H1–H6)
 
 Arrays (comma-joined):
 
-- `--st-heading-font-sizes` (array; typically 6 values for h1–h6)
-- `--st-heading-font-weights` (array; typically 6 values for h1–h6)
+- `--st-heading-font-sizes` (array; typically 6 values for H1–H6)
+- `--st-heading-font-weights` (array; typically 6 values for H1–H6)
 
-Individual convenience variables:
+Per-level convenience variables:
 
 - `--st-heading-font-size-1`
 - `--st-heading-font-size-2`
@@ -87,57 +126,113 @@ Individual convenience variables:
 - `--st-heading-font-weight-5` (number)
 - `--st-heading-font-weight-6` (number)
 
-#### Borders and dataframe colors
+#### Code typography
 
-- `--st-border-color`
+- `--st-code-font-size`
+- `--st-code-font-weight` (number)
+
+### Data display tokens (dataframes/tables)
+
 - `--st-dataframe-border-color`
 - `--st-dataframe-header-background-color`
-- `--st-widget-border-color`
 
-#### Code styling
+### Data visualization tokens (chart palettes)
 
-- `--st-code-background-color`
-- `--st-code-text-color`
+Chart palette variables are **arrays serialized as comma-joined strings**:
 
-#### Chart palettes
+- `--st-chart-categorical-colors` (discrete series)
+- `--st-chart-sequential-colors` (low → high)
+- `--st-chart-diverging-colors` (negative ↔ positive around a midpoint)
 
-Arrays (comma-joined):
+If you need the palette values in JS, split on commas:
 
-- `--st-chart-categorical-colors`
-- `--st-chart-sequential-colors`
-- `--st-chart-diverging-colors`
+```js
+const raw = getComputedStyle(document.documentElement)
+  .getPropertyValue('--st-chart-categorical-colors')
+  .trim();
+const palette = raw ? raw.split(',') : [];
+```
 
-#### Computed / derived values
+### Semantic/status palette
 
-- `--st-heading-color`
-- `--st-border-color-light`
+These are best for status UI (badges, alerts, validation messages), not for primary layout surfaces.
 
-#### Color palette (semantic colors)
+Each “family” typically comes in three variants:
 
-- `--st-red-color`
-- `--st-orange-color`
-- `--st-yellow-color`
-- `--st-blue-color`
-- `--st-green-color`
-- `--st-violet-color`
-- `--st-gray-color`
+- **Base**: `--st-<name>-color`
+- **Background**: `--st-<name>-background-color`
+- **Text**: `--st-<name>-text-color`
 
-Background variants:
+Families:
 
-- `--st-red-background-color`
-- `--st-orange-background-color`
-- `--st-yellow-background-color`
+- Red: `--st-red-color`, `--st-red-background-color`, `--st-red-text-color`
+- Orange: `--st-orange-color`, `--st-orange-background-color`, `--st-orange-text-color`
+- Yellow: `--st-yellow-color`, `--st-yellow-background-color`, `--st-yellow-text-color`
+- Blue: `--st-blue-color`, `--st-blue-background-color`, `--st-blue-text-color`
+- Green: `--st-green-color`, `--st-green-background-color`, `--st-green-text-color`
+- Violet: `--st-violet-color`, `--st-violet-background-color`, `--st-violet-text-color`
+- Gray: `--st-gray-color`, `--st-gray-background-color`, `--st-gray-text-color`
+
+### Appendix: full variable index (alphabetical)
+
+- `--st-background-color`
+- `--st-base-font-size`
+- `--st-base-font-weight`
+- `--st-base-radius`
 - `--st-blue-background-color`
-- `--st-green-background-color`
-- `--st-violet-background-color`
-- `--st-gray-background-color`
-
-Text variants:
-
-- `--st-red-text-color`
-- `--st-orange-text-color`
-- `--st-yellow-text-color`
+- `--st-blue-color`
 - `--st-blue-text-color`
-- `--st-green-text-color`
-- `--st-violet-text-color`
+- `--st-border-color`
+- `--st-border-color-light`
+- `--st-button-radius`
+- `--st-chart-categorical-colors`
+- `--st-chart-diverging-colors`
+- `--st-chart-sequential-colors`
+- `--st-code-background-color`
+- `--st-code-font`
+- `--st-code-font-size`
+- `--st-code-font-weight`
+- `--st-code-text-color`
+- `--st-dataframe-border-color`
+- `--st-dataframe-header-background-color`
+- `--st-font`
+- `--st-gray-background-color`
+- `--st-gray-color`
 - `--st-gray-text-color`
+- `--st-green-background-color`
+- `--st-green-color`
+- `--st-green-text-color`
+- `--st-heading-color`
+- `--st-heading-font`
+- `--st-heading-font-size-1`
+- `--st-heading-font-size-2`
+- `--st-heading-font-size-3`
+- `--st-heading-font-size-4`
+- `--st-heading-font-size-5`
+- `--st-heading-font-size-6`
+- `--st-heading-font-sizes`
+- `--st-heading-font-weight-1`
+- `--st-heading-font-weight-2`
+- `--st-heading-font-weight-3`
+- `--st-heading-font-weight-4`
+- `--st-heading-font-weight-5`
+- `--st-heading-font-weight-6`
+- `--st-heading-font-weights`
+- `--st-link-color`
+- `--st-link-underline`
+- `--st-orange-background-color`
+- `--st-orange-color`
+- `--st-orange-text-color`
+- `--st-primary-color`
+- `--st-red-background-color`
+- `--st-red-color`
+- `--st-red-text-color`
+- `--st-secondary-background-color`
+- `--st-text-color`
+- `--st-violet-background-color`
+- `--st-violet-color`
+- `--st-violet-text-color`
+- `--st-widget-border-color`
+- `--st-yellow-background-color`
+- `--st-yellow-color`
+- `--st-yellow-text-color`
