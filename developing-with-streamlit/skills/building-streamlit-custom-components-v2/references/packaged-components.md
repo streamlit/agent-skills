@@ -6,6 +6,14 @@ For packaged CCv2 components, the best practice is to **avoid bespoke packaging/
 
 Follow your generated project’s README. **Only keep reading if you need to debug template wiring or intentionally deviate from it.**
 
+### Agent guardrail: no hand-scaffold first
+
+If the request is for a packaged CCv2 component:
+
+- Start from the official template first.
+- Do not manually scaffold a custom package/manifest/build layout before template generation.
+- Customize after generation so you retain known-good packaging defaults.
+
 ### Prerequisites (packaged components)
 
 - **Python build tooling**: `uv` (recommended) + `cookiecutter`.
@@ -50,24 +58,35 @@ uvx --from cookiecutter cookiecutter /path/to/component-template --directory coo
 
 From the generated project:
 
-1. Editable install (project root containing `pyproject.toml`):
+1. Activate the target project environment before Python/uv commands:
+
+   ```bash
+   source /path/to/project/.venv/bin/activate
+   ```
+
+2. Build the frontend assets (from `<import_name>/frontend`):
+
+   ```bash
+   npm i
+   npm run build
+   ```
+
+3. Editable install (project root containing `pyproject.toml`):
 
    ```bash
    uv pip install -e . --force-reinstall
    ```
 
-2. Watch-build the frontend (from `<import_name>/frontend`):
+4. Run the example app with Streamlit:
 
    ```bash
-   npm i
-   npm run dev
+   streamlit run example.py
    ```
 
-3. Run the example app:
+Why this order:
 
-   ```bash
-   streamlit run <import_name>/example.py
-   ```
+- Building first ensures `asset_dir` contains the expected files before install/use.
+- Reinstalling editable after key renames keeps metadata and import paths in sync.
 
 ### Verify the build output (prevents most load failures)
 
@@ -85,9 +104,31 @@ You typically shouldn’t need to touch these, but they explain most “why won�
 - **Asset paths are asset-dir-relative strings**: `js="index-*.js"` (template default output) or `js="assets/index-*.js"` (if you configured an `assets/` subdir).
 - **Globs must match exactly one file**: if `index-*.js` matches multiple hashed builds, clean the build output (`npm run clean`) and rebuild.
 
+### Rename checklist (avoid placeholder-name drift)
+
+Template defaults like `streamlit-component-x` / `streamlit_component_x` should be replaced everywhere early.
+
+Rename all of these together:
+
+- Root folder name (optional but recommended for clarity).
+- Distribution name (`[project].name`) in root `pyproject.toml`.
+- Import package directory (`streamlit_<real_name>`).
+- In-package manifest file and contents (`<import_name>/pyproject.toml`).
+- Wrapper registration key:
+  - `st.components.v2.component("<project.name>.<component.name>", ...)`
+- `MANIFEST.in` and `[tool.setuptools.*]` references.
+- README/example imports and frontend package name.
+
 ### If you intentionally deviate from the template
 
 Keep the blast radius small:
 
 - If you change output layout, update only the `js=`/`css=` asset-dir-relative globs in the Python wrapper.
 - For Vite, keep `base: "./"` so relative URLs work when served from Streamlit’s component URLs.
+
+### Verification recommendation
+
+Validate packaged components with `streamlit run ...`, not plain `python -c "import ..."` checks.
+
+- Streamlit discovers component manifests as part of runtime setup.
+- Plain import checks can report false-negative `asset_dir` registration errors for otherwise-correct packaged components.

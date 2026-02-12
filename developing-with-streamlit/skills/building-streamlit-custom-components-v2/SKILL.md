@@ -294,6 +294,12 @@ Notes:
 
 For packaged CCv2 components, **do not build the packaging/bundling setup from scratch**. Funnel the work through Streamlit’s official template so you inherit the correct defaults and avoid subtle manifest/asset shipping mistakes.
 
+Hard rule for agents:
+
+- If the user asks for a **packaged** CCv2 component, start from `component-template` v2.
+- Do **not** hand-scaffold package layout, manifests, or frontend build config first.
+- You can customize heavily **after** generation, but template bootstrap is the required starting point.
+
 Generate a new CCv2 component project:
 
 ```bash
@@ -312,6 +318,27 @@ Then follow the generated project’s README for the dev loop and build steps. T
 - the `asset_dir` layout and where Vite writes outputs
 - the `js="index-*.js"` registration pattern and hashed build hygiene
 
+### Rename template defaults early (recommended)
+
+Template defaults (for example names like `streamlit-component-x`) are placeholders. Rename them before deep customization to avoid drift and confusing key/manifest mismatches later.
+
+At minimum, align all of these to your real component identity:
+
+- Top-level project folder name.
+- Distribution name in root `pyproject.toml` (`[project].name`).
+- Python import package directory and name (e.g. `streamlit_shadcn_breadcrumb`).
+- Root packaging config references:
+  - `[tool.setuptools.packages.find].include`
+  - `[tool.setuptools.package-data]` keys
+  - `MANIFEST.in` include paths
+- In-package CCv2 manifest (`<import_name>/pyproject.toml`):
+  - `[project].name`
+  - `[[tool.streamlit.component.components]].name`
+  - `asset_dir`
+- Python registration key in wrapper:
+  - `st.components.v2.component("<project.name>.<component.name>", ...)`
+- Frontend metadata (`frontend/package.json` `"name"`), README examples, and example app imports.
+
 ### Packaged component workflow (copy/paste checklist)
 
 Use this when you’re debugging or deviating; it’s designed to prevent the common “built assets exist but Streamlit can’t load them” failure modes.
@@ -319,12 +346,19 @@ Use this when you’re debugging or deviating; it’s designed to prevent the co
 ```
 Packaged CCv2 checklist
 - [ ] Generate project from `component-template` v2
-- [ ] Editable install the Python package (`uv pip install -e .` or equivalent)
+- [ ] Activate the target project environment before Python/uv commands
+- [ ] Rename template defaults (`streamlit-component-x`, `streamlit_component_x`, etc.) if needed
 - [ ] Build frontend assets into the manifest’s `asset_dir` (template: `frontend/build/`)
+- [ ] Editable install the Python package (`uv pip install -e . --force-reinstall`)
 - [ ] Verify `js=`/`css=` globs match exactly one file each under `asset_dir`
-- [ ] Run the example app and confirm the component renders
+- [ ] Run via `streamlit run ...` and confirm the component renders/events work
 - [ ] If something breaks: read `references/troubleshooting.md`, fix, rebuild, re-verify glob uniqueness
 ```
+
+Verification note:
+
+- For packaged components, prefer `streamlit run` verification instead of importing the wrapper in a plain Python process.
+- A direct `python -c "import ..."` can fail with `asset_dir`/manifest lookup errors because component manifest discovery is part of Streamlit runtime initialization.
 
 ### Study official components (recommended)
 

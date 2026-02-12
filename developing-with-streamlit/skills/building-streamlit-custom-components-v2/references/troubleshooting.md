@@ -11,6 +11,11 @@ Fix:
   - Your wheel includes a `pyproject.toml` with `[[tool.streamlit.component.components]] ... asset_dir = ...`
   - You call `st.components.v2.component("<project>.<component>", js="...", css="...")` with the matching fully-qualified key.
 
+Important context:
+
+- This error is expected if you test packaged wrappers via plain Python import in some environments.
+- Prefer `streamlit run ...` for packaged verification because manifest discovery is part of Streamlit runtime initialization.
+
 ### Inline strings being misread as file paths
 
 CCv2 uses a heuristic: strings that “look like” paths are treated as file references. A multi-line string is always treated as inline content.
@@ -29,6 +34,24 @@ Fix:
 - Clean the build output directory before rebuilding.
 - Make your bundler output a predictable `index-<hash>.js` / `index-<hash>.css` (or `assets/index-<hash>...` if you emit into an `assets/` subdir).
 - If you started from Streamlit’s `component-template`, run `npm run clean` from your `frontend/` directory to clear the `build/` output so `index-*.js` matches exactly one file.
+
+### Renamed project/package still shows old template names
+
+Symptoms:
+
+- Old names like `streamlit-component-x` / `streamlit_component_x` remain in paths or metadata.
+- Imports, manifest component keys, and registration keys no longer align.
+
+Fix:
+
+- Rename/update all related surfaces together:
+  - root `pyproject.toml` project name
+  - import package folder and `MANIFEST.in` paths
+  - `[tool.setuptools.packages.find]` and `[tool.setuptools.package-data]`
+  - in-package manifest (`<import_name>/pyproject.toml`)
+  - wrapper registration key (`"<project.name>.<component.name>"`)
+  - README/example imports and install commands
+- Rebuild frontend and reinstall editable package after rename.
 
 ### Vite-specific build gotchas
 
