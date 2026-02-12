@@ -2,6 +2,17 @@
 
 This reference shows the canonical CCv2 “controlled component” loop and the most common pitfalls when syncing state between JavaScript and Python.
 
+## Contents
+
+- Mental model
+- Canonical pattern: controlled text input
+  - JavaScript (hydrate from `data`, emit via `setStateValue`)
+  - Python wrapper (feed state back down via `data`)
+- Defaults: when to use `default=...` (and why it fails)
+- Python → JS hydration: initial-only vs true sync
+- Session State timing: don’t mutate after mount
+- Troubleshooting checklist
+
 ### Mental model
 
 - **Frontend state emission (JS → Python)**: you explicitly call `setStateValue(key, value)` or `setTriggerValue(key, value)`.

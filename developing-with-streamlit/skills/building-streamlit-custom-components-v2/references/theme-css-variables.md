@@ -147,10 +147,15 @@ Chart palette variables are **arrays serialized as comma-joined strings**:
 If you need the palette values in JS, split on commas:
 
 ```js
-const raw = getComputedStyle(document.documentElement)
-  .getPropertyValue('--st-chart-categorical-colors')
-  .trim();
-const palette = raw ? raw.split(',') : [];
+export default function (component) {
+  const { parentElement } = component;
+
+  const host = parentElement.host ?? parentElement;
+  const raw = getComputedStyle(host)
+    .getPropertyValue('--st-chart-categorical-colors')
+    .trim();
+  const palette = raw ? raw.split(',') : [];
+}
 ```
 
 ### Semantic/status palette

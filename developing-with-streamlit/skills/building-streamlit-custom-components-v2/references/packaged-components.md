@@ -6,6 +6,23 @@ For packaged CCv2 components, the best practice is to **avoid bespoke packaging/
 
 Follow your generated project’s README. **Only keep reading if you need to debug template wiring or intentionally deviate from it.**
 
+## Contents
+
+- Agent guardrail: no hand-scaffold first
+- Prerequisites (packaged components)
+- Start inline, then graduate to packaged
+- Frontend framework note (React is optional)
+- TypeScript support (recommended)
+- Generate a new CCv2 component project
+  - Non-interactive generation (cookiecutter keys)
+  - Offline/airgapped
+- Dev loop (template default)
+- Verify the build output (prevents most load failures)
+- Template invariants (don’t break these)
+- Rename checklist (avoid placeholder-name drift)
+- If you intentionally deviate from the template
+- Verification recommendation
+
 ### Agent guardrail: no hand-scaffold first
 
 If the request is for a packaged CCv2 component:
@@ -37,8 +54,8 @@ The only requirement is that you produce JS/CSS assets into your component’s `
 
 For end-to-end type safety while authoring the frontend, install `@streamlit/component-v2-lib`:
 
-- npm: `https://www.npmjs.com/package/@streamlit/component-v2-lib`
-- docs: `https://docs.streamlit.io/develop/api-reference/custom-components/component-v2-lib`
+- [npm package](https://www.npmjs.com/package/@streamlit/component-v2-lib)
+- [docs](https://docs.streamlit.io/develop/api-reference/custom-components/component-v2-lib)
 
 It provides TypeScript types like `FrontendRenderer` / `FrontendRendererArgs` so your `export default` renderer gets a **typed** `data` payload and typed state/trigger keys via generics.
 
@@ -123,6 +140,22 @@ Why this order:
 
 - Building first ensures `asset_dir` contains the expected files before install/use.
 - Reinstalling editable after key renames keeps metadata and import paths in sync.
+
+### Packaged component workflow (copy/paste checklist)
+
+Use this when you’re debugging or deviating; it’s designed to prevent the common “built assets exist but Streamlit can’t load them” failure modes.
+
+```
+Packaged CCv2 checklist
+- [ ] Generate project from `component-template` v2
+- [ ] Activate the target project environment before Python/uv commands
+- [ ] Rename template defaults (`streamlit-component-x`, `streamlit_component_x`, etc.) if needed
+- [ ] Build frontend assets into the manifest’s `asset_dir` (template: `frontend/build/`)
+- [ ] Editable install the Python package (`uv pip install -e . --force-reinstall`)
+- [ ] Verify `js=`/`css=` globs match exactly one file each under `asset_dir`
+- [ ] Run via `streamlit run ...` and confirm the component renders/events work
+- [ ] If something breaks: read `references/troubleshooting.md`, fix, rebuild, re-verify glob uniqueness
+```
 
 ### Verify the build output (prevents most load failures)
 
