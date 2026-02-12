@@ -326,7 +326,7 @@ At minimum, align all of these to your real component identity:
 
 - Top-level project folder name.
 - Distribution name in root `pyproject.toml` (`[project].name`).
-- Python import package directory and name (e.g. `streamlit_shadcn_breadcrumb`).
+- Python import package directory and name (e.g. `streamlit_breadcrumbs` for a hypothetical breadcrumbs component).
 - Root packaging config references:
   - `[tool.setuptools.packages.find].include`
   - `[tool.setuptools.package-data]` keys

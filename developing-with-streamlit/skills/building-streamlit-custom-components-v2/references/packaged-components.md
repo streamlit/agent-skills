@@ -48,6 +48,42 @@ It provides TypeScript types like `FrontendRenderer` / `FrontendRendererArgs` so
 uvx --from cookiecutter cookiecutter gh:streamlit/component-template --directory cookiecutter/v2
 ```
 
+If you run this non-interactively, pass explicit cookiecutter values (do not rely on defaults):
+
+Template keys:
+
+- `author_name`
+- `author_email`
+- `project_name`
+- `package_name`
+- `import_name`
+- `description`
+- `open_source_license`
+- `framework`
+
+Recommended non-interactive invocation:
+
+This sample uses a **hypothetical breadcrumb component** name so the values are concrete and meaningful:
+
+```bash
+uvx --from cookiecutter cookiecutter gh:streamlit/component-template \
+  --directory cookiecutter/v2 \
+  --no-input \
+  author_name="Your Name" \
+  author_email="you@example.com" \
+  project_name="Streamlit Breadcrumbs" \
+  package_name="streamlit-breadcrumbs" \
+  import_name="streamlit_breadcrumbs" \
+  description="Packaged Streamlit CCv2 breadcrumb component" \
+  open_source_license="Apache-2.0" \
+  framework="React + Typescript"
+```
+
+Notes:
+
+- Choice values must match template options exactly (`framework` is `"React + Typescript"` or `"Pure Typescript"`).
+- Passing all keys avoids template placeholder names and post-generation rename churn.
+
 Offline/airgapped:
 
 ```bash
