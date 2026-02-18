@@ -1,14 +1,18 @@
-## Packaged CCv2 components (template-first)
+## Packaged CCv2 components (template-only, mandatory)
 
-For packaged CCv2 components, the best practice is to **avoid bespoke packaging/bundling setup** and instead funnel everything through Streamlit’s official template:
+For packaged CCv2 components, agents **MUST** use Streamlit's official template as the starting point for every new component project.
 
 - [Streamlit component-template](https://github.com/streamlit/component-template)
 
-Follow your generated project’s README. **Only keep reading if you need to debug template wiring or intentionally deviate from it.**
+Never hand-scaffold the package/manifest/build layout and never copy/paste a packaged component scaffold from blog posts, gists, docs, or other internet sources.
+
+If a request starts from a non-template scaffold, stop and regenerate from the template first, then port logic into the generated project.
+
+Follow your generated project's README. **Only keep reading if you need to debug template wiring or customize behavior after template generation.**
 
 ## Contents
 
-- Agent guardrail: no hand-scaffold first
+- Agent policy: template-only (mandatory)
 - Prerequisites (packaged components)
 - Start inline, then graduate to packaged
 - Frontend framework note (React is optional)
@@ -23,13 +27,15 @@ Follow your generated project’s README. **Only keep reading if you need to deb
 - If you intentionally deviate from the template
 - Verification recommendation
 
-### Agent guardrail: no hand-scaffold first
+### Agent policy: template-only (mandatory)
 
 If the request is for a packaged CCv2 component:
 
-- Start from the official template first.
-- Do not manually scaffold a custom package/manifest/build layout before template generation.
-- Customize after generation so you retain known-good packaging defaults.
+- Start from the official template first (no exceptions).
+- Never manually scaffold a custom package/manifest/build layout before template generation.
+- Never copy a packaged component scaffold from the internet, even as a "starting point."
+- If given existing non-template scaffolding, regenerate from the template and migrate code into it.
+- Customize only after generation so you retain known-good packaging defaults.
 
 ### Prerequisites (packaged components)
 
@@ -60,6 +66,8 @@ For end-to-end type safety while authoring the frontend, install `@streamlit/com
 It provides TypeScript types like `FrontendRenderer` / `FrontendRendererArgs` so your `export default` renderer gets a **typed** `data` payload and typed state/trigger keys via generics.
 
 ### Generate a new CCv2 component project
+
+This command is the required starting point for every packaged CCv2 component:
 
 ```bash
 uvx --from cookiecutter cookiecutter gh:streamlit/component-template --directory cookiecutter/v2
@@ -143,11 +151,12 @@ Why this order:
 
 ### Packaged component workflow (copy/paste checklist)
 
-Use this when you’re debugging or deviating; it’s designed to prevent the common “built assets exist but Streamlit can’t load them” failure modes.
+Use this when debugging or customizing after generation; it's designed to prevent the common "built assets exist but Streamlit can't load them" failure modes.
 
 ```
 Packaged CCv2 checklist
 - [ ] Generate project from `component-template` v2
+- [ ] Confirm this is template-generated (not hand-scaffolded, not copied from internet snippets)
 - [ ] Activate the target project environment before Python/uv commands
 - [ ] Rename template defaults (`streamlit-component-x`, `streamlit_component_x`, etc.) if needed
 - [ ] Build frontend assets into the manifest’s `asset_dir` (template: `frontend/build/`)
@@ -188,7 +197,7 @@ Rename all of these together:
 - `MANIFEST.in` and `[tool.setuptools.*]` references.
 - README/example imports and frontend package name.
 
-### If you intentionally deviate from the template
+### Allowed customizations (after template generation only)
 
 Keep the blast radius small:
 

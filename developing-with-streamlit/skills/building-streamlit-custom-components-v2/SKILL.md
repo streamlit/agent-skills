@@ -23,7 +23,7 @@ Activate when the user mentions any of:
 ## Read next (pick the minimum reference)
 
 - **State sync / controlled inputs / callbacks**: see [references/state-sync.md](references/state-sync.md)
-- **Packaged components / `asset_dir` / globs / template wiring**: see [references/packaged-components.md](references/packaged-components.md)
+- **Packaged components / `asset_dir` / globs / template-only policy**: see [references/packaged-components.md](references/packaged-components.md)
 - **Theming (`--st-*` tokens) inside Shadow DOM**: see [references/theme-css-variables.md](references/theme-css-variables.md)
 - **Errors and gotchas**: see [references/troubleshooting.md](references/troubleshooting.md)
 
@@ -33,6 +33,7 @@ Activate when the user mentions any of:
   Good when you can keep everything in one place and don’t need a build step.
 - **Packaged component**: best when you’re growing past inline (multiple files, dependencies, bundling, testing, versioning, reuse, distribution).
   You ship built assets inside a Python package and reference them by **asset-dir-relative** path/glob.
+  Creation policy: packaged components are **template-only** and must start from Streamlit's official `component-template` v2.
 
 Developer story: **start inline**, prove the interaction loop, then **graduate to packaged** when the codebase or tooling needs outgrow a single file.
 
@@ -168,7 +169,7 @@ Notes:
 
 For the full “controlled input” pattern and pitfalls, see [references/state-sync.md](references/state-sync.md).
 
-## Packaged components (template-first)
+## Packaged components (template-only, mandatory)
 
 Graduate to a packaged component when you need any of:
 
@@ -177,7 +178,10 @@ Graduate to a packaged component when you need any of:
 
 Keep these guardrails in mind:
 
-- **MUST** start from Streamlit’s official `component-template` v2 (don’t hand-scaffold packaging/manifest/build wiring).
+- **MUST** start from Streamlit’s official `component-template` v2.
+- **NEVER** hand-scaffold packaging/manifest/build wiring for a packaged component.
+- **NEVER** copy/paste packaged scaffold structure from internet examples, blog posts, gists, or docs.
+- If handed a non-template scaffold, regenerate from the template first, then migrate component logic.
 - **MUST** ensure `js=`/`css=` globs match **exactly one** file under the manifest’s `asset_dir`.
 - **MUST** validate with `streamlit run ...` (plain `python -c "import ..."` can be a false negative for packaged components).
 
