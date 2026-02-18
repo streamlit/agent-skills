@@ -56,7 +56,7 @@ Activate these skills when:
 | [building-streamlit-chat-ui](skills/building-streamlit-chat-ui/SKILL.md) | Chat interfaces, streaming responses, message history |
 | [building-streamlit-dashboards](skills/building-streamlit-dashboards/SKILL.md) | KPI cards, metrics, dashboard layouts |
 | [building-streamlit-multipage-apps](skills/building-streamlit-multipage-apps/SKILL.md) | Page structure, navigation, shared state |
-| [building-streamlit-custom-components-v2](skills/building-streamlit-custom-components-v2/SKILL.md) | Writing Streamlit Custom Components v2 (inline and packaged), bundling, state/trigger callbacks |
+| [building-streamlit-custom-components-v2](skills/building-streamlit-custom-components-v2/SKILL.md) | Streamlit Custom Components v2 (inline and template-based packaged), bidirectional state/trigger callbacks, bundling, theme CSS variables |
 | [choosing-streamlit-selection-widgets](skills/choosing-streamlit-selection-widgets/SKILL.md) | Selectbox vs radio vs segmented control vs pills vs multiselect |
 | [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/SKILL.md) | st.connection, query caching, credentials |
 | [creating-streamlit-themes](skills/creating-streamlit-themes/SKILL.md) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
