@@ -1,0 +1,10 @@
+[project]
+name = "theme-minimal"
+version = "1.0.0"
+description = "Minimal theme for Streamlit"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26.0",
+    "pandas>=2.2.3",
+    "streamlit>=1.53.0",
+]

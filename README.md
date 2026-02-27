@@ -30,6 +30,15 @@ The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.
 | [using-streamlit-markdown](developing-with-streamlit/skills/using-streamlit-markdown/) | Colored text, badges, icons, LaTeX, markdown features |
 | [using-streamlit-session-state](developing-with-streamlit/skills/using-streamlit-session-state/) | Session state, widget keys, callbacks, state persistence |
 
+## Templates
+
+The skill includes ready-to-use templates in `developing-with-streamlit/templates/`:
+
+- **`templates/apps/`** — 9 dashboard app templates (6 local + 3 Snowflake variants) with synthetic data, caching patterns, and layout best practices
+- **`templates/themes/`** — 8 theme templates (snowflake, dracula, nord, stripe, solarized-light, spotify, github, minimal) using Google Fonts
+
+See each template directory's README for setup instructions.
+
 ## Installation
 
 ### Claude Code

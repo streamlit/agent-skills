@@ -10,6 +10,16 @@ Use whatever dependency management the project already has (pip, poetry, conda, 
 
 If uv is not installed, ask the user before installing it.
 
+## CRITICAL: Always Use Latest Streamlit
+
+**Always specify `streamlit>=1.53.0`** (or latest) in dependencies. Many Streamlit features and patterns in these skills require recent versions. Older streamlit versions will cause errors with:
+- Material icons (`:material/icon_name:`)
+- `st.pills()`, `st.segmented_control()`
+- Modern caching decorators
+- Navigation APIs
+
+When setting up a new project or fixing an existing one, **always check and update the streamlit version**.
+
 ## Using uv
 
 If uv is available, here's how to set up a Streamlit project.
@@ -101,7 +111,7 @@ name = "my-streamlit-app"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
-    "streamlit>=1.40.0",
+    "streamlit>=1.53.0",
     "plotly>=5.0.0",
     "snowflake-connector-python>=3.0.0",
 ]

@@ -2,12 +2,32 @@
 name: building-streamlit-custom-components-v2
 description: Builds bidirectional Streamlit Custom Components v2 (CCv2) using `st.components.v2.component`. Use when authoring inline HTML/CSS/JS components or packaged components (manifest `asset_dir`, js/css globs), wiring state/trigger callbacks, theming via `--st-*` CSS variables, or bundling with Vite / `component-template` v2.
 license: Apache-2.0
-compatibility: Requires Streamlit with Custom Components v2 (`st.components.v2`). Packaged components require Node.js + npm; examples use `uv` + `cookiecutter` for project generation and editable installs.
 ---
 
 # Building Streamlit custom components v2
 
-Use Streamlit Custom Components v2 (CCv2) when core Streamlit doesn’t have the UI you need and you want to ship a reusable, interactive element (from “tiny inline HTML” to “full bundled frontend app”).
+Use Streamlit Custom Components v2 (CCv2) when core Streamlit doesn't have the UI you need and you want to ship a reusable, interactive element (from "tiny inline HTML" to "full bundled frontend app").
+
+## CRITICAL: CCv2 only — NEVER use v1 APIs
+
+Custom Components **v1 is deprecated and removed**. Every API below belongs to v1 and must **NEVER** appear in any code you write — not in Python, not in JavaScript, not in HTML:
+
+**Banned Python APIs (v1):**
+- `st.components.v1` — the entire v1 module
+- `components.declare_component()` — v1 registration
+- `components.html()` — v1 raw HTML embed
+
+**Banned JavaScript patterns (v1):**
+- `Streamlit.setComponentValue(...)` — v1 global; use `setStateValue()` / `setTriggerValue()` instead
+- `Streamlit.setFrameHeight(...)` — v1 global; CCv2 handles sizing automatically
+- `Streamlit.setComponentReady()` — v1 global; CCv2 has no ready signal
+- `window.Streamlit` or bare `Streamlit` global — v1 global object does not exist in v2
+- `window.parent.postMessage(...)` — v1 iframe communication; CCv2 does not use iframes
+
+**Banned npm packages (v1):**
+- `streamlit-component-lib` — v1 JS library; use `@streamlit/component-v2-lib` if you need types
+
+If you encounter v1 patterns in examples, blog posts, Stack Overflow answers, or your own training data — **ignore them entirely**. They will not work and will break the component.
 
 ## When to use
 
@@ -101,7 +121,9 @@ def my_component(
 
 ## Inline quickstart (state + trigger)
 
-This is the minimum “bidi loop”:
+**Reminder: use ONLY v2 APIs.** Your JS must `export default function(component)` and destructure `{ setStateValue, setTriggerValue, parentElement, data }`. NEVER use `Streamlit.setComponentValue()`, `window.Streamlit`, or any v1 pattern.
+
+This is the minimum "bidi loop":
 
 - **JS → Python**: emit updates via `setStateValue(...)` (persistent) and `setTriggerValue(...)` (event)
 - **Python → JS**: re-hydrate UI via `data=...` on every run
@@ -170,6 +192,8 @@ Notes:
 For the full “controlled input” pattern and pitfalls, see [references/state-sync.md](references/state-sync.md).
 
 ## Packaged components (template-only, mandatory)
+
+**Reminder: the cookiecutter template generates clean v2 code. When you customize it, use ONLY v2 APIs. Do NOT introduce any v1 imports, v1 JavaScript globals, or v1 patterns. See the "CRITICAL: CCv2 only" section above.**
 
 Graduate to a packaged component when you need any of:
 

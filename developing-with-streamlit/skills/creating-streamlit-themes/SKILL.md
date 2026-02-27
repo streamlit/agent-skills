@@ -428,22 +428,18 @@ borderColor = "#1E6D94"
 ...
 ```
 
-## Avoid custom CSS
+## IMPORTANT: No custom CSS unless explicitly requested
 
-Custom CSS breaks with Streamlit updates and is hard to maintain:
+**DO NOT use custom CSS or HTML for theming.** This includes:
+- `st.markdown(..., unsafe_allow_html=True)` with `<style>` or inline styles
+- `st.html()` with `<style>` blocks
+- Any HTML/CSS for colors, backgrounds, fonts, or visual styling
 
-```python
-# BAD: Will break with updates
-st.markdown("""
-<style>
-.stButton button { background-color: #FF4B4B; }
-</style>
-""", unsafe_allow_html=True)
+**Only use CSS if the user explicitly asks for it** (e.g., "add custom CSS", "use st.html for styling"). For brand colors, theming, and visual identity—always use `config.toml`.
 
-# GOOD: Use config.toml instead
-```
+Native theming is cleaner, more maintainable, and won't break with Streamlit updates.
 
-If you must use CSS, use `key=` to create targetable classes:
+If the user explicitly asks for CSS, use `key=` to create targetable classes:
 
 ```python
 st.button("Submit", key="submit")
@@ -452,13 +448,30 @@ st.button("Submit", key="submit")
 st.html("""<style>.st-key-submit button { width: 100%; }</style>""")
 ```
 
-**Only use CSS as a last resort.**
+**Never use CSS for theming (colors, backgrounds, fonts) unless explicitly asked. Use config.toml instead.**
 
 ## Development workflow
 
 Most theme options update live after saving `config.toml` and rerunning. Font-related options (`fontFaces`) require a server restart.
 
 Test your theme with: buttons (primary contrast), forms (borders, focus), dataframes (headers), code blocks, charts, and sidebar.
+
+## Theme templates
+
+Ready-to-use themes with bundled fonts are available in `templates/themes/`:
+
+| Theme | Base | Primary Color | Fonts |
+|-------|------|---------------|-------|
+| **snowflake** | Light | `#29B5E8` (cyan) | Inter, JetBrains Mono |
+| **dracula** | Dark | `#BD93F9` (purple) | Fira Sans, JetBrains Mono |
+| **nord** | Dark | `#88C0D0` (frost blue) | Inter, JetBrains Mono |
+| **stripe** | Light | `#635BFF` (indigo) | Inter, Source Code Pro |
+| **solarized-light** | Light | `#268BD2` (blue) | Source Sans 3, Source Code Pro |
+| **spotify** | Dark | `#1DB954` (green) | Inter, Fira Code |
+| **github** | Light | `#0969DA` (blue) | Inter, JetBrains Mono |
+| **minimal** | Dark | `#6366f1` (indigo) | Inter, JetBrains Mono |
+
+Each theme uses Google Fonts for easy setup. See `templates/themes/README.md`.
 
 ## Related skills
 
