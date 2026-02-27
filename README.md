@@ -19,6 +19,8 @@ The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.
 | [choosing-streamlit-selection-widgets](developing-with-streamlit/skills/choosing-streamlit-selection-widgets/) | Choosing the right selection widget |
 | [connecting-streamlit-to-snowflake](developing-with-streamlit/skills/connecting-streamlit-to-snowflake/) | Connecting to Snowflake with st.connection |
 | [creating-streamlit-themes](developing-with-streamlit/skills/creating-streamlit-themes/) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
+| [customizing-streamlit-theme](developing-with-streamlit/skills/customizing-streamlit-theme/) | Quick theming via config.toml, CSS targeting, theme templates |
+| [deploying-streamlit-to-snowflake](developing-with-streamlit/skills/deploying-streamlit-to-snowflake/) | Snowflake deployment with snow CLI, snowflake.yml, container runtime |
 | [displaying-streamlit-data](developing-with-streamlit/skills/displaying-streamlit-data/) | Dataframes, column config, charts |
 | [improving-streamlit-design](developing-with-streamlit/skills/improving-streamlit-design/) | Icons, badges, spacing, text styling |
 | [optimizing-streamlit-performance](developing-with-streamlit/skills/optimizing-streamlit-performance/) | Caching, fragments, forms, static vs dynamic widgets |
@@ -29,6 +31,15 @@ The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.
 | [using-streamlit-layouts](developing-with-streamlit/skills/using-streamlit-layouts/) | Sidebar, columns, containers, dialogs |
 | [using-streamlit-markdown](developing-with-streamlit/skills/using-streamlit-markdown/) | Colored text, badges, icons, LaTeX, markdown features |
 | [using-streamlit-session-state](developing-with-streamlit/skills/using-streamlit-session-state/) | Session state, widget keys, callbacks, state persistence |
+
+## Templates
+
+The skill includes ready-to-use templates in `developing-with-streamlit/templates/`:
+
+- **`templates/apps/`** — 9 dashboard app templates (6 local + 3 Snowflake variants) with synthetic data, caching patterns, and layout best practices
+- **`templates/themes/`** — 8 theme templates (snowflake, dracula, nord, stripe, solarized-light, spotify, github, minimal) with bundled fonts for Snowflake deployment
+
+See each template directory's README for setup instructions.
 
 ## Installation
 
