@@ -58,7 +58,7 @@ chart = alt.Chart(df).mark_line().encode(
     y=alt.Y("revenue:Q", title="Revenue ($)"),
     color="region:N"
 )
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(chart)
 ```
 
 **When to use Altair:**
@@ -93,7 +93,6 @@ st.dataframe(
         "internal_id": None,  # Hide non-essential columns
     },
     hide_index=True,
-    use_container_width=True,
 )
 ```
 

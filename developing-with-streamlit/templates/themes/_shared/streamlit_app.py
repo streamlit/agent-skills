@@ -57,7 +57,7 @@ if section == "Widgets":
         form_cols = st.columns(2)
         form_cols[0].text_input("Name", placeholder="Enter your name")
         form_cols[1].text_input("Email", placeholder="you@example.com")
-        st.form_submit_button("Submit", type="primary", use_container_width=True)
+        st.form_submit_button("Submit", type="primary")
 
     # Selection widgets
     st.subheader("Selection Widgets")
@@ -126,7 +126,6 @@ elif section == "Data":
     })
     st.dataframe(
         df,
-        use_container_width=True,
         hide_index=True,
         column_config={
             "Salary": st.column_config.NumberColumn(format="$%d"),

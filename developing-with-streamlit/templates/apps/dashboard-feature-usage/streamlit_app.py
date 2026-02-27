@@ -297,11 +297,11 @@ with chart_col:
             .interactive()
         )
         
-        st.altair_chart(chart, use_container_width=True)
+        st.altair_chart(chart)
 
 # Raw data section
 with st.expander("Raw data", expanded=False, icon=":material/table:"):
     display_df = filtered_data.copy()
     if normalize:
         display_df["request_count"] = display_df["request_count"].apply(lambda x: f"{x:.2%}")
-    st.dataframe(display_df, use_container_width=True, hide_index=True)
+    st.dataframe(display_df, hide_index=True)

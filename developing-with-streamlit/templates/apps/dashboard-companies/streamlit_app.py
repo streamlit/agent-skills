@@ -340,7 +340,6 @@ with st.container(border=True):
             "usage_trend", "daily_avg", "region", "segment",
         ],
         hide_index=True,
-        use_container_width=True,
         on_select="rerun",
         selection_mode="single-cell",
         key="company_leaderboard",

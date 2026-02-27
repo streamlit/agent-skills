@@ -352,17 +352,15 @@ def account_type_metric():
         y_col = "credits_7d_ma" if "7-day MA" in line_options else "daily_credits"
         
         if "table" in (view_mode or ""):
-            st.dataframe(filtered, use_container_width=True, height=CHART_HEIGHT, hide_index=True)
+            st.dataframe(filtered, height=CHART_HEIGHT, hide_index=True)
         else:
             if "Bar" in (chart_type or ""):
                 st.altair_chart(
                     create_bar_chart(filtered, "ds", y_col, "account_type", CHART_HEIGHT, show_percent),
-                    use_container_width=True,
                 )
             else:
                 st.altair_chart(
                     create_line_chart(filtered, "ds", y_col, "account_type", CHART_HEIGHT),
-                    use_container_width=True,
                 )
 
 
@@ -424,17 +422,15 @@ def instance_type_metric():
         y_col = "credits_7d_ma" if "7-day MA" in line_options else "daily_credits"
         
         if "table" in (view_mode or ""):
-            st.dataframe(filtered, use_container_width=True, height=CHART_HEIGHT, hide_index=True)
+            st.dataframe(filtered, height=CHART_HEIGHT, hide_index=True)
         else:
             if "Bar" in (chart_type or ""):
                 st.altair_chart(
                     create_bar_chart(filtered, "ds", y_col, "instance_type", CHART_HEIGHT, show_percent),
-                    use_container_width=True,
                 )
             else:
                 st.altair_chart(
                     create_line_chart(filtered, "ds", y_col, "instance_type", CHART_HEIGHT),
-                    use_container_width=True,
                 )
 
 
@@ -496,17 +492,15 @@ def region_metric():
         y_col = "credits_7d_ma" if "7-day MA" in line_options else "daily_credits"
         
         if "table" in (view_mode or ""):
-            st.dataframe(filtered, use_container_width=True, height=CHART_HEIGHT, hide_index=True)
+            st.dataframe(filtered, height=CHART_HEIGHT, hide_index=True)
         else:
             if "Bar" in (chart_type or ""):
                 st.altair_chart(
                     create_bar_chart(filtered, "ds", y_col, "region", CHART_HEIGHT, show_percent),
-                    use_container_width=True,
                 )
             else:
                 st.altair_chart(
                     create_line_chart(filtered, "ds", y_col, "region", CHART_HEIGHT),
-                    use_container_width=True,
                 )
 
 

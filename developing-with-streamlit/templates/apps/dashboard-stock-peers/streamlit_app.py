@@ -308,7 +308,7 @@ for i, ticker in enumerate(tickers):
 
     cell = cols[(i * 2) % NUM_COLS].container(border=True)
     cell.write("")
-    cell.altair_chart(chart, use_container_width=True)
+    cell.altair_chart(chart)
 
     # Create Delta chart
     plot_data = pd.DataFrame(
@@ -330,7 +330,7 @@ for i, ticker in enumerate(tickers):
 
     cell = cols[(i * 2 + 1) % NUM_COLS].container(border=True)
     cell.write("")
-    cell.altair_chart(chart, use_container_width=True)
+    cell.altair_chart(chart)
 
 ""
 ""
