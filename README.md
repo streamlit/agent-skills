@@ -8,10 +8,15 @@ Agent Skills are specialized instruction sets that enhance AI coding assistants'
 
 ## Available skills
 
-The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.md), which routes to specialized sub-skills:
+There are two skills:
+
+- [`developing-with-streamlit`](developing-with-streamlit/SKILL.md) for building apps, which routes to specialized sub-skills
+- [`deploying-streamlit-community-cloud`](deploying-streamlit-community-cloud/SKILL.md) for deploying apps to Streamlit Community Cloud
+
+### Developing with Streamlit sub-skills
 
 | Skill | Description |
-|-------|-------------|
+| ------- | ------------- |
 | [building-streamlit-chat-ui](developing-with-streamlit/skills/building-streamlit-chat-ui/) | Chat interfaces, chatbots, AI assistants |
 | [building-streamlit-dashboards](developing-with-streamlit/skills/building-streamlit-dashboards/) | KPI cards, metrics, dashboard layouts |
 | [building-streamlit-multipage-apps](developing-with-streamlit/skills/building-streamlit-multipage-apps/) | Multi-page app structure and navigation |
@@ -64,7 +69,7 @@ Or add skills directly to your project's `.cursor/skills/` directory.
 ### Other AI Assistants
 
 | Agent | Skills Folder | Documentation |
-|-------|---------------|---------------|
+| ------- | --------------- | --------------- |
 | OpenAI Codex | `.codex/skills/` | [Codex Skills Docs](https://developers.openai.com/codex/skills/) |
 | Gemini CLI | `.gemini/skills/` | [Gemini CLI Skills Docs](https://geminicli.com/docs/cli/skills/) |
 | GitHub Copilot | `.github/skills/` | [Copilot Agent Skills Docs](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) |
