@@ -97,7 +97,6 @@ Use this routing table to select sub-skill(s). **Always read the sub-skill file*
 | **Comprehensive theme design and brand alignment** | `read skills/creating-streamlit-themes/SKILL.md` |
 | **Chat interfaces and AI assistants** | `read skills/building-streamlit-chat-ui/SKILL.md` |
 | **Connecting to Snowflake** | `read skills/connecting-streamlit-to-snowflake/SKILL.md` |
-| **Deploying to Snowflake (SiS)** | `read skills/deploying-streamlit-to-snowflake/SKILL.md` |
 | **Building or packaging a custom component, triggering events back to Python from JS/HTML, custom HTML/JS with event handling (CCv2), OR any UI element that doesn't exist as a native Streamlit widget** (e.g., drag-and-drop, custom interactive visualization, canvas drawing) | `read skills/building-streamlit-custom-components-v2/SKILL.md` — **IMPORTANT: `st.components.v1` is deprecated. Never use v1 for new components; always use `st.components.v2.component()`.** |
 | **Third-party components** | `read skills/using-streamlit-custom-components/SKILL.md` |
 | **Code organization** | `read skills/organizing-streamlit-code/SKILL.md` |
@@ -205,7 +204,6 @@ For **performance optimization**, read:
 | [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/SKILL.md) | st.connection, query caching, credentials |
 | [creating-streamlit-themes](skills/creating-streamlit-themes/SKILL.md) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
 | [customizing-streamlit-theme](skills/customizing-streamlit-theme/SKILL.md) | Quick theming via config.toml, CSS targeting with key=, theme templates |
-| [deploying-streamlit-to-snowflake](skills/deploying-streamlit-to-snowflake/SKILL.md) | Snowflake deployment with snow CLI, snowflake.yml, container runtime |
 | [displaying-streamlit-data](skills/displaying-streamlit-data/SKILL.md) | Dataframes, column config, charts |
 | [improving-streamlit-design](skills/improving-streamlit-design/SKILL.md) | Icons, badges, colored text, visual polish |
 | [optimizing-streamlit-performance](skills/optimizing-streamlit-performance/SKILL.md) | Caching, fragments, forms, static vs dynamic widgets |
