@@ -1,6 +1,3 @@
-[server]
-enableStaticServing = true
-
 # Stripe Theme for Streamlit
 # Polished, professional, modern with signature purple/indigo gradients
 [theme]
@@ -15,8 +12,8 @@ showWidgetBorder = true
 showSidebarBorder = true
 baseRadius = "8px"
 buttonRadius = "8px"
-font = "Inter"
-codeFont = "SourceCodePro"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+codeFont = "'Source Code Pro':https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap"
 codeFontSize = "0.85rem"
 codeTextColor = "#425466"
 baseFontSize = 15
@@ -36,34 +33,3 @@ backgroundColor = "#f6f9fc"
 secondaryBackgroundColor = "#ebeef1"
 codeBackgroundColor = "#ebeef1"
 borderColor = "#e3e8ee"
-
-# Local font files
-[[theme.fontFaces]]
-family = "Inter"
-url = "app/static/Inter-Regular.ttf"
-weight = 400
-
-[[theme.fontFaces]]
-family = "Inter"
-url = "app/static/Inter-Medium.ttf"
-weight = 500
-
-[[theme.fontFaces]]
-family = "Inter"
-url = "app/static/Inter-SemiBold.ttf"
-weight = 600
-
-[[theme.fontFaces]]
-family = "Inter"
-url = "app/static/Inter-Bold.ttf"
-weight = 700
-
-[[theme.fontFaces]]
-family = "SourceCodePro"
-url = "app/static/SourceCodePro-Regular.ttf"
-weight = 400
-
-[[theme.fontFaces]]
-family = "SourceCodePro"
-url = "app/static/SourceCodePro-Medium.ttf"
-weight = 500

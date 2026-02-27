@@ -1,7 +1,3 @@
-# DO NOT EDIT — managed by manage.py, edit _configs/solarized-light.toml instead
-[server]
-enableStaticServing = true
-
 # Solarized Light Theme for Streamlit
 # Precision colors designed for readability and reduced eye strain
 [theme]
@@ -16,8 +12,8 @@ showWidgetBorder = true
 showSidebarBorder = true
 baseRadius = "4px"
 buttonRadius = "4px"
-font = "SourceSans3"
-codeFont = "SourceCodePro"
+font = "'Source Sans 3':https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap"
+codeFont = "'Source Code Pro':https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap"
 codeFontSize = "0.875rem"
 codeTextColor = "#586e75"
 baseFontSize = 14
@@ -40,34 +36,3 @@ backgroundColor = "#eee8d5"
 secondaryBackgroundColor = "#fdf6e3"
 codeBackgroundColor = "#fdf6e3"
 borderColor = "#93a1a1"
-
-# Local font files
-[[theme.fontFaces]]
-family = "SourceSans3"
-url = "app/static/SourceSans3-Regular.ttf"
-weight = 400
-
-[[theme.fontFaces]]
-family = "SourceSans3"
-url = "app/static/SourceSans3-Medium.ttf"
-weight = 500
-
-[[theme.fontFaces]]
-family = "SourceSans3"
-url = "app/static/SourceSans3-SemiBold.ttf"
-weight = 600
-
-[[theme.fontFaces]]
-family = "SourceSans3"
-url = "app/static/SourceSans3-Bold.ttf"
-weight = 700
-
-[[theme.fontFaces]]
-family = "SourceCodePro"
-url = "app/static/SourceCodePro-Regular.ttf"
-weight = 400
-
-[[theme.fontFaces]]
-family = "SourceCodePro"
-url = "app/static/SourceCodePro-Medium.ttf"
-weight = 500

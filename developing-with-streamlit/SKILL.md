@@ -137,7 +137,7 @@ When **editing an existing app**, use templates as reference for best practices:
 
 When applying a **custom theme**, use a template from `templates/themes/`:
 - Copy a theme directory (snowflake, dracula, nord, stripe, solarized-light, spotify, github, minimal)
-- Themes include bundled fonts for Snowflake deployment compatibility
+- Themes use Google Fonts for easy setup
 - See `templates/themes/README.md` for theme previews
 
 For **performance optimization**, read:

@@ -471,7 +471,7 @@ Ready-to-use themes with bundled fonts are available in `templates/themes/`:
 | **github** | Light | `#0969DA` (blue) | Inter, JetBrains Mono |
 | **minimal** | Dark | `#6366f1` (indigo) | Inter, JetBrains Mono |
 
-Each theme includes local font files for Snowflake deployment. See `templates/themes/README.md`.
+Each theme uses Google Fonts for easy setup. See `templates/themes/README.md`.
 
 ## Related skills
 
