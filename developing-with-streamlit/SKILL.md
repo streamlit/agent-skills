@@ -87,13 +87,13 @@ Use this routing table to select sub-skill(s). **Always read the sub-skill file*
 | **Building a dashboard with KPIs/metrics** | `read skills/building-streamlit-dashboards/SKILL.md` |
 | **Improving visual design, icons, polish** | `read skills/improving-streamlit-design/SKILL.md` |
 | **Choosing widgets (selectbox vs radio vs pills)** | `read skills/choosing-streamlit-selection-widgets/SKILL.md` |
-| **Styling widgets (button colors, backgrounds, CSS)** | `read skills/customizing-streamlit-theme/SKILL.md` |
+| **Styling widgets (button colors, backgrounds, CSS)** | `read skills/creating-streamlit-themes/SKILL.md` |
 | **Layouts (columns, tabs, sidebar, containers)** | `read skills/using-streamlit-layouts/SKILL.md` |
 | **Displaying data (dataframes, charts)** | `read skills/displaying-streamlit-data/SKILL.md` |
 | **Multi-page app architecture** | `read skills/building-streamlit-multipage-apps/SKILL.md` |
 | **Session state and callbacks** | `read skills/using-streamlit-session-state/SKILL.md` |
 | **Markdown, colored text, badges** | `read skills/using-streamlit-markdown/SKILL.md` |
-| **Custom themes and colors** | `read skills/customizing-streamlit-theme/SKILL.md` |
+| **Custom themes and colors** | `read skills/creating-streamlit-themes/SKILL.md` |
 | **Comprehensive theme design and brand alignment** | `read skills/creating-streamlit-themes/SKILL.md` |
 | **Chat interfaces and AI assistants** | `read skills/building-streamlit-chat-ui/SKILL.md` |
 | **Connecting to Snowflake** | `read skills/connecting-streamlit-to-snowflake/SKILL.md` |
@@ -203,7 +203,6 @@ For **performance optimization**, read:
 | [choosing-streamlit-selection-widgets](skills/choosing-streamlit-selection-widgets/SKILL.md) | Selectbox vs radio vs segmented control vs pills vs multiselect |
 | [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/SKILL.md) | st.connection, query caching, credentials |
 | [creating-streamlit-themes](skills/creating-streamlit-themes/SKILL.md) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
-| [customizing-streamlit-theme](skills/customizing-streamlit-theme/SKILL.md) | Quick theming via config.toml, CSS targeting with key=, theme templates |
 | [displaying-streamlit-data](skills/displaying-streamlit-data/SKILL.md) | Dataframes, column config, charts |
 | [improving-streamlit-design](skills/improving-streamlit-design/SKILL.md) | Icons, badges, colored text, visual polish |
 | [optimizing-streamlit-performance](skills/optimizing-streamlit-performance/SKILL.md) | Caching, fragments, forms, static vs dynamic widgets |
