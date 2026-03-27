@@ -61,6 +61,14 @@ cp -r developing-with-streamlit ~/.cursor/skills/
 
 Or add skills directly to your project's `.cursor/skills/` directory.
 
+### Snowflake Cortex (Cortex Code)
+
+Install the skill directly from GitHub:
+
+```bash
+cortex skill add streamlit/agent-skills
+```
+
 ### Other AI Assistants
 
 | Agent | Skills Folder | Documentation |
