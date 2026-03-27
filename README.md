@@ -61,7 +61,7 @@ cp -r developing-with-streamlit ~/.cursor/skills/
 
 Or add skills directly to your project's `.cursor/skills/` directory.
 
-### Snowflake Cortex (Cortex Code)
+### Snowflake Cortex Code
 
 Install the skill directly from GitHub:
 
