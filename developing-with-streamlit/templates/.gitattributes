@@ -1,3 +1,0 @@
-# Mark generated/vendored files so they're collapsed in GitHub PR diffs
-**/uv.lock linguist-generated
-**/static/*.ttf linguist-generated

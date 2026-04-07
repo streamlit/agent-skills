@@ -4,10 +4,12 @@ This file provides guidance to AI coding agents (Claude Code, Cursor, Copilot, e
 
 ## Repository overview
 
-This is a collection of Agent Skills for building Streamlit applications. Skills are instruction sets that enhance AI coding assistants' capabilities for specific tasks.
+This repository contains a **meta-skill** that teaches AI agents how to discover Streamlit development skills bundled inside the Streamlit pip package (1.57+).
+
+The actual skill content (dashboards, themes, layouts, session state, custom components, etc.) now ships with Streamlit itself. This repo provides the entry point that bootstraps that discovery.
 
 **Key files:**
-- `skills/` - Contains all available skills, each in its own directory
+- `developing-with-streamlit/SKILL.md` - Meta-skill that locates and loads bundled Streamlit skills
 - `template/` - Template for creating new skills
 - `README.md` - Human-readable documentation
 
@@ -119,4 +121,4 @@ When adding or modifying skills:
 3. Include practical code examples
 4. Verify against the latest [Streamlit documentation](https://docs.streamlit.io/llms-full.txt)
 5. Review against the [best practices for skill writing](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md)
-6. **Update documentation when adding or renaming skills** - Reflect changes in `README.md` (Available skills table) and `developing-with-streamlit/SKILL.md` (Skill map table)
+6. **Update documentation when adding or renaming skills** - Reflect changes in `README.md` and `developing-with-streamlit/SKILL.md`

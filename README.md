@@ -6,60 +6,62 @@ A collection of [Agent Skills](https://agentskills.io) for building Streamlit ap
 
 Agent Skills are specialized instruction sets that enhance AI coding assistants' capabilities for specific tasks. Each skill contains instructions, scripts, and resources that the AI loads dynamically to improve performance on Streamlit development workflows.
 
-## Available skills
+## How it works
 
-The main skill is [`developing-with-streamlit`](developing-with-streamlit/SKILL.md), which routes to specialized sub-skills:
+Starting with Streamlit 1.57, the full set of Streamlit development skills ships **inside the Streamlit pip package** itself. This repository provides a lightweight **meta-skill** that teaches agents how to discover and load those bundled skills.
+
+The meta-skill ([`developing-with-streamlit/SKILL.md`](developing-with-streamlit/SKILL.md)):
+
+1. Detects the active Python interpreter (virtualenv, conda, uv, or system)
+2. Locates the installed Streamlit package path
+3. Points the agent to the bundled skills at `<streamlit_path>/.agents/skills/`
+4. Falls back to the [online docs](https://docs.streamlit.io/llms-full.txt) for older Streamlit versions
+
+## Available skills (bundled with Streamlit 1.57+)
+
+Once discovered via the meta-skill, the bundled `developing-with-streamlit` routing skill provides access to these sub-skills:
 
 | Skill | Description |
 |-------|-------------|
-| [building-streamlit-chat-ui](developing-with-streamlit/skills/building-streamlit-chat-ui/) | Chat interfaces, chatbots, AI assistants |
-| [building-streamlit-dashboards](developing-with-streamlit/skills/building-streamlit-dashboards/) | KPI cards, metrics, dashboard layouts |
-| [building-streamlit-multipage-apps](developing-with-streamlit/skills/building-streamlit-multipage-apps/) | Multi-page app structure and navigation |
-| [building-streamlit-custom-components-v2](developing-with-streamlit/skills/building-streamlit-custom-components-v2/) | Streamlit Custom Components v2 (inline and template-based packaged), bidirectional state/trigger callbacks, bundling, theme CSS variables |
-| [choosing-streamlit-selection-widgets](developing-with-streamlit/skills/choosing-streamlit-selection-widgets/) | Choosing the right selection widget |
-| [connecting-streamlit-to-snowflake](developing-with-streamlit/skills/connecting-streamlit-to-snowflake/) | Connecting to Snowflake with st.connection |
-| [creating-streamlit-themes](developing-with-streamlit/skills/creating-streamlit-themes/) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
-| [displaying-streamlit-data](developing-with-streamlit/skills/displaying-streamlit-data/) | Dataframes, column config, charts |
-| [improving-streamlit-design](developing-with-streamlit/skills/improving-streamlit-design/) | Icons, badges, spacing, text styling |
-| [optimizing-streamlit-performance](developing-with-streamlit/skills/optimizing-streamlit-performance/) | Caching, fragments, forms, static vs dynamic widgets |
-| [organizing-streamlit-code](developing-with-streamlit/skills/organizing-streamlit-code/) | Separating UI from business logic, modules |
-| [setting-up-streamlit-environment](developing-with-streamlit/skills/setting-up-streamlit-environment/) | Python environment setup |
-| [using-streamlit-cli](developing-with-streamlit/skills/using-streamlit-cli/) | CLI commands, running apps |
-| [using-streamlit-custom-components](developing-with-streamlit/skills/using-streamlit-custom-components/) | Third-party components from the community |
-| [using-streamlit-layouts](developing-with-streamlit/skills/using-streamlit-layouts/) | Sidebar, columns, containers, dialogs |
-| [using-streamlit-markdown](developing-with-streamlit/skills/using-streamlit-markdown/) | Colored text, badges, icons, LaTeX, markdown features |
-| [using-streamlit-session-state](developing-with-streamlit/skills/using-streamlit-session-state/) | Session state, widget keys, callbacks, state persistence |
-
-## Templates
-
-The skill includes ready-to-use templates in `developing-with-streamlit/templates/`:
-
-- **`templates/apps/`** — 9 dashboard app templates (6 local + 3 Snowflake variants) with synthetic data, caching patterns, and layout best practices
-- **`templates/themes/`** — 8 theme templates (snowflake, dracula, nord, stripe, solarized-light, spotify, github, minimal) using Google Fonts
-
-See each template directory's README for setup instructions.
+| building-streamlit-chat-ui | Chat interfaces, chatbots, AI assistants |
+| building-streamlit-dashboards | KPI cards, metrics, dashboard layouts |
+| building-streamlit-multipage-apps | Multi-page app structure and navigation |
+| building-streamlit-custom-components-v2 | Custom Components v2, bidirectional state, bundling |
+| choosing-streamlit-selection-widgets | Choosing the right selection widget |
+| connecting-streamlit-to-snowflake | Connecting to Snowflake with st.connection |
+| creating-streamlit-themes | Theme configuration, colors, fonts, light/dark modes |
+| displaying-streamlit-data | Dataframes, column config, charts |
+| improving-streamlit-design | Icons, badges, spacing, text styling |
+| optimizing-streamlit-performance | Caching, fragments, forms, static vs dynamic widgets |
+| organizing-streamlit-code | Separating UI from business logic, modules |
+| setting-up-streamlit-environment | Python environment setup |
+| using-streamlit-cli | CLI commands, running apps |
+| using-streamlit-custom-components | Third-party components from the community |
+| using-streamlit-layouts | Sidebar, columns, containers, dialogs |
+| using-streamlit-markdown | Colored text, badges, icons, LaTeX, markdown features |
+| using-streamlit-session-state | Session state, widget keys, callbacks, state persistence |
 
 ## Installation
 
 ### Claude Code
 
-Copy the parent skill folder to your Claude Code skills directory:
+Copy the meta-skill folder to your Claude Code skills directory:
 
 ```bash
 cp -r developing-with-streamlit ~/.claude/skills/
 ```
 
-Or reference skills directly in your project by adding them to your `.claude/skills/` directory.
+Or reference it directly in your project by adding it to your `.claude/skills/` directory.
 
 ### Cursor
 
-Copy the parent skill folder to your [Cursor skills directory](https://cursor.com/docs/context/skills):
+Copy the meta-skill folder to your [Cursor skills directory](https://cursor.com/docs/context/skills):
 
 ```bash
 cp -r developing-with-streamlit ~/.cursor/skills/
 ```
 
-Or add skills directly to your project's `.cursor/skills/` directory.
+Or add it directly to your project's `.cursor/skills/` directory.
 
 ### Snowflake Cortex Code
 
