@@ -118,7 +118,7 @@ with st.sidebar:
 
 ## Dashboard templates
 
-Ready-to-use dashboard templates are available in `templates/apps/`:
+Ready-to-use dashboard templates are available in `assets/templates/apps/`:
 
 | Template | Features |
 |----------|----------|
@@ -132,7 +132,7 @@ Ready-to-use dashboard templates are available in `templates/apps/`:
 | `dashboard-stock-peers` | Stock peer comparison |
 | `dashboard-stock-peers-snowflake` | Same as above, with Snowflake connection |
 
-Each template uses synthetic data that can be replaced with real queries. See `templates/apps/README.md` for setup instructions.
+Each template uses synthetic data that can be replaced with real queries. See `assets/templates/apps/README.md` for setup instructions.
 
 ## Related skills
 

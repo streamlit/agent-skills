@@ -42,10 +42,10 @@ Activate when the user mentions any of:
 
 ## Read next (pick the minimum reference)
 
-- **State sync / controlled inputs / callbacks**: see [references/state-sync.md](references/state-sync.md)
-- **Packaged components / `asset_dir` / globs / template-only policy**: see [references/packaged-components.md](references/packaged-components.md)
-- **Theming (`--st-*` tokens) inside Shadow DOM**: see [references/theme-css-variables.md](references/theme-css-variables.md)
-- **Errors and gotchas**: see [references/troubleshooting.md](references/troubleshooting.md)
+- **State sync / controlled inputs / callbacks**: see [ccv2-state-sync.md](ccv2-state-sync.md)
+- **Packaged components / `asset_dir` / globs / template-only policy**: see [ccv2-packaged-components.md](ccv2-packaged-components.md)
+- **Theming (`--st-*` tokens) inside Shadow DOM**: see [ccv2-theme-css-variables.md](ccv2-theme-css-variables.md)
+- **Errors and gotchas**: see [ccv2-troubleshooting.md](ccv2-troubleshooting.md)
 
 ## Quick decision: inline vs packaged
 
@@ -189,7 +189,7 @@ Notes:
   - Inside `on_submitted_change`: use `st.session_state[key].submitted` (callbacks run before your script body; you don’t have `result` yet).
 - **Defaults**: if you pass `default={...}` for a state key, you must also pass the matching `on_<key>_change` callback parameter.
 
-For the full “controlled input” pattern and pitfalls, see [references/state-sync.md](references/state-sync.md).
+For the full “controlled input” pattern and pitfalls, see [ccv2-state-sync.md](ccv2-state-sync.md).
 
 ## Packaged components (template-only, mandatory)
 
@@ -209,7 +209,7 @@ Keep these guardrails in mind:
 - **MUST** ensure `js=`/`css=` globs match **exactly one** file under the manifest’s `asset_dir`.
 - **MUST** validate with `streamlit run ...` (plain `python -c "import ..."` can be a false negative for packaged components).
 
-For the full packaged workflow checklist, non-interactive generation, offline usage, and template invariants, see [references/packaged-components.md](references/packaged-components.md).
+For the full packaged workflow checklist, non-interactive generation, offline usage, and template invariants, see [ccv2-packaged-components.md](ccv2-packaged-components.md).
 
 ## Frontend renderer lifecycle (framework-agnostic)
 
@@ -224,10 +224,10 @@ Your frontend entrypoint is the **default export** function. A few rules keep co
 - Prefer **`isolate_styles=True`** (default). Your component runs in a shadow root and won’t leak styles into the app.
 - Set `isolate_styles=False` only when you need global styling behavior (e.g. Tailwind, global font injection).
 - Streamlit injects a broad set of `--st-*` theme CSS variables (colors, typography, chart palettes, radii, borders, etc.). **Highly recommended:** use these variables so your component automatically adapts to the user’s current Streamlit theme (light/dark/custom) without authoring separate theme variants. Start with the common ones (`--st-text-color`, `--st-primary-color`, `--st-secondary-background-color`) and refer to the full list when you need it:
-  - [references/theme-css-variables.md](references/theme-css-variables.md)
+  - [ccv2-theme-css-variables.md](ccv2-theme-css-variables.md)
 
 ## Troubleshooting and gotchas
 
 Start here when something “should work” but doesn’t:
 
-- [references/troubleshooting.md](references/troubleshooting.md)
+- [ccv2-troubleshooting.md](ccv2-troubleshooting.md)

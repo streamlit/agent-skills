@@ -83,44 +83,44 @@ Use this routing table to select sub-skill(s). **Always read the sub-skill file*
 
 | User Need | Sub-skill to Read |
 |-----------|-------------------|
-| **Performance issues, slow apps, caching** | `read skills/optimizing-streamlit-performance/SKILL.md` |
-| **Building a dashboard with KPIs/metrics** | `read skills/building-streamlit-dashboards/SKILL.md` |
-| **Improving visual design, icons, polish** | `read skills/improving-streamlit-design/SKILL.md` |
-| **Choosing widgets (selectbox vs radio vs pills)** | `read skills/choosing-streamlit-selection-widgets/SKILL.md` |
-| **Styling widgets (button colors, backgrounds, CSS)** | `read skills/creating-streamlit-themes/SKILL.md` |
-| **Layouts (columns, tabs, sidebar, containers)** | `read skills/using-streamlit-layouts/SKILL.md` |
-| **Displaying data (dataframes, charts)** | `read skills/displaying-streamlit-data/SKILL.md` |
-| **Multi-page app architecture** | `read skills/building-streamlit-multipage-apps/SKILL.md` |
-| **Session state and callbacks** | `read skills/using-streamlit-session-state/SKILL.md` |
-| **Markdown, colored text, badges** | `read skills/using-streamlit-markdown/SKILL.md` |
-| **Custom themes and colors** | `read skills/creating-streamlit-themes/SKILL.md` |
-| **Comprehensive theme design and brand alignment** | `read skills/creating-streamlit-themes/SKILL.md` |
-| **Chat interfaces and AI assistants** | `read skills/building-streamlit-chat-ui/SKILL.md` |
-| **Connecting to Snowflake** | `read skills/connecting-streamlit-to-snowflake/SKILL.md` |
-| **Building or packaging a custom component, triggering events back to Python from JS/HTML, custom HTML/JS with event handling (CCv2), OR any UI element that doesn't exist as a native Streamlit widget** (e.g., drag-and-drop, custom interactive visualization, canvas drawing) | `read skills/building-streamlit-custom-components-v2/SKILL.md` — **IMPORTANT: `st.components.v1` is deprecated. Never use v1 for new components; always use `st.components.v2.component()`.** |
-| **Third-party components** | `read skills/using-streamlit-custom-components/SKILL.md` |
-| **Code organization** | `read skills/organizing-streamlit-code/SKILL.md` |
-| **Environment setup** | `read skills/setting-up-streamlit-environment/SKILL.md` |
-| **CLI commands** | `read skills/using-streamlit-cli/SKILL.md` |
+| **Performance issues, slow apps, caching** | `read references/performance.md` |
+| **Building a dashboard with KPIs/metrics** | `read references/dashboards.md` |
+| **Improving visual design, icons, polish** | `read references/design.md` |
+| **Choosing widgets (selectbox vs radio vs pills)** | `read references/selection-widgets.md` |
+| **Styling widgets (button colors, backgrounds, CSS)** | `read references/theme.md` |
+| **Layouts (columns, tabs, sidebar, containers)** | `read references/layouts.md` |
+| **Displaying data (dataframes, charts)** | `read references/data-display.md` |
+| **Multi-page app architecture** | `read references/multipage-apps.md` |
+| **Session state and callbacks** | `read references/session-state.md` |
+| **Markdown, colored text, badges** | `read references/markdown.md` |
+| **Custom themes and colors** | `read references/theme.md` |
+| **Comprehensive theme design and brand alignment** | `read references/theme.md` |
+| **Chat interfaces and AI assistants** | `read references/chat-ui.md` |
+| **Connecting to Snowflake** | `read references/snowflake-connection.md` |
+| **Building or packaging a custom component, triggering events back to Python from JS/HTML, custom HTML/JS with event handling (CCv2), OR any UI element that doesn't exist as a native Streamlit widget** (e.g., drag-and-drop, custom interactive visualization, canvas drawing) | `read references/custom-components-v2.md` — **IMPORTANT: `st.components.v1` is deprecated. Never use v1 for new components; always use `st.components.v2.component()`.** |
+| **Third-party components** | `read references/third-party-components.md` |
+| **Code organization** | `read references/code-organization.md` |
+| **Environment setup** | `read references/environment-setup.md` |
+| **CLI commands** | `read references/cli.md` |
 
 **Fallback — "this widget doesn't exist in Streamlit":**
 
-If the user asks for a UI element or interaction that **has never been part of Streamlit's API** and cannot be built with any combination of native widgets (e.g., drag-and-drop, canvas drawing, custom interactive visualizations), **route to the CCv2 sub-skill** (`skills/building-streamlit-custom-components-v2/SKILL.md`). **Do not** route to CCv2 for features that exist in newer Streamlit versions (e.g., `st.connection`, `st.segmented_control`) — suggest upgrading instead.
+If the user asks for a UI element or interaction that **has never been part of Streamlit's API** and cannot be built with any combination of native widgets (e.g., drag-and-drop, canvas drawing, custom interactive visualizations), **route to the CCv2 sub-skill** (`references/custom-components-v2.md`). **Do not** route to CCv2 for features that exist in newer Streamlit versions (e.g., `st.connection`, `st.segmented_control`) — suggest upgrading instead.
 
 **Common combinations:**
 
 For **beautifying/improving an app**, read in order:
-1. `skills/improving-streamlit-design/SKILL.md`
-2. `skills/using-streamlit-layouts/SKILL.md`
-3. `skills/choosing-streamlit-selection-widgets/SKILL.md`
+1. `references/design.md`
+2. `references/layouts.md`
+3. `references/selection-widgets.md`
 
 For **building a dashboard**, read:
-1. `skills/building-streamlit-dashboards/SKILL.md`
-2. `skills/displaying-streamlit-data/SKILL.md`
+1. `references/dashboards.md`
+2. `references/data-display.md`
 
 **IMPORTANT - Use templates:**
 
-When creating a **new dashboard app**, prefer starting from a template in `templates/apps/`:
+When creating a **new dashboard app**, prefer starting from a template in `assets/templates/apps/`:
 - If a template closely matches the request, copy it and adapt:
   - `dashboard-metrics` / `dashboard-metrics-snowflake` — KPI cards with time-series charts
   - `dashboard-companies` — company/entity comparison
@@ -129,19 +129,19 @@ When creating a **new dashboard app**, prefer starting from a template in `templ
   - `dashboard-seattle-weather` — public dataset exploration (local only)
   - `dashboard-stock-peers` / `dashboard-stock-peers-snowflake` — financial peer analysis
 - If no template is a close match, start from scratch but borrow relevant patterns from the templates (e.g., caching with `@st.cache_data`, `filter_by_time_range()`, `st.set_page_config()`, chart utilities, layout structure)
-- See `templates/apps/README.md` for template descriptions
+- See `assets/templates/apps/README.md` for template descriptions
 
 When **editing an existing app**, use templates as reference for best practices:
-- Check `templates/apps/` for caching patterns, layout structure, and Snowflake integration
+- Check `assets/templates/apps/` for caching patterns, layout structure, and Snowflake integration
 - Apply consistent patterns from templates to improve the existing code
 
-When applying a **custom theme**, use a template from `templates/themes/`:
+When applying a **custom theme**, use a template from `assets/templates/themes/`:
 - Copy a theme directory (snowflake, dracula, nord, stripe, solarized-light, spotify, github, minimal)
 - Themes use Google Fonts for easy setup
-- See `templates/themes/README.md` for theme previews
+- See `assets/templates/themes/README.md` for theme previews
 
 For **performance optimization**, read:
-1. `skills/optimizing-streamlit-performance/SKILL.md`
+1. `references/performance.md`
 
 ### Step 3: Apply Guidance to Edit Code
 
@@ -196,23 +196,23 @@ For **performance optimization**, read:
 
 | Skill | Covers |
 |-------|--------|
-| [building-streamlit-chat-ui](skills/building-streamlit-chat-ui/SKILL.md) | Chat interfaces, streaming responses, message history |
-| [building-streamlit-dashboards](skills/building-streamlit-dashboards/SKILL.md) | KPI cards, metrics, dashboard layouts |
-| [building-streamlit-multipage-apps](skills/building-streamlit-multipage-apps/SKILL.md) | Page structure, navigation, shared state |
-| [building-streamlit-custom-components-v2](skills/building-streamlit-custom-components-v2/SKILL.md) | Streamlit Custom Components v2 (inline and template-based packaged), bidirectional state/trigger callbacks, bundling, theme CSS variables |
-| [choosing-streamlit-selection-widgets](skills/choosing-streamlit-selection-widgets/SKILL.md) | Selectbox vs radio vs segmented control vs pills vs multiselect |
-| [connecting-streamlit-to-snowflake](skills/connecting-streamlit-to-snowflake/SKILL.md) | st.connection, query caching, credentials |
-| [creating-streamlit-themes](skills/creating-streamlit-themes/SKILL.md) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
-| [displaying-streamlit-data](skills/displaying-streamlit-data/SKILL.md) | Dataframes, column config, charts |
-| [improving-streamlit-design](skills/improving-streamlit-design/SKILL.md) | Icons, badges, colored text, visual polish |
-| [optimizing-streamlit-performance](skills/optimizing-streamlit-performance/SKILL.md) | Caching, fragments, forms, static vs dynamic widgets |
-| [organizing-streamlit-code](skills/organizing-streamlit-code/SKILL.md) | When to split into modules, separating UI from logic |
-| [setting-up-streamlit-environment](skills/setting-up-streamlit-environment/SKILL.md) | Python environment, dependency management |
-| [using-streamlit-custom-components](skills/using-streamlit-custom-components/SKILL.md) | Third-party components from the community |
-| [using-streamlit-cli](skills/using-streamlit-cli/SKILL.md) | CLI commands, running apps |
-| [using-streamlit-layouts](skills/using-streamlit-layouts/SKILL.md) | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
-| [using-streamlit-markdown](skills/using-streamlit-markdown/SKILL.md) | Colored text, badges, icons, LaTeX, and all markdown features |
-| [using-streamlit-session-state](skills/using-streamlit-session-state/SKILL.md) | Session state, widget keys, callbacks, state persistence |
+| [building-streamlit-chat-ui](references/chat-ui.md) | Chat interfaces, streaming responses, message history |
+| [building-streamlit-dashboards](references/dashboards.md) | KPI cards, metrics, dashboard layouts |
+| [building-streamlit-multipage-apps](references/multipage-apps.md) | Page structure, navigation, shared state |
+| [building-streamlit-custom-components-v2](references/custom-components-v2.md) | Streamlit Custom Components v2 (inline and template-based packaged), bidirectional state/trigger callbacks, bundling, theme CSS variables |
+| [choosing-streamlit-selection-widgets](references/selection-widgets.md) | Selectbox vs radio vs segmented control vs pills vs multiselect |
+| [connecting-streamlit-to-snowflake](references/snowflake-connection.md) | st.connection, query caching, credentials |
+| [creating-streamlit-themes](references/theme.md) | Theme configuration, colors, fonts, light/dark modes, professional brand alignment, CSS avoidance |
+| [displaying-streamlit-data](references/data-display.md) | Dataframes, column config, charts |
+| [improving-streamlit-design](references/design.md) | Icons, badges, colored text, visual polish |
+| [optimizing-streamlit-performance](references/performance.md) | Caching, fragments, forms, static vs dynamic widgets |
+| [organizing-streamlit-code](references/code-organization.md) | When to split into modules, separating UI from logic |
+| [setting-up-streamlit-environment](references/environment-setup.md) | Python environment, dependency management |
+| [using-streamlit-custom-components](references/third-party-components.md) | Third-party components from the community |
+| [using-streamlit-cli](references/cli.md) | CLI commands, running apps |
+| [using-streamlit-layouts](references/layouts.md) | Sidebar, columns, containers, tabs, expanders, dialogs, alignment, spacing |
+| [using-streamlit-markdown](references/markdown.md) | Colored text, badges, icons, LaTeX, and all markdown features |
+| [using-streamlit-session-state](references/session-state.md) | Session state, widget keys, callbacks, state persistence |
 
 ## Resources
 

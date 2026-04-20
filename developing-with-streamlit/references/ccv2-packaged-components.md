@@ -163,7 +163,7 @@ Packaged CCv2 checklist
 - [ ] Editable install the Python package (`uv pip install -e . --force-reinstall`)
 - [ ] Verify `js=`/`css=` globs match exactly one file each under `asset_dir`
 - [ ] Run via `streamlit run ...` and confirm the component renders/events work
-- [ ] If something breaks: read `references/troubleshooting.md`, fix, rebuild, re-verify glob uniqueness
+- [ ] If something breaks: read `ccv2-troubleshooting.md`, fix, rebuild, re-verify glob uniqueness
 ```
 
 ### Verify the build output (prevents most load failures)

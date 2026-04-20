@@ -458,7 +458,7 @@ Test your theme with: buttons (primary contrast), forms (borders, focus), datafr
 
 ## Theme templates
 
-Ready-to-use themes with bundled fonts are available in `templates/themes/`:
+Ready-to-use themes with bundled fonts are available in `assets/templates/themes/`:
 
 | Theme | Base | Primary Color | Fonts |
 |-------|------|---------------|-------|
@@ -471,7 +471,7 @@ Ready-to-use themes with bundled fonts are available in `templates/themes/`:
 | **github** | Light | `#0969DA` (blue) | Inter, JetBrains Mono |
 | **minimal** | Dark | `#6366f1` (indigo) | Inter, JetBrains Mono |
 
-Each theme uses Google Fonts for easy setup. See `templates/themes/README.md`.
+Each theme uses Google Fonts for easy setup. See `assets/templates/themes/README.md`.
 
 ## Related skills
 
