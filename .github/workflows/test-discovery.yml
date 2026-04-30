@@ -1,0 +1,37 @@
+name: test-discovery
+
+on:
+  pull_request:
+    paths:
+      - "developing-with-streamlit/**"
+      - "tests/**"
+      - ".github/workflows/test-discovery.yml"
+  push:
+    branches: [main]
+  schedule:
+    # Weekly — catches upstream Streamlit moving the bundled skill path.
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+jobs:
+  discovery:
+    name: ${{ matrix.scenario }}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {scenario: 01-active-venv,              image: "python:3.12-slim"}
+          - {scenario: 02-local-dotvenv,            image: "python:3.12-slim"}
+          - {scenario: 03-parent-dotvenv,           image: "python:3.12-slim"}
+          - {scenario: 04-conda,                    image: "continuumio/miniconda3"}
+          - {scenario: 05-uv,                       image: "python:3.12-slim"}
+          - {scenario: 06-system-python,            image: "python:3.12-slim"}
+          - {scenario: 07-priority-venv-over-local, image: "python:3.12-slim"}
+          - {scenario: 08-streamlit-missing,        image: "python:3.12-slim"}
+          - {scenario: 09-streamlit-pre-1.57,       image: "python:3.12-slim"}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run scenario
+        run: bash tests/discovery/scenarios/${{ matrix.scenario }}.sh
