@@ -1,9 +1,9 @@
 ---
-name: discovering-streamlit-skills
+name: developing-with-streamlit
 description: "Discovers and loads Streamlit development skills bundled with the installed Streamlit package. Use for any Streamlit task: creating, editing, debugging, styling, theming, optimizing, or deploying Streamlit apps. Triggers: streamlit, st., dashboard, app.py, beautify, style, theme, widget, custom component."
 ---
 
-# Discovering Streamlit skills
+# Developing with Streamlit
 
 Streamlit (1.57+) ships with built-in agent skills that provide detailed guidance for building Streamlit apps. This skill shows how to find and load them from the installed package.
 
