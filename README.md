@@ -19,6 +19,10 @@ The meta-skill ([`developing-with-streamlit/SKILL.md`](developing-with-streamlit
 3. Points the agent to the bundled skills at `<streamlit_path>/.agents/skills/`
 4. Falls back to the [online docs](https://docs.streamlit.io/llms-full.txt) for older Streamlit versions
 
+### Install once, works with every project
+
+Because discovery happens dynamically against whichever interpreter is active, a single **user-level install** of this meta-skill works across every project on your machine — regardless of which Streamlit version each project pins. Upgrade a project's Streamlit and the agent automatically picks up the newer bundled skills; no re-install needed.
+
 ## Available skills (bundled with Streamlit 1.57+)
 
 Once discovered via the meta-skill, the bundled `developing-with-streamlit` routing skill provides access to these sub-skills:
@@ -45,41 +49,60 @@ Once discovered via the meta-skill, the bundled `developing-with-streamlit` rout
 
 ## Installation
 
+This repository contains a single meta-skill (`developing-with-streamlit`). **Install it once at the user level** — the meta-skill resolves the bundled skills dynamically from whichever Python interpreter is active, so one global install works across every project and every Streamlit version you use.
+
 ### Claude Code
 
-Copy the meta-skill folder to your Claude Code skills directory:
+Anthropic's Claude Code does not yet ship an official `skills install` CLI. Clone this repo and drop the skill folder into your user-level Claude skills directory:
 
 ```bash
-cp -r developing-with-streamlit ~/.claude/skills/
+git clone https://github.com/streamlit/agent-skills.git
+cp -r agent-skills/developing-with-streamlit ~/.claude/skills/
 ```
 
-Or reference it directly in your project by adding it to your `.claude/skills/` directory.
+If you prefer project-scoped install, copy to `.claude/skills/` in your repo root instead. See the [Claude Code skills docs](https://docs.anthropic.com/en/docs/claude-code/skills) for the latest guidance.
+
+### GitHub Copilot
+
+```bash
+gh skill install streamlit/agent-skills developing-with-streamlit --scope user
+```
+
+Available via the GitHub CLI (`gh`) as of April 2026. Drop `--scope user` to install to the current repo only, or pin a version with `developing-with-streamlit@v1.0.0`. See the [Copilot agent skills docs](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/add-skills).
 
 ### Cursor
 
-Copy the meta-skill folder to your [Cursor skills directory](https://cursor.com/docs/context/skills):
+The same GitHub CLI supports Cursor via `--agent`:
 
 ```bash
-cp -r developing-with-streamlit ~/.cursor/skills/
+gh skill install streamlit/agent-skills developing-with-streamlit --agent cursor --scope user
 ```
 
-Or add it directly to your project's `.cursor/skills/` directory.
+See the [Cursor skills docs](https://cursor.com/docs/context/skills) for alternative install flows (Settings UI, manual placement in `~/.cursor/skills/`).
+
+### Gemini CLI
+
+```bash
+gemini skills install https://github.com/streamlit/agent-skills.git
+```
+
+Defaults to `~/.gemini/skills/` (user scope). Add `--scope workspace` to install locally instead. See the [Gemini CLI skills docs](https://geminicli.com/docs/cli/skills/).
+
+### OpenAI Codex
+
+Codex installs skills interactively. From inside a Codex session, run:
+
+```
+$skill-installer
+```
+
+Then point the installer at `streamlit/agent-skills`. Skills land in `~/.codex/skills/` (user). See the [Codex skills docs](https://developers.openai.com/codex/skills/).
 
 ### Snowflake Cortex Code
-
-Install the skill directly from GitHub:
 
 ```bash
 cortex skill add streamlit/agent-skills
 ```
-
-### Other AI Assistants
-
-| Agent | Skills Folder | Documentation |
-|-------|---------------|---------------|
-| OpenAI Codex | `.codex/skills/` | [Codex Skills Docs](https://developers.openai.com/codex/skills/) |
-| Gemini CLI | `.gemini/skills/` | [Gemini CLI Skills Docs](https://geminicli.com/docs/cli/skills/) |
-| GitHub Copilot | `.github/skills/` | [Copilot Agent Skills Docs](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) |
 
 ## Contributing
 
