@@ -10,7 +10,6 @@ The actual skill content (dashboards, themes, layouts, session state, custom com
 
 **Key files:**
 - `developing-with-streamlit/SKILL.md` — Meta-skill that locates and loads bundled Streamlit skills
-- `template/` — Reference template for anyone authoring a new skill (used when contributing upstream)
 - `README.md` — Human-readable documentation and install instructions
 
 ## Meta-skill contract
@@ -30,7 +29,7 @@ New Streamlit skills belong upstream at `streamlit/streamlit` under `streamlit/.
 
 - [Agent Skills specification](https://agentskills.io/specification)
 - [Agent Skills best practices (Anthropic)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md)
-- `template/SKILL.md` in this repo — minimal reference template
+- Existing bundled skills under `streamlit/.agents/skills/` in the Streamlit repo — the best reference templates
 
 When authoring skills, always verify code examples against the latest Streamlit API by consulting [docs.streamlit.io/llms-full.txt](https://docs.streamlit.io/llms-full.txt).
 
