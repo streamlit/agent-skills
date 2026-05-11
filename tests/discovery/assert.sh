@@ -80,10 +80,13 @@ assert_pre_1_57_fallback() {
   if ! echo "$CAPTURED_STDERR" | grep -q "predates bundled skills"; then
     _fail "$scenario: expected stderr to mention predates bundled skills"
   fi
+  if ! echo "$CAPTURED_STDERR" | grep -q "pip install --upgrade streamlit"; then
+    _fail "$scenario: expected stderr to suggest 'pip install --upgrade streamlit'"
+  fi
   if ! echo "$CAPTURED_STDERR" | grep -q "docs.streamlit.io/llms-full.txt"; then
     _fail "$scenario: expected stderr to include llms-full.txt fallback URL"
   fi
-  _pass "$scenario: surfaced pre-1.57 fallback with llms-full.txt URL"
+  _pass "$scenario: surfaced pre-1.57 fallback with upgrade hint + llms-full.txt URL"
 }
 
 # Asserts exit 4 + upstream-restructured fallback that lists available skills.

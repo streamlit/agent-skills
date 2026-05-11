@@ -27,7 +27,7 @@ The script prints one of:
 - **A path to a bundled `SKILL.md` on stdout** (exit 0). Read that file and follow its routing instructions — it points to specialized sub-skills for dashboards, themes, layouts, session state, custom components, and more.
 - **An `ERROR:` block on stderr** (non-zero exit) with the next action to take:
   - **Exit 1**: Streamlit is not installed. **Confirm with the user before installing** — modifying their environment without permission is a problem. The error lists the right install command for their package manager (pip, uv, poetry, pipenv, conda) and reminds them to activate the project's environment if they use conda, pipenv, poetry, hatch, or pdm.
-  - **Exit 2**: Streamlit is installed but predates bundled skills (< 1.57). Fall back to `https://docs.streamlit.io/llms-full.txt` as the reference for Streamlit APIs.
+  - **Exit 2**: Streamlit is installed but predates bundled skills (< 1.57). Suggest the user upgrade with `pip install --upgrade streamlit` for the best experience (version-matched bundled skills). If they can't upgrade, fall back to `https://docs.streamlit.io/llms-full.txt` as the reference for Streamlit APIs.
   - **Exit 3**: No Python interpreter found. Ask the user to install Python 3.9+ and Streamlit, then re-run.
   - **Exit 4**: Bundled skills directory exists but the documented sub-path is missing — likely upstream Streamlit reorganized the skill layout. The error lists the available skill names; pick the one that best matches the user's task and read its `SKILL.md`. Fall back to `llms-full.txt` only if nothing matches.
   - **Exit 5**: Invalid script argument. Fix the invocation and re-run.

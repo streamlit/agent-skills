@@ -154,7 +154,11 @@ cat >&2 <<EOF
 ERROR: Streamlit is installed but predates bundled skills (< 1.57).
 Interpreter: $PY
 Streamlit path: $STREAMLIT_PATH
-Fall back to the online docs:
+
+For best results, upgrade to get version-matched bundled skills:
+  pip install --upgrade streamlit
+
+If upgrading isn't an option, fall back to the online docs:
   https://docs.streamlit.io/llms-full.txt
 EOF
 exit 2
