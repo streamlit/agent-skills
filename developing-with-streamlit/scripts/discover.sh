@@ -71,7 +71,7 @@ elif [ -n "${CONDA_PREFIX:-}" ] && [ -x "$CONDA_PREFIX/bin/python" ]; then
   PY="$CONDA_PREFIX/bin/python"
 elif command -v pipenv >/dev/null 2>&1 && [ -f "Pipfile" ]; then
   PY="pipenv run python"
-elif command -v uv >/dev/null 2>&1 && [ -f "pyproject.toml" ]; then
+elif command -v uv >/dev/null 2>&1 && [ -f "uv.lock" ]; then
   PY="uv run --quiet python"
 elif command -v python3 >/dev/null 2>&1; then
   PY="python3"

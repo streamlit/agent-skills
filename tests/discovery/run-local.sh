@@ -28,6 +28,7 @@ SCENARIOS=(
   "10-project-dir-argument|python:3.12-slim"
   "11-upstream-restructured|python:3.12-slim"
   "12-pipenv|python:3.12-slim"
+  "13-uv-no-lockfile|python:3.12-slim"
 )
 
 FAILED=()

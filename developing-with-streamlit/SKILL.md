@@ -35,6 +35,8 @@ If the script exits non-zero, follow the printed instructions and re-run.
 
 ## How interpreter detection works
 
-The script picks the first available Python in this order, evaluated relative to the project directory: `$VIRTUAL_ENV` → `./.venv` → `../.venv` → `$CONDA_PREFIX` → `pipenv run` (if `Pipfile` present) → `uv run` (if `pyproject.toml` present) → system `python3` / `python`. This matches whichever environment the user's project uses, so the discovered Streamlit version reflects what the project actually runs.
+The script picks the first available Python in this order, evaluated relative to the project directory: `$VIRTUAL_ENV` → `./.venv` → `../.venv` → `$CONDA_PREFIX` → `pipenv run` (if `Pipfile` present) → `uv run` (if `uv.lock` present) → system `python3` / `python`. This matches whichever environment the user's project uses, so the discovered Streamlit version reflects what the project actually runs.
+
+The uv branch checks for `uv.lock` specifically (not just `pyproject.toml`) because `pyproject.toml` is shared by poetry, hatch, pdm, and other tools — using it as the marker would misroute non-uv projects to uv whenever uv happens to be installed globally.
 
 For tools that require activation (conda, poetry, hatch, pdm, pyenv-virtualenv), the user must have their environment active in the calling shell — otherwise the script falls through to system Python and may not find Streamlit. The exit-1 error message reminds them of this.
