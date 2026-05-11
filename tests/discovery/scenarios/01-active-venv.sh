@@ -6,13 +6,13 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
 WORK="$(mktemp -d)"
 cd "$WORK"
 
 python3 -m venv .venv
 . .venv/bin/activate
-pip install --quiet "streamlit==$STREAMLIT_VERSION"
+pip install --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}"
 
 run_discover
 assert_bundled_skill_exists "01-active-venv"

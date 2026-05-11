@@ -9,7 +9,7 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
 pip install --quiet pipenv
 
 WORK="$(mktemp -d)"
@@ -18,7 +18,7 @@ unset VIRTUAL_ENV CONDA_PREFIX
 # Default pipenv behavior: venv lives in ~/.local/share/virtualenvs/, NOT in the project.
 unset PIPENV_VENV_IN_PROJECT
 
-pipenv install --quiet "streamlit==$STREAMLIT_VERSION" >/dev/null 2>&1
+pipenv install --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}" >/dev/null 2>&1
 
 # Sanity: confirm pipenv didn't drop a .venv in the project (would short-circuit our test).
 if [ -e ".venv" ]; then

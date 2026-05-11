@@ -6,13 +6,13 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
 pip install --quiet uv
 
 WORK="$(mktemp -d)"
 cd "$WORK"
 uv init --quiet --no-workspace .
-uv add --quiet "streamlit==$STREAMLIT_VERSION"
+uv add --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}"
 
 # uv creates ./.venv during `uv add`. To isolate the "uv wins" path we remove it
 # so discover.sh falls past the .venv check. VIRTUAL_ENV also unset.

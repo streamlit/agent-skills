@@ -6,11 +6,11 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
 PARENT="$(mktemp -d)"
 cd "$PARENT"
 python3 -m venv .venv
-.venv/bin/pip install --quiet "streamlit==$STREAMLIT_VERSION"
+.venv/bin/pip install --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}"
 mkdir -p project
 cd project
 unset VIRTUAL_ENV

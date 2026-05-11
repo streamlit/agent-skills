@@ -10,8 +10,8 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
-pip install --quiet "streamlit==$STREAMLIT_VERSION"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
+pip install --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}"
 
 # Locate the installed streamlit and rename its bundled skill so the documented
 # sub-path no longer exists, but .agents/skills/ does (with one or more siblings

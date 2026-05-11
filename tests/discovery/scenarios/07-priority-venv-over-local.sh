@@ -8,13 +8,13 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
 WORK="$(mktemp -d)"
 cd "$WORK"
 
 # Venv A (with Streamlit) becomes the active VIRTUAL_ENV.
 python3 -m venv venv-a
-venv-a/bin/pip install --quiet "streamlit==$STREAMLIT_VERSION"
+venv-a/bin/pip install --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}"
 
 # ./.venv (without Streamlit) exists at cwd. Would be picked by step 2 if
 # priority order is broken.

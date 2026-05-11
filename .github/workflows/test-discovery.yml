@@ -9,7 +9,10 @@ on:
   push:
     branches: [main]
   schedule:
-    # Weekly — catches upstream Streamlit moving the bundled skill path.
+    # Weekly — re-runs the matrix against `streamlit` (latest from PyPI) even
+    # when nobody pushes, so we catch upstream changes (renamed bundled
+    # SKILL.md, restructured .agents/skills/, etc.) within ~7 days during
+    # quiet periods.
     - cron: "0 12 * * 1"
   workflow_dispatch:
 

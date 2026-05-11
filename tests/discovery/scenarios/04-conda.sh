@@ -6,9 +6,9 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
 # Install Streamlit into the base conda env; CONDA_PREFIX already points here.
-/opt/conda/bin/pip install --quiet "streamlit==$STREAMLIT_VERSION"
+/opt/conda/bin/pip install --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}"
 export CONDA_PREFIX="/opt/conda"
 
 WORK="$(mktemp -d)"

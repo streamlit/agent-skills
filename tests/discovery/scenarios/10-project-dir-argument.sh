@@ -10,12 +10,12 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 source "$REPO_ROOT/tests/discovery/assert.sh"
 
-STREAMLIT_VERSION="${STREAMLIT_VERSION:-1.57.0}"
+STREAMLIT_VERSION="${STREAMLIT_VERSION:-}"
 
 # Build the user's "project" with .venv + streamlit installed.
 USER_PROJECT="$(mktemp -d)"
 python3 -m venv "$USER_PROJECT/.venv"
-"$USER_PROJECT/.venv/bin/pip" install --quiet "streamlit==$STREAMLIT_VERSION"
+"$USER_PROJECT/.venv/bin/pip" install --quiet "streamlit${STREAMLIT_VERSION:+==$STREAMLIT_VERSION}"
 
 # Run from a totally unrelated directory (simulates: agent's CWD is e.g. the
 # skill install dir, NOT the user's project).
