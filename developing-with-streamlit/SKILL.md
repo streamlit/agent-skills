@@ -1,6 +1,6 @@
 ---
 name: developing-with-streamlit
-description: "Discovers and loads Streamlit development skills bundled with the installed Streamlit package. Use for any Streamlit task: creating, editing, debugging, styling, theming, optimizing, or deploying Streamlit apps. Triggers: streamlit, st., dashboard, app.py, beautify, style, theme, widget, custom component."
+description: "Use for ALL Streamlit tasks: creating, editing, debugging, beautifying, styling, theming, optimizing, or deploying Streamlit apps. Also custom components, st.components.v2, HTML/JS/CSS work. Discovers and loads version-matched skills from the user's installed Streamlit (>=1.57). Triggers: streamlit, st., dashboard, app.py, beautify, style, CSS, color, background, theme, button, widget styling, custom component, st.components, CCv2, session state, performance, cache, fragment, slow rerun, deploy."
 ---
 
 # Developing with Streamlit
