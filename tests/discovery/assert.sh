@@ -85,3 +85,18 @@ assert_pre_1_57_fallback() {
   fi
   _pass "$scenario: surfaced pre-1.57 fallback with llms-full.txt URL"
 }
+
+# Asserts exit 4 + upstream-restructured fallback that lists available skills.
+assert_upstream_restructured() {
+  local scenario="$1"
+  if [ "$CAPTURED_RC" -ne 4 ]; then
+    _fail "$scenario: expected exit 4 (upstream restructured), got $CAPTURED_RC"
+  fi
+  if ! echo "$CAPTURED_STDERR" | grep -q "upstream Streamlit reorganized"; then
+    _fail "$scenario: expected stderr to mention upstream restructured the skill layout"
+  fi
+  if ! echo "$CAPTURED_STDERR" | grep -q "Available entries:"; then
+    _fail "$scenario: expected stderr to include 'Available entries:' listing"
+  fi
+  _pass "$scenario: surfaced upstream-restructured error with available-skills listing"
+}

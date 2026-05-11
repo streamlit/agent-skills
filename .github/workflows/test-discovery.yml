@@ -31,6 +31,9 @@ jobs:
           - {scenario: 07-priority-venv-over-local, image: "python:3.12-slim"}
           - {scenario: 08-streamlit-missing,        image: "python:3.12-slim"}
           - {scenario: 09-streamlit-pre-1.57,       image: "python:3.12-slim"}
+          - {scenario: 10-project-dir-argument,     image: "python:3.12-slim"}
+          - {scenario: 11-upstream-restructured,    image: "python:3.12-slim"}
+          - {scenario: 12-pipenv,                   image: "python:3.12-slim"}
     steps:
       - uses: actions/checkout@v4
       - name: Run scenario

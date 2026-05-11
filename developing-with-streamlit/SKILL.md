@@ -5,26 +5,36 @@ description: "Use for ALL Streamlit tasks: creating, editing, debugging, beautif
 
 # Developing with Streamlit
 
-Streamlit (1.57+) ships with built-in agent skills that provide detailed guidance for building Streamlit apps. This skill locates those bundled skills from the user's active Python environment.
+Streamlit (>=1.57) ships with built-in agent skills that provide detailed guidance for building Streamlit apps. This skill locates those bundled skills from the user's active Python environment.
 
 ## Usage
 
-Run the discovery script:
+Run the discovery script with the user's project directory as the target:
 
 ```bash
-bash scripts/discover.sh
+bash <SKILL_DIR>/scripts/discover.sh --project-dir <USER_PROJECT_DIR>
 ```
+
+`<SKILL_DIR>` is the directory containing this `SKILL.md`; `<USER_PROJECT_DIR>` is the absolute path to the project the user is working on. Passing `--project-dir` is important because the script resolves `.venv`, `../.venv`, `pyproject.toml`, and `Pipfile` relative to the project — running it from the wrong directory silently picks the wrong Python environment.
+
+If you cannot determine the user's project directory, omit `--project-dir` and invoke the script with that directory as your working directory instead.
+
+## Outcomes
 
 The script prints one of:
 
 - **A path to a bundled `SKILL.md` on stdout** (exit 0). Read that file and follow its routing instructions — it points to specialized sub-skills for dashboards, themes, layouts, session state, custom components, and more.
 - **An `ERROR:` block on stderr** (non-zero exit) with the next action to take:
-  - Exit 1: Streamlit is not installed — run `pip install streamlit`, then re-run.
-  - Exit 2: Streamlit is installed but predates bundled skills — fall back to `https://docs.streamlit.io/llms-full.txt` as the reference for Streamlit APIs.
-  - Exit 3: no Python interpreter found — install Python 3.9+ and Streamlit, then re-run.
+  - **Exit 1**: Streamlit is not installed. **Confirm with the user before installing** — modifying their environment without permission is a problem. The error lists the right install command for their package manager (pip, uv, poetry, pipenv, conda) and reminds them to activate the project's environment if they use conda, pipenv, poetry, hatch, or pdm.
+  - **Exit 2**: Streamlit is installed but predates bundled skills (< 1.57). Fall back to `https://docs.streamlit.io/llms-full.txt` as the reference for Streamlit APIs.
+  - **Exit 3**: No Python interpreter found. Ask the user to install Python 3.9+ and Streamlit, then re-run.
+  - **Exit 4**: Bundled skills directory exists but the documented sub-path is missing — likely upstream Streamlit reorganized the skill layout. The error lists the available skill names; pick the one that best matches the user's task and read its `SKILL.md`. Fall back to `llms-full.txt` only if nothing matches.
+  - **Exit 5**: Invalid script argument. Fix the invocation and re-run.
 
 If the script exits non-zero, follow the printed instructions and re-run.
 
 ## How interpreter detection works
 
-The script picks the first available Python in this order: `$VIRTUAL_ENV` → `./.venv` → `../.venv` → `$CONDA_PREFIX` → `uv run` (if `pyproject.toml` present) → system `python3` / `python`. This matches whichever environment the user's project uses, so the discovered Streamlit version reflects what the project actually runs.
+The script picks the first available Python in this order, evaluated relative to the project directory: `$VIRTUAL_ENV` → `./.venv` → `../.venv` → `$CONDA_PREFIX` → `pipenv run` (if `Pipfile` present) → `uv run` (if `pyproject.toml` present) → system `python3` / `python`. This matches whichever environment the user's project uses, so the discovered Streamlit version reflects what the project actually runs.
+
+For tools that require activation (conda, poetry, hatch, pdm, pyenv-virtualenv), the user must have their environment active in the calling shell — otherwise the script falls through to system Python and may not find Streamlit. The exit-1 error message reminds them of this.

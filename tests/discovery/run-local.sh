@@ -25,6 +25,9 @@ SCENARIOS=(
   "07-priority-venv-over-local|python:3.12-slim"
   "08-streamlit-missing|python:3.12-slim"
   "09-streamlit-pre-1.57|python:3.12-slim"
+  "10-project-dir-argument|python:3.12-slim"
+  "11-upstream-restructured|python:3.12-slim"
+  "12-pipenv|python:3.12-slim"
 )
 
 FAILED=()
