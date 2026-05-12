@@ -81,8 +81,19 @@ def run_discover(
     )
 
 
-def assert_resolves_bundled(result: subprocess.CompletedProcess, scenario: str) -> Path:
-    """Assert discover succeeded and returned a real bundled SKILL.md path."""
+def assert_resolves_bundled(
+    result: subprocess.CompletedProcess,
+    scenario: str,
+    *,
+    inside: Optional[Path] = None,
+) -> Path:
+    """Assert discover succeeded and returned a real bundled SKILL.md path.
+
+    If `inside` is given, also assert the resolved path lives under that
+    directory — closes the gap where a test could pass via a wrong-but-valid
+    Streamlit install (e.g., a system-wide one) instead of the venv the test
+    set up.
+    """
     assert result.returncode == 0, (
         f"{scenario}: expected exit 0, got {result.returncode}\n"
         f"stdout: {result.stdout!r}\nstderr: {result.stderr!r}"
@@ -95,6 +106,13 @@ def assert_resolves_bundled(result: subprocess.CompletedProcess, scenario: str) 
     assert path.parent.name == "developing-with-streamlit"
     assert path.parent.parent.name == "skills"
     assert path.parent.parent.parent.name == ".agents"
+    if inside is not None:
+        try:
+            path.relative_to(inside.resolve())
+        except ValueError:
+            raise AssertionError(
+                f"{scenario}: resolved path {path} is not inside expected venv {inside}"
+            )
     return path
 
 

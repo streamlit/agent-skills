@@ -44,50 +44,49 @@ def test_active_venv(tmp_path: Path) -> None:
     work.mkdir()
 
     result = run_discover(cwd=work, extra_env={"VIRTUAL_ENV": str(venv_root)})
-    assert_resolves_bundled(result, "active_venv")
+    assert_resolves_bundled(result, "active_venv", inside=venv_root)
 
 
 def test_local_dotvenv(tmp_path: Path) -> None:
     """Priority 2: ./.venv exists, $VIRTUAL_ENV unset."""
     project = tmp_path / "project"
     project.mkdir()
-    make_venv(project / ".venv", packages=["streamlit"])
+    venv_root = project / ".venv"
+    make_venv(venv_root, packages=["streamlit"])
 
     result = run_discover(cwd=project)
-    assert_resolves_bundled(result, "local_dotvenv")
+    assert_resolves_bundled(result, "local_dotvenv", inside=venv_root)
 
 
 def test_parent_dotvenv(tmp_path: Path) -> None:
     """Priority 3: ../.venv exists; cwd is a child directory."""
     parent = tmp_path / "parent"
     parent.mkdir()
-    make_venv(parent / ".venv", packages=["streamlit"])
+    venv_root = parent / ".venv"
+    make_venv(venv_root, packages=["streamlit"])
     project = parent / "project"
     project.mkdir()
 
     result = run_discover(cwd=project)
-    assert_resolves_bundled(result, "parent_dotvenv")
+    assert_resolves_bundled(result, "parent_dotvenv", inside=venv_root)
 
 
-@pytest.mark.skipif(
-    shutil.which("conda") is None or not tool_works("conda"),
-    reason="conda not available on this runner",
-)
-def test_conda(tmp_path: Path) -> None:
-    """Priority 4: $CONDA_PREFIX points at an env with Streamlit."""
-    env_root = tmp_path / "conda-env"
-    subprocess.run(
-        ["conda", "create", "--yes", "--quiet", "--prefix", str(env_root), "python=3.12"],
-        check=True,
-    )
-    py = venv_python(env_root)
-    subprocess.run([str(py), "-m", "pip", "install", "--quiet", "streamlit"], check=True)
+def test_conda_prefix_detection(tmp_path: Path) -> None:
+    """Priority 4: $CONDA_PREFIX is honored.
 
+    Uses a stdlib venv as a stand-in for a conda env. Conda envs are
+    structurally identical to venvs (bin/python on POSIX, Scripts/python.exe
+    on Windows), so testing the env-var lookup with a venv exercises the same
+    discover.py code path. Skipping the conda-binary roundtrip lets this
+    test run on every CI runner without needing miniconda installed.
+    """
+    env_root = tmp_path / "conda-env-stand-in"
+    make_venv(env_root, packages=["streamlit"])
     project = tmp_path / "project"
     project.mkdir()
 
     result = run_discover(cwd=project, extra_env={"CONDA_PREFIX": str(env_root)})
-    assert_resolves_bundled(result, "conda")
+    assert_resolves_bundled(result, "conda_prefix", inside=env_root)
 
 
 @pytest.mark.skipif(
@@ -114,7 +113,9 @@ def test_uv_with_lockfile(tmp_path: Path) -> None:
 
     assert (project / "uv.lock").is_file(), "test setup error: uv.lock should exist"
     result = run_discover(cwd=project)
-    assert_resolves_bundled(result, "uv_with_lockfile")
+    # uv recreates a venv on demand at .venv when invoked; assert the
+    # resolved path lives there (not in some unrelated install).
+    assert_resolves_bundled(result, "uv_with_lockfile", inside=project / ".venv")
 
 
 def test_system_python(tmp_path: Path) -> None:
@@ -135,7 +136,7 @@ def test_system_python(tmp_path: Path) -> None:
     # Use VIRTUAL_ENV so the test is deterministic regardless of what the
     # runner's actual `python3` has installed.
     result = run_discover(cwd=project, extra_env={"VIRTUAL_ENV": str(venv_root)})
-    assert_resolves_bundled(result, "system_python")
+    assert_resolves_bundled(result, "system_python", inside=venv_root)
 
 
 # --- Priority conflict ------------------------------------------------------
@@ -153,7 +154,7 @@ def test_priority_venv_over_local(tmp_path: Path) -> None:
     make_venv(project / ".venv")  # no streamlit
 
     result = run_discover(cwd=project, extra_env={"VIRTUAL_ENV": str(venv_a)})
-    assert_resolves_bundled(result, "priority_venv_over_local")
+    assert_resolves_bundled(result, "priority_venv_over_local", inside=venv_a)
 
 
 # --- Argument handling ------------------------------------------------------
@@ -163,22 +164,29 @@ def test_project_dir_argument(tmp_path: Path) -> None:
     """--project-dir overrides cwd: invoked from elsewhere, resolves project's .venv."""
     user_project = tmp_path / "user-project"
     user_project.mkdir()
-    make_venv(user_project / ".venv", packages=["streamlit"])
+    project_venv = user_project / ".venv"
+    make_venv(project_venv, packages=["streamlit"])
 
     elsewhere = tmp_path / "agent-cwd"
     elsewhere.mkdir()
 
     result = run_discover(cwd=elsewhere, project_dir=user_project)
-    assert_resolves_bundled(result, "project_dir_argument")
+    assert_resolves_bundled(result, "project_dir_argument", inside=project_venv)
 
 
 # --- Fallback codepaths -----------------------------------------------------
 
 
 def test_streamlit_missing(tmp_path: Path) -> None:
-    """Detected interpreter has no Streamlit. Expect exit 1 + install hints."""
+    """Detected interpreter has no Streamlit. Expect exit 1 + install hints.
+
+    Critically: assert that the error reports the venv's python as the
+    detected interpreter — closes the gap where this could pass via fallthrough
+    to a (also streamlit-less) system Python instead of actually exercising
+    VIRTUAL_ENV detection.
+    """
     venv_root = tmp_path / "empty-venv"
-    make_venv(venv_root)  # no packages
+    py = make_venv(venv_root)  # no packages
     project = tmp_path / "project"
     project.mkdir()
 
@@ -188,6 +196,9 @@ def test_streamlit_missing(tmp_path: Path) -> None:
     )
     assert "Streamlit is not installed" in result.stderr
     assert "pip install streamlit" in result.stderr
+    assert str(py) in result.stderr, (
+        "expected VIRTUAL_ENV's python in error; got fallthrough to a different interpreter"
+    )
 
 
 def test_streamlit_pre_1_57(tmp_path: Path) -> None:
@@ -259,8 +270,17 @@ def test_pipenv(tmp_path: Path) -> None:
     )
     assert (project / "Pipfile").is_file()
 
+    # Resolve where pipenv put its venv so we can assert the discovered path
+    # actually came from there (rather than some unrelated streamlit install).
+    pipenv_venv = subprocess.check_output(
+        ["pipenv", "--venv"],
+        cwd=str(project),
+        env=env,
+        text=True,
+    ).strip()
+
     result = run_discover(cwd=project)
-    assert_resolves_bundled(result, "pipenv")
+    assert_resolves_bundled(result, "pipenv", inside=Path(pipenv_venv))
 
 
 # --- uv branch disambiguation ----------------------------------------------
