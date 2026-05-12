@@ -23,30 +23,6 @@ The meta-skill ([`developing-with-streamlit/SKILL.md`](developing-with-streamlit
 
 Because discovery happens dynamically against whichever interpreter is active, a single **user-level install** of this meta-skill works across every project on your machine — regardless of which Streamlit version each project pins. Upgrade a project's Streamlit and the agent automatically picks up the newer bundled skills; no re-install needed.
 
-## Available skills (bundled with Streamlit 1.57+)
-
-Once discovered via the meta-skill, the bundled `developing-with-streamlit` routing skill provides access to these sub-skills:
-
-| Skill | Description |
-|-------|-------------|
-| building-streamlit-chat-ui | Chat interfaces, chatbots, AI assistants |
-| building-streamlit-dashboards | KPI cards, metrics, dashboard layouts |
-| building-streamlit-multipage-apps | Multi-page app structure and navigation |
-| building-streamlit-custom-components-v2 | Custom Components v2, bidirectional state, bundling |
-| choosing-streamlit-selection-widgets | Choosing the right selection widget |
-| connecting-streamlit-to-snowflake | Connecting to Snowflake with st.connection |
-| creating-streamlit-themes | Theme configuration, colors, fonts, light/dark modes |
-| displaying-streamlit-data | Dataframes, column config, charts |
-| improving-streamlit-design | Icons, badges, spacing, text styling |
-| optimizing-streamlit-performance | Caching, fragments, forms, static vs dynamic widgets |
-| organizing-streamlit-code | Separating UI from business logic, modules |
-| setting-up-streamlit-environment | Python environment setup |
-| using-streamlit-cli | CLI commands, running apps |
-| using-streamlit-custom-components | Third-party components from the community |
-| using-streamlit-layouts | Sidebar, columns, containers, dialogs |
-| using-streamlit-markdown | Colored text, badges, icons, LaTeX, markdown features |
-| using-streamlit-session-state | Session state, widget keys, callbacks, state persistence |
-
 ## Installation
 
 This repository contains a single meta-skill (`developing-with-streamlit`). **Install it once at the user level** — the meta-skill resolves the bundled skills dynamically from whichever Python interpreter is active, so one global install works across every project and every Streamlit version you use.
