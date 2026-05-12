@@ -9,7 +9,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # Weekly — re-runs the matrix against `streamlit` (latest from PyPI) even
+    # Weekly — re-runs the suite against `streamlit` (latest from PyPI) even
     # when nobody pushes, so we catch upstream changes (renamed bundled
     # SKILL.md, restructured .agents/skills/, etc.) within ~7 days during
     # quiet periods.
@@ -17,28 +17,36 @@ on:
   workflow_dispatch:
 
 jobs:
-  discovery:
-    name: ${{ matrix.scenario }}
-    runs-on: ubuntu-latest
-    container: ${{ matrix.image }}
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - {scenario: 01-active-venv,              image: "python:3.12-slim"}
-          - {scenario: 02-local-dotvenv,            image: "python:3.12-slim"}
-          - {scenario: 03-parent-dotvenv,           image: "python:3.12-slim"}
-          - {scenario: 04-conda,                    image: "continuumio/miniconda3"}
-          - {scenario: 05-uv,                       image: "python:3.12-slim"}
-          - {scenario: 06-system-python,            image: "python:3.12-slim"}
-          - {scenario: 07-priority-venv-over-local, image: "python:3.12-slim"}
-          - {scenario: 08-streamlit-missing,        image: "python:3.12-slim"}
-          - {scenario: 09-streamlit-pre-1.57,       image: "python:3.12-slim"}
-          - {scenario: 10-project-dir-argument,     image: "python:3.12-slim"}
-          - {scenario: 11-upstream-restructured,    image: "python:3.12-slim"}
-          - {scenario: 12-pipenv,                   image: "python:3.12-slim"}
-          - {scenario: 13-uv-no-lockfile,           image: "python:3.12-slim"}
+        os: [ubuntu-latest, windows-latest]
+    defaults:
+      run:
+        # Use bash on Windows too (Git Bash, pre-installed on windows-latest).
+        # Lets us share the same wrapper command across both OSes.
+        shell: bash
     steps:
       - uses: actions/checkout@v4
-      - name: Run scenario
-        run: bash tests/discovery/scenarios/${{ matrix.scenario }}.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # conda is provided by the runner image on ubuntu-latest (via
+      # /usr/share/miniconda) but not on windows-latest. Install it via
+      # setup-miniconda so the conda detection test runs identically on both.
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: false
+          activate-environment: ""
+          auto-activate-base: false
+
+      - name: Install Python dev tools
+        run: python -m pip install --upgrade pip pytest uv pipenv
+
+      - name: Run discovery tests
+        run: pytest tests/discovery/ -v

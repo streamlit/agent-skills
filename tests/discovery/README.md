@@ -1,65 +1,70 @@
 # Discovery tests
 
-Tier 1 tests for the `developing-with-streamlit` meta-skill. Each scenario
-exercises one environment shape documented in the skill's priority order,
-invokes `developing-with-streamlit/scripts/discover.sh`, and asserts the
-observed stdout/stderr/exit-code matches the contract.
+End-to-end tests for `developing-with-streamlit/scripts/discover.py`.
+
+Each test exercises one environment shape from the meta-skill's documented
+priority order, or one of the fallback codepaths. Tests are pytest-based,
+stdlib-only (no third-party deps beyond `pytest` itself), and cross-platform
+— the same source runs on Linux, macOS, and Windows.
 
 ## Layout
 
 ```
 tests/discovery/
-  assert.sh             # shared assertion helpers + run_discover
-  run-local.sh          # runs the matrix locally via docker
-  scenarios/
-    01-active-venv.sh
-    02-local-dotvenv.sh
-    03-parent-dotvenv.sh
-    04-conda.sh                    # runs in continuumio/miniconda3
-    05-uv.sh
-    06-system-python.sh
-    07-priority-venv-over-local.sh # priority conflict
-    08-streamlit-missing.sh        # exit 1 fallback
-    09-streamlit-pre-1.57.sh       # exit 2 fallback
+  conftest.py             # shared helpers: make_venv, run_discover, assert_resolves_bundled
+  test_discovery.py       # all tests, ~12 functions covering 13 scenarios
+  run-local.sh            # convenience wrapper around `pytest tests/discovery/`
+  README.md
 ```
 
 ## Running locally
 
 ```bash
-bash tests/discovery/run-local.sh           # full matrix
-bash tests/discovery/run-local.sh 04-conda  # single scenario
+pip install pytest                              # one-time
+bash tests/discovery/run-local.sh               # full suite
+bash tests/discovery/run-local.sh -k pipenv     # pytest filter
+bash tests/discovery/run-local.sh -x            # stop at first failure
 ```
 
-Requires Docker. Each scenario runs in a fresh container — no state leaks
-between scenarios.
+Tests that need third-party tools (`uv`, `pipenv`, `conda`) skip cleanly when
+those tools aren't installed — `pytest` reports them as `SKIPPED` rather than
+errors. CI installs the tools explicitly so all tests run.
+
+Each test takes ~5–15 seconds (most of which is `pip install streamlit` into
+a fresh venv). A full local run is under 2 minutes.
 
 ## Running in CI
 
 Triggered by `.github/workflows/test-discovery.yml` on PRs that touch
-`developing-with-streamlit/**` or `tests/**`, on pushes to `main`, and weekly
-via cron. GitHub Actions runs each scenario as its own matrix job in the
-documented image.
+`developing-with-streamlit/**` or `tests/**`, on push to `main`, and weekly
+via cron. Two OS jobs:
 
-## Adding a scenario
+- **Linux** (`ubuntu-latest`): runs every test, including conda + pipenv + uv.
+- **Windows** (`windows-latest`): runs every test, including conda + pipenv + uv.
 
-1. Create `tests/discovery/scenarios/NN-name.sh`. Follow the same shape as the
-   existing scripts: source `assert.sh`, set up the environment, call
-   `run_discover`, assert.
-2. Add the `(name, image)` pair to both `run-local.sh` and the matrix in
-   `.github/workflows/test-discovery.yml`.
-3. Use an existing assertion helper when possible; add one to `assert.sh` if a
-   new outcome class is needed.
+Both jobs install the same toolchain (Python 3.12, pytest, uv, pipenv,
+miniconda) before running the suite, so coverage is identical across OSes.
 
 ## What this catches
 
-- Regressions in the priority order (e.g. `.venv` silently wins over `$VIRTUAL_ENV`).
+- Regressions in the priority order (e.g. `./.venv` silently winning over `$VIRTUAL_ENV`).
 - Breakage when Streamlit upstream moves `.agents/skills/`.
 - Broken fallback messages for missing Streamlit or pre-1.57 versions.
-- `discover.sh` bugs that wouldn't surface on the author's single machine.
+- Cross-platform regressions (Windows-specific path handling, `Scripts/python.exe` vs `bin/python`).
+- `discover.py` bugs that wouldn't surface on the author's single machine.
 
 ## What this does NOT catch
 
-- Agent misinterpretation of the SKILL.md prose (that's Tier 2, LLM-in-loop).
+- LLM misinterpretation of `SKILL.md` prose (Tier 2 / cold-start eval — out of scope).
 - Bugs in the bundled sub-skills themselves (upstream repo's concern).
-- Environment shapes we don't document: pipenv, poetry-without-venv,
-  pyenv-virtualenv, Windows.
+- Environment shapes we don't document: poetry-without-`.venv`, hatch-managed envs without activation, `pyenv-virtualenv` without activation.
+
+## Adding a test
+
+1. Add a function to `test_discovery.py`. Use the `tmp_path` fixture for an
+   isolated working directory, and `make_venv()` / `run_discover()` from
+   `conftest.py` for setup.
+2. If the test depends on a tool that may not be installed, add
+   `@pytest.mark.skipif(shutil.which("toolname") is None, reason="...")`.
+3. CI matrix is OS-only (`ubuntu-latest`, `windows-latest`); pytest discovers
+   new tests automatically — no workflow changes needed.
