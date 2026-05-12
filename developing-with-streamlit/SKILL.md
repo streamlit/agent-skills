@@ -1,7 +1,7 @@
 ---
 name: developing-with-streamlit
 description: "Use for ALL Streamlit tasks: creating, editing, debugging, beautifying, styling, theming, optimizing, or deploying Streamlit apps. Also custom components, st.components.v2, HTML/JS/CSS work. Discovers and loads version-matched skills from the user's installed Streamlit (>=1.57). Triggers: streamlit, st., dashboard, app.py, beautify, style, CSS, color, background, theme, button, widget styling, custom component, st.components, CCv2, session state, performance, cache, fragment, slow rerun, deploy."
-allowed-tools: Bash(bash ${CLAUDE_SKILL_DIR}/scripts/discover.sh:*) Bash(${CLAUDE_SKILL_DIR}/scripts/discover.sh:*)
+allowed-tools: Bash(python ${CLAUDE_SKILL_DIR}/scripts/discover.py:*) Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/discover.py:*)
 ---
 
 # Developing with Streamlit
@@ -13,12 +13,14 @@ Streamlit (>=1.57) ships with built-in agent skills that provide detailed guidan
 Run the discovery script with the user's project directory as the target:
 
 ```bash
-bash <SKILL_DIR>/scripts/discover.sh --project-dir <USER_PROJECT_DIR>
+python <SKILL_DIR>/scripts/discover.py --project-dir <USER_PROJECT_DIR>
 ```
 
-`<SKILL_DIR>` is the directory containing this `SKILL.md`; `<USER_PROJECT_DIR>` is the absolute path to the project the user is working on. Passing `--project-dir` is important because the script resolves `.venv`, `../.venv`, `pyproject.toml`, and `Pipfile` relative to the project — running it from the wrong directory silently picks the wrong Python environment.
+`<SKILL_DIR>` is the directory containing this `SKILL.md`; `<USER_PROJECT_DIR>` is the absolute path to the project the user is working on. Passing `--project-dir` is important because the script resolves `.venv`, `../.venv`, `Pipfile`, and `uv.lock` relative to the project — running it from the wrong directory silently picks the wrong Python environment.
 
 If you cannot determine the user's project directory, omit `--project-dir` and invoke the script with that directory as your working directory instead.
+
+The script is plain Python (stdlib only) — invoke it via `python3` on macOS / Linux, `python` on Windows. Either form works on either platform if both are on PATH.
 
 ## Outcomes
 

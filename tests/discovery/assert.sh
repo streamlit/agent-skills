@@ -22,14 +22,20 @@ _fail() {
   exit 1
 }
 
-# Run discover.sh, capturing stdout/stderr/exit code into globals.
+# Run discover.py, capturing stdout/stderr/exit code into globals.
 run_discover() {
-  local discover_script="${DISCOVER_SCRIPT:-$REPO_ROOT/developing-with-streamlit/scripts/discover.sh}"
+  local discover_script="${DISCOVER_SCRIPT:-$REPO_ROOT/developing-with-streamlit/scripts/discover.py}"
   local stdout_file stderr_file
   stdout_file="$(mktemp)"
   stderr_file="$(mktemp)"
+  local py
+  if command -v python3 >/dev/null 2>&1; then
+    py=python3
+  else
+    py=python
+  fi
   set +e
-  bash "$discover_script" >"$stdout_file" 2>"$stderr_file"
+  "$py" "$discover_script" >"$stdout_file" 2>"$stderr_file"
   CAPTURED_RC=$?
   set -e
   CAPTURED_STDOUT="$(cat "$stdout_file")"
