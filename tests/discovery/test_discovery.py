@@ -330,31 +330,54 @@ def test_poetry(tmp_path: Path) -> None:
     reason="pdm not available on this runner",
 )
 def test_pdm(tmp_path: Path) -> None:
-    """pdm.lock + pdm installed: pdm branch fires."""
+    """pdm.lock + pdm installed: pdm branch fires.
+
+    pdm's default is to create `.venv` in-project — which would short-circuit
+    to priority 2 (./.venv) before reaching the pdm branch. We disable that
+    via PDM_VENV_IN_PROJECT=false so pdm puts the venv elsewhere and our
+    pdm branch is the one that fires.
+    """
     project = tmp_path / "project"
     project.mkdir()
+
+    env = os.environ.copy()
+    env["PDM_VENV_IN_PROJECT"] = "false"
 
     subprocess.run(
         ["pdm", "init", "--non-interactive", "--python", "python", "minimal"],
         cwd=str(project),
+        env=env,
         check=True,
     )
     subprocess.run(
         ["pdm", "add", "--quiet", "streamlit"],
         cwd=str(project),
+        env=env,
         check=True,
     )
 
     assert (project / "pdm.lock").is_file(), "test setup error: pdm.lock missing"
+    assert not (project / ".venv").exists(), (
+        "test setup error: .venv exists in project; pdm branch test would silently exercise priority 2 instead"
+    )
 
-    pdm_venv = subprocess.check_output(
-        ["pdm", "venv", "--path", "in-project"],
-        cwd=str(project),
-        text=True,
-    ).strip()
+    # Ask pdm where its python is, then walk up to the venv root. More
+    # reliable than parsing `pdm venv list` output (which contains paths
+    # with spaces on macOS — "Application Support").
+    pdm_python = Path(
+        subprocess.check_output(
+            ["pdm", "run", "python", "-c", "import sys; print(sys.executable)"],
+            cwd=str(project),
+            env=env,
+            text=True,
+        ).strip()
+    )
+    # On POSIX: <venv>/bin/python; on Windows: <venv>/Scripts/python.exe.
+    # Walk up two levels to get the venv root either way.
+    actual_pdm_venv = pdm_python.parent.parent
 
     result = run_discover(cwd=project)
-    assert_resolves_bundled(result, "pdm", inside=Path(pdm_venv))
+    assert_resolves_bundled(result, "pdm", inside=actual_pdm_venv)
 
 
 # --- git-root .venv detection ----------------------------------------------

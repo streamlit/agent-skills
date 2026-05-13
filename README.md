@@ -29,13 +29,13 @@ This repository contains a single meta-skill (`developing-with-streamlit`). **In
 
 ### Cross-agent: `npx skills` (recommended)
 
-[`skills`](https://github.com/anthropics/skills) is a cross-agent installer that supports Claude Code, Cursor, Copilot, Gemini CLI, Codex, and others — one command, all agents:
+[`skills`](https://github.com/vercel-labs/skills) ([docs](https://skills.sh)) is a Vercel-published cross-agent installer that supports Claude Code, Cursor, Copilot, Gemini CLI, Codex, and others — one command, all agents:
 
 ```bash
-npx skills install streamlit/agent-skills/developing-with-streamlit
+npx skills add streamlit/agent-skills -s developing-with-streamlit -g
 ```
 
-By default this installs at the user level for every detected agent. See `npx skills --help` for per-agent or per-scope flags.
+`-s` picks the specific skill from this repo; `-g` installs at the user level (global) so it works across every project. Drop `-g` to install into the current project's `.<agent>/skills/` directory instead. See `npx skills add --help` for the full flag list.
 
 ### Claude Code
 

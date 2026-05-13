@@ -16,7 +16,7 @@ The actual skill content (dashboards, themes, layouts, session state, custom com
 
 The meta-skill at `developing-with-streamlit/SKILL.md` resolves the bundled routing skill by:
 
-1. Detecting the active Python interpreter (`$VIRTUAL_ENV` → `.venv` → `../.venv` → conda → uv → system).
+1. Detecting the active Python interpreter, in priority order: `$VIRTUAL_ENV` → `./.venv` → `../.venv` → `<git-root>/.venv` → `$CONDA_PREFIX` → `pipenv` (if `Pipfile` present) → `poetry` (if `poetry.lock` present) → `pdm` (if `pdm.lock` present) → `uv` (if `uv.lock` present) → system `python3` / `python`.
 2. Running `python -c "import streamlit; print(streamlit.__path__[0])"` to locate the installed package.
 3. Loading `<streamlit_path>/.agents/skills/developing-with-streamlit/SKILL.md`.
 4. Falling back to `pip install streamlit` when missing, or `https://docs.streamlit.io/llms-full.txt` when the installed version predates bundled skills.
