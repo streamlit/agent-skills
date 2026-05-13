@@ -27,6 +27,16 @@ Because discovery happens dynamically against whichever interpreter is active, a
 
 This repository contains a single meta-skill (`developing-with-streamlit`). **Install it once at the user level** — the meta-skill resolves the bundled skills dynamically from whichever Python interpreter is active, so one global install works across every project and every Streamlit version you use.
 
+### Cross-agent: `npx skills` (recommended)
+
+[`skills`](https://github.com/anthropics/skills) is a cross-agent installer that supports Claude Code, Cursor, Copilot, Gemini CLI, Codex, and others — one command, all agents:
+
+```bash
+npx skills install streamlit/agent-skills/developing-with-streamlit
+```
+
+By default this installs at the user level for every detected agent. See `npx skills --help` for per-agent or per-scope flags.
+
 ### Claude Code
 
 Anthropic's Claude Code does not yet ship an official `skills install` CLI. Clone this repo and drop the skill folder into your user-level Claude skills directory:
@@ -76,9 +86,7 @@ Then point the installer at `streamlit/agent-skills`. Skills land in `~/.codex/s
 
 ### Snowflake Cortex Code
 
-```bash
-cortex skill add streamlit/agent-skills
-```
+Already installed — Cortex Code ships this skill by default; no manual step required.
 
 ## Contributing
 
