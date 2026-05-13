@@ -227,7 +227,8 @@ def main() -> int:
         print(
             "\n"
             "Read whichever skill best matches the user's task. If none match,\n"
-            "fall back to: https://docs.streamlit.io/llms-full.txt",
+            "fall back to the complete Streamlit documentation:\n"
+            "  https://docs.streamlit.io/llms-full.txt",
             file=sys.stderr,
         )
         return 4
@@ -240,7 +241,8 @@ def main() -> int:
         "For best results, upgrade to get version-matched bundled skills:\n"
         "  pip install --upgrade streamlit\n"
         "\n"
-        "If upgrading isn't an option, fall back to the online docs:\n"
+        "If upgrading isn't an option, fall back to the complete Streamlit\n"
+        "documentation (full API + guides, formatted for LLMs):\n"
         "  https://docs.streamlit.io/llms-full.txt",
         file=sys.stderr,
     )
