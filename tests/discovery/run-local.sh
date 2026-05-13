@@ -9,8 +9,8 @@
 #   bash tests/discovery/run-local.sh -k test_pipenv        # pytest filter
 #   bash tests/discovery/run-local.sh -x                    # stop at first fail
 #
-# Requires Python 3.9+ and `pip install pytest`. Tests that need uv, pipenv,
-# or conda will skip cleanly if those tools aren't installed.
+# Requires Python 3.10+ and `pip install pytest`. Tests that need uv, pipenv,
+# poetry, pdm, or conda will skip cleanly if those tools aren't installed.
 
 set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
