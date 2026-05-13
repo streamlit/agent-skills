@@ -5,8 +5,9 @@ Usage:
     python scripts/discover.py [--project-dir PATH]
 
 When --project-dir is given, the script resolves `.venv`, `../.venv`,
-`pyproject.toml`, `uv.lock`, and `Pipfile` relative to that path (so its checks
-land on the user's project rather than on the script's installed location).
+`Pipfile`, `poetry.lock`, `pdm.lock`, and `uv.lock` relative to that path (so
+its checks land on the user's project rather than on the script's installed
+location).
 
 Exit codes:
     0 - success; prints the absolute path to the bundled SKILL.md on stdout.
@@ -113,7 +114,8 @@ def main() -> int:
     if cmd is None:
         print(
             "ERROR: No Python interpreter found.\n"
-            "Install Python 3.9+ and Streamlit (pip install streamlit), then re-run.",
+            "Install Python 3.10+ (the easiest path is `uv` — see https://docs.astral.sh/uv/),\n"
+            "then install Streamlit (pip install streamlit) and re-run.",
             file=sys.stderr,
         )
         return 3
@@ -169,7 +171,7 @@ def main() -> int:
         )
         return 1
 
-    streamlit_path = Path(result.stdout.strip())
+    streamlit_path = Path(result.stdout.strip()).resolve()
     agents_skills_dir = streamlit_path / ".agents" / "skills"
     primary_skill = agents_skills_dir / "developing-with-streamlit" / "SKILL.md"
 
@@ -192,7 +194,7 @@ def main() -> int:
             print(f"  {entry.name}", file=sys.stderr)
         print(
             "\n"
-            "Read whichever sub-skill best matches the user's task. If none match,\n"
+            "Read whichever skill best matches the user's task. If none match,\n"
             "fall back to: https://docs.streamlit.io/llms-full.txt",
             file=sys.stderr,
         )

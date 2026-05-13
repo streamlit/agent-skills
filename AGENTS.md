@@ -25,16 +25,16 @@ When editing the meta-skill, preserve this contract. Changes that alter interpre
 
 ## Authoring or updating skills
 
-New Streamlit skills belong upstream at `streamlit/streamlit` under `streamlit/.agents/skills/`, not in this repo. For the skill format (frontmatter, naming conventions, optional `scripts/` / `references/` / `assets/` directories), see:
+New Streamlit skills belong upstream at `streamlit/streamlit` under [`lib/streamlit/.agents/skills/`](https://github.com/streamlit/streamlit/tree/develop/lib/streamlit/.agents/skills), not in this repo. For the skill format (frontmatter, naming conventions, optional `scripts/` / `references/` / `assets/` directories), see:
 
 - [Agent Skills specification](https://agentskills.io/specification)
 - [Agent Skills best practices (Anthropic)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md)
-- Existing bundled skills under `streamlit/.agents/skills/` in the Streamlit repo — the best reference templates
+- Existing bundled skills under [`lib/streamlit/.agents/skills/`](https://github.com/streamlit/streamlit/tree/develop/lib/streamlit/.agents/skills) in the Streamlit repo — the best reference templates
 
 When authoring skills, always verify code examples against the latest Streamlit API by consulting [docs.streamlit.io/llms-full.txt](https://docs.streamlit.io/llms-full.txt).
 
 ## Contributing
 
-- **New or updated Streamlit skill content** → open a PR against [streamlit/streamlit](https://github.com/streamlit/streamlit) targeting `streamlit/.agents/skills/`.
+- **New or updated Streamlit skill content** → open a PR against [streamlit/streamlit](https://github.com/streamlit/streamlit) targeting [`lib/streamlit/.agents/skills/`](https://github.com/streamlit/streamlit/tree/develop/lib/streamlit/.agents/skills).
 - **Changes to the meta-skill itself** (discovery logic, fallbacks, docs) → open a PR against this repo. Keep the discovery contract above intact unless the change is intentional.
 - See [CONTRIBUTING.md](CONTRIBUTING.md) for general guidelines.
