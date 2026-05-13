@@ -29,7 +29,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 
 def find_venv_python(venv_root: Path) -> Optional[Path]:
@@ -59,24 +59,29 @@ def find_git_root(start: Path) -> Optional[Path]:
     return None
 
 
-def detect_interpreter(project_dir: Path) -> Optional[List[str]]:
+def detect_interpreter(project_dir: Path) -> Optional[Tuple[List[str], str]]:
     """Pick the right Python interpreter, in documented priority order.
 
-    Returns the command as a list (for subprocess.run with shell=False).
+    Returns ``(cmd, tag)`` where ``cmd`` is the command for ``subprocess.run``
+    and ``tag`` identifies which detection branch fired (``virtual-env``,
+    ``venv-local``, ``venv-parent``, ``venv-git-root``, ``conda``, ``pipenv``,
+    ``poetry``, ``pdm``, ``uv``, or ``system``). The tag lets callers give
+    targeted install advice on exit 1 instead of a buffet of unrelated
+    package-manager commands.
     """
     venv = os.environ.get("VIRTUAL_ENV")
     if venv:
         py = find_venv_python(Path(venv))
         if py:
-            return [str(py)]
+            return [str(py)], "virtual-env"
 
     py = find_venv_python(project_dir / ".venv")
     if py:
-        return [str(py)]
+        return [str(py)], "venv-local"
 
     py = find_venv_python(project_dir.parent / ".venv")
     if py:
-        return [str(py)]
+        return [str(py)], "venv-parent"
 
     # Walk up to the git repo root and look for a `.venv` there. Helpful for
     # monorepos where the project's venv lives at repo root but the agent's
@@ -89,31 +94,62 @@ def detect_interpreter(project_dir: Path) -> Optional[List[str]]:
     ):
         py = find_venv_python(git_root / ".venv")
         if py:
-            return [str(py)]
+            return [str(py)], "venv-git-root"
 
     conda = os.environ.get("CONDA_PREFIX")
     if conda:
         py = find_venv_python(Path(conda))
         if py:
-            return [str(py)]
+            return [str(py)], "conda"
 
     if shutil.which("pipenv") and (project_dir / "Pipfile").is_file():
-        return ["pipenv", "run", "python"]
+        return ["pipenv", "run", "python"], "pipenv"
 
     if shutil.which("poetry") and (project_dir / "poetry.lock").is_file():
-        return ["poetry", "run", "python"]
+        return ["poetry", "run", "python"], "poetry"
 
     if shutil.which("pdm") and (project_dir / "pdm.lock").is_file():
-        return ["pdm", "run", "python"]
+        return ["pdm", "run", "python"], "pdm"
 
     if shutil.which("uv") and (project_dir / "uv.lock").is_file():
-        return ["uv", "run", "--quiet", "python"]
+        return ["uv", "run", "--quiet", "python"], "uv"
 
     for name in ("python3", "python"):
         if shutil.which(name):
-            return [name]
+            return [name], "system"
 
     return None
+
+
+def install_advice(cmd: List[str], tag: str) -> str:
+    """Return the package-manager-appropriate install command for the
+    detected interpreter.
+
+    ``detect_interpreter`` already chose a branch; we know which tool to
+    suggest. Dumping every install command and asking the agent to "match
+    the tool for your project" is how a poetry project gets a stray
+    ``pip install streamlit`` outside the lockfile.
+    """
+    if tag in {"virtual-env", "venv-local", "venv-parent", "venv-git-root"}:
+        # Use the venv's own python to run pip — independent of activation
+        # state on the user's shell.
+        return f"{cmd[0]} -m pip install streamlit"
+    if tag == "conda":
+        return "conda install -c conda-forge streamlit"
+    if tag == "pipenv":
+        return "pipenv install streamlit"
+    if tag == "poetry":
+        return "poetry add streamlit"
+    if tag == "pdm":
+        return "pdm add streamlit"
+    if tag == "uv":
+        return "uv add streamlit"
+    # tag == "system" (or unknown — defensive)
+    return (
+        f"{cmd[0]} -m pip install streamlit\n"
+        "    (better: create a project venv first with "
+        "`python -m venv .venv && source .venv/bin/activate`)"
+    )
 
 
 def main() -> int:
@@ -142,8 +178,8 @@ def main() -> int:
         project_dir = Path.cwd()
     project_dir = project_dir.resolve()
 
-    cmd = detect_interpreter(project_dir)
-    if cmd is None:
+    detection = detect_interpreter(project_dir)
+    if detection is None:
         print(
             "ERROR: No Python interpreter found.\n"
             "Install Python 3.10+ (the easiest path is `uv` — see https://docs.astral.sh/uv/),\n"
@@ -152,6 +188,7 @@ def main() -> int:
         )
         return 3
 
+    cmd, tag = detection
     py_display = " ".join(cmd)
 
     probe = "import streamlit; print(streamlit.__path__[0])"
@@ -179,18 +216,25 @@ def main() -> int:
     if result.returncode != 0:
         combined = (result.stderr or "") + (result.stdout or "")
         if "ModuleNotFoundError" in combined:
+            advice = install_advice(cmd, tag)
+            extra = ""
+            if tag == "system":
+                # No env-manager artifact found. The user might still have
+                # one (hatch, pyenv-virtualenv, an unactivated conda env)
+                # we couldn't auto-detect.
+                extra = (
+                    "\n\nIf your project uses an environment manager we did not\n"
+                    "auto-detect (hatch, pyenv-virtualenv, an unactivated conda env),\n"
+                    "ACTIVATE it first so the right Python is found, then re-run."
+                )
             print(
                 "ERROR: Streamlit is not installed in the detected Python environment.\n"
-                f"Interpreter: {py_display}\n"
-                "Install with the matching tool for your project:\n"
-                "  pip install streamlit              # standard pip\n"
-                "  uv add streamlit                   # uv\n"
-                "  poetry add streamlit               # poetry\n"
-                "  pipenv install streamlit           # pipenv\n"
-                "  conda install -c conda-forge streamlit   # conda\n"
-                "If your project uses conda, pyenv-virtualenv, pipenv, poetry, hatch, or pdm,\n"
-                "ACTIVATE its environment first (conda activate <env>, pipenv shell,\n"
-                "poetry shell, hatch shell, etc.) so the right Python is detected, then re-run.",
+                f"Interpreter:   {py_display}\n"
+                f"Detected via:  {tag}\n"
+                "\n"
+                f"Install with:  {advice}\n"
+                "\n"
+                f"Then re-run this script.{extra}",
                 file=sys.stderr,
             )
             return 1

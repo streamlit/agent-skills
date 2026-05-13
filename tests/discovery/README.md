@@ -12,7 +12,7 @@ stdlib-only (no third-party deps beyond `pytest` itself), and cross-platform
 ```
 tests/discovery/
   conftest.py             # shared helpers: make_venv, run_discover, assert_resolves_bundled
-  test_discovery.py       # all tests, 16 functions covering the documented matrix
+  test_discovery.py       # all tests, 19 functions covering the documented matrix
   run-local.sh            # convenience wrapper around `pytest tests/discovery/`
   README.md
 ```

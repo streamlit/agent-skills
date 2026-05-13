@@ -184,6 +184,10 @@ def test_streamlit_missing(tmp_path: Path) -> None:
     detected interpreter — closes the gap where this could pass via fallthrough
     to a (also streamlit-less) system Python instead of actually exercising
     VIRTUAL_ENV detection.
+
+    Also asserts the advice is *targeted* to the detected env (one
+    venv-specific command, not a buffet of unrelated package-manager
+    commands) — the regression we fixed when we made advice tag-aware.
     """
     venv_root = tmp_path / "empty-venv"
     py = make_venv(venv_root)  # no packages
@@ -195,10 +199,16 @@ def test_streamlit_missing(tmp_path: Path) -> None:
         f"expected exit 1, got {result.returncode}\nstderr: {result.stderr}"
     )
     assert "Streamlit is not installed" in result.stderr
-    assert "pip install streamlit" in result.stderr
+    assert "Detected via:  virtual-env" in result.stderr
+    assert f"{py} -m pip install streamlit" in result.stderr
     assert str(py) in result.stderr, (
         "expected VIRTUAL_ENV's python in error; got fallthrough to a different interpreter"
     )
+    # No buffet — irrelevant tools should not appear in the advice.
+    for unrelated in ("poetry add", "pdm add", "uv add", "pipenv install", "conda install"):
+        assert unrelated not in result.stderr, (
+            f"exit 1 should only suggest the detected tool's command, not {unrelated!r}"
+        )
 
 
 def test_streamlit_pre_1_57(tmp_path: Path) -> None:
@@ -433,3 +443,58 @@ def test_uv_no_lockfile(tmp_path: Path) -> None:
     )
     # Interpreter should be a system Python — name varies (python / python3 /
     # python.exe / a path on Windows). Just confirm uv didn't win.
+
+
+# --- install_advice unit tests ---------------------------------------------
+#
+# These import discover.py as a module so we can exercise the pure helper
+# directly. End-to-end coverage for the whole exit-1 path is in
+# test_streamlit_missing above; the unit tests here pin the per-tag mapping
+# without spinning up real pipenv/poetry/pdm projects, which would dominate
+# runtime for what is structurally a lookup table.
+
+
+@pytest.fixture(scope="module")
+def discover_module():
+    """Load discover.py as an importable module for direct function calls."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("_discover_under_test", DISCOVER_PY)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.mark.parametrize(
+    "tag,cmd,expected",
+    [
+        ("conda", ["/opt/conda/envs/x/bin/python"], "conda install -c conda-forge streamlit"),
+        ("pipenv", ["pipenv", "run", "python"], "pipenv install streamlit"),
+        ("poetry", ["poetry", "run", "python"], "poetry add streamlit"),
+        ("pdm", ["pdm", "run", "python"], "pdm add streamlit"),
+        ("uv", ["uv", "run", "--quiet", "python"], "uv add streamlit"),
+    ],
+)
+def test_install_advice_tool_managed(discover_module, tag, cmd, expected):
+    """Tool-managed envs get exactly their tool's add/install command."""
+    assert discover_module.install_advice(cmd, tag) == expected
+
+
+@pytest.mark.parametrize(
+    "tag",
+    ["virtual-env", "venv-local", "venv-parent", "venv-git-root"],
+)
+def test_install_advice_venv_tags_use_venv_python(discover_module, tag):
+    """Any venv-flavored tag should pip-install via that venv's python -m pip,
+    so the install is independent of shell activation state."""
+    fake_py = "/some/path/.venv/bin/python"
+    advice = discover_module.install_advice([fake_py], tag)
+    assert advice == f"{fake_py} -m pip install streamlit"
+
+
+def test_install_advice_system_includes_venv_suggestion(discover_module):
+    """System python: pip install works but should nudge the user toward a venv."""
+    advice = discover_module.install_advice(["python3"], "system")
+    assert "python3 -m pip install streamlit" in advice
+    assert "python -m venv .venv" in advice, (
+        "system advice should suggest creating a venv to avoid global pollution"
+    )
