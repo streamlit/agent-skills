@@ -10,6 +10,8 @@ The actual skill content (dashboards, themes, layouts, session state, custom com
 
 **Key files:**
 - `developing-with-streamlit/SKILL.md` — Meta-skill that locates and loads bundled Streamlit skills
+- `developing-with-streamlit/scripts/discover.py` — The actual contract implementation (interpreter detection, package-path lookup, fallback exit codes); edit this when changing discovery behavior
+- `tests/discovery/test_discovery.py` — Pytest suite that exercises every documented codepath in `discover.py` on Linux + Windows; add a test here when adding a new branch
 - `README.md` — Human-readable documentation and install instructions
 
 ## Meta-skill contract
