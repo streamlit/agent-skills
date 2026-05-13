@@ -12,7 +12,7 @@ stdlib-only (no third-party deps beyond `pytest` itself), and cross-platform
 ```
 tests/discovery/
   conftest.py             # shared helpers: make_venv, run_discover, assert_resolves_bundled
-  test_discovery.py       # all tests, ~12 functions covering 13 scenarios
+  test_discovery.py       # all tests, 16 functions covering the documented matrix
   run-local.sh            # convenience wrapper around `pytest tests/discovery/`
   README.md
 ```
@@ -26,9 +26,11 @@ bash tests/discovery/run-local.sh -k pipenv     # pytest filter
 bash tests/discovery/run-local.sh -x            # stop at first failure
 ```
 
-Tests that need third-party tools (`uv`, `pipenv`, `conda`) skip cleanly when
-those tools aren't installed — `pytest` reports them as `SKIPPED` rather than
-errors. CI installs the tools explicitly so all tests run.
+Tests that need third-party tools (`uv`, `pipenv`, `poetry`, `pdm`, `conda`) skip
+cleanly when those tools aren't installed — `pytest` reports them as `SKIPPED`
+rather than errors. CI installs `uv`, `pipenv`, `poetry`, and `pdm` so those
+tests run; `conda` is intentionally not installed on CI runners, so `test_conda`
+is reported as `SKIPPED` there and only exercised locally.
 
 Each test takes ~5–15 seconds (most of which is `pip install streamlit` into
 a fresh venv). A full local run is under 2 minutes.
@@ -39,11 +41,13 @@ Triggered by `.github/workflows/test-discovery.yml` on PRs that touch
 `developing-with-streamlit/**` or `tests/**`, on push to `main`, and weekly
 via cron. Two OS jobs:
 
-- **Linux** (`ubuntu-latest`): runs every test, including conda + pipenv + uv.
-- **Windows** (`windows-latest`): runs every test, including conda + pipenv + uv.
+- **Linux** (`ubuntu-latest`): runs the full suite; `test_conda` skips.
+- **Windows** (`windows-latest`): runs the full suite; `test_conda` skips.
 
-Both jobs install the same toolchain (Python 3.12, pytest, uv, pipenv,
-miniconda) before running the suite, so coverage is identical across OSes.
+Both jobs install the same toolchain (Python 3.12, `pytest`, `uv`, `pipenv`,
+`poetry`, `pdm`) before running the suite, so coverage is identical across
+OSes. `conda` is deliberately not installed — its tests run locally on
+machines that already have it.
 
 ## What this catches
 
@@ -57,7 +61,7 @@ miniconda) before running the suite, so coverage is identical across OSes.
 
 - LLM misinterpretation of `SKILL.md` prose (Tier 2 / cold-start eval — out of scope).
 - Bugs in the bundled skills themselves (upstream repo's concern).
-- Environment shapes we don't document: poetry-without-`.venv`, hatch-managed envs without activation, `pyenv-virtualenv` without activation.
+- Environment shapes we don't document: hatch-managed envs without activation, `pyenv-virtualenv` without activation.
 
 ## Adding a test
 
