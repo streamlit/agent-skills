@@ -14,7 +14,7 @@ Starting with Streamlit 1.57, the full set of Streamlit development skills ships
 
 The meta-skill ([`developing-with-streamlit/SKILL.md`](developing-with-streamlit/SKILL.md)):
 
-1. Detects the active Python interpreter (virtualenv, conda, uv, or system)
+1. Detects the active Python interpreter (virtualenv, conda, pipenv, poetry, pdm, uv, or system)
 2. Locates the installed Streamlit package path
 3. Points the agent to the bundled skills at `<streamlit_path>/.agents/skills/`
 4. Falls back to the [online docs](https://docs.streamlit.io/llms-full.txt) for older Streamlit versions
