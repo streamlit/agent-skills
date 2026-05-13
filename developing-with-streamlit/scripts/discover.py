@@ -46,6 +46,19 @@ def find_venv_python(venv_root: Path) -> Optional[Path]:
     return None
 
 
+def find_git_root(start: Path) -> Optional[Path]:
+    """Walk up from `start` looking for a `.git` directory or file.
+
+    Returns the directory containing `.git` (the repo root), or None if no
+    git repository is found above `start`. Handles the worktree case where
+    `.git` is a file pointing at the real repo dir.
+    """
+    for ancestor in [start, *start.parents]:
+        if (ancestor / ".git").exists():
+            return ancestor
+    return None
+
+
 def detect_interpreter(project_dir: Path) -> Optional[List[str]]:
     """Pick the right Python interpreter, in documented priority order.
 
@@ -65,6 +78,19 @@ def detect_interpreter(project_dir: Path) -> Optional[List[str]]:
     if py:
         return [str(py)]
 
+    # Walk up to the git repo root and look for a `.venv` there. Helpful for
+    # monorepos where the project's venv lives at repo root but the agent's
+    # cwd / --project-dir points deep into a subdirectory.
+    git_root = find_git_root(project_dir)
+    if (
+        git_root is not None
+        and git_root != project_dir
+        and git_root != project_dir.parent
+    ):
+        py = find_venv_python(git_root / ".venv")
+        if py:
+            return [str(py)]
+
     conda = os.environ.get("CONDA_PREFIX")
     if conda:
         py = find_venv_python(Path(conda))
@@ -73,6 +99,12 @@ def detect_interpreter(project_dir: Path) -> Optional[List[str]]:
 
     if shutil.which("pipenv") and (project_dir / "Pipfile").is_file():
         return ["pipenv", "run", "python"]
+
+    if shutil.which("poetry") and (project_dir / "poetry.lock").is_file():
+        return ["poetry", "run", "python"]
+
+    if shutil.which("pdm") and (project_dir / "pdm.lock").is_file():
+        return ["pdm", "run", "python"]
 
     if shutil.which("uv") and (project_dir / "uv.lock").is_file():
         return ["uv", "run", "--quiet", "python"]

@@ -243,7 +243,7 @@ def test_upstream_restructured(tmp_path: Path) -> None:
     assert "streamlit-development-renamed" in result.stderr
 
 
-# --- Pipenv detection -------------------------------------------------------
+# --- Pipenv / Poetry / PDM detection ---------------------------------------
 
 
 @pytest.mark.skipif(
@@ -281,6 +281,103 @@ def test_pipenv(tmp_path: Path) -> None:
 
     result = run_discover(cwd=project)
     assert_resolves_bundled(result, "pipenv", inside=Path(pipenv_venv))
+
+
+@pytest.mark.skipif(
+    not tool_works("poetry"),
+    reason="poetry not available on this runner",
+)
+def test_poetry(tmp_path: Path) -> None:
+    """poetry.lock + poetry installed: poetry branch fires."""
+    project = tmp_path / "project"
+    project.mkdir()
+
+    # Disable poetry's interactive-init prompts.
+    env = os.environ.copy()
+    env["POETRY_NO_INTERACTION"] = "1"
+
+    # Create a minimal poetry project: poetry init + poetry add streamlit.
+    subprocess.run(
+        ["poetry", "init", "--no-interaction",
+         "--name", "test-poetry-project",
+         "--python", ">=3.10"],
+        cwd=str(project),
+        env=env,
+        check=True,
+    )
+    subprocess.run(
+        ["poetry", "add", "--quiet", "streamlit"],
+        cwd=str(project),
+        env=env,
+        check=True,
+    )
+
+    assert (project / "poetry.lock").is_file(), "test setup error: poetry.lock missing"
+
+    poetry_venv = subprocess.check_output(
+        ["poetry", "env", "info", "--path"],
+        cwd=str(project),
+        env=env,
+        text=True,
+    ).strip()
+
+    result = run_discover(cwd=project)
+    assert_resolves_bundled(result, "poetry", inside=Path(poetry_venv))
+
+
+@pytest.mark.skipif(
+    not tool_works("pdm"),
+    reason="pdm not available on this runner",
+)
+def test_pdm(tmp_path: Path) -> None:
+    """pdm.lock + pdm installed: pdm branch fires."""
+    project = tmp_path / "project"
+    project.mkdir()
+
+    subprocess.run(
+        ["pdm", "init", "--non-interactive", "--python", "python", "minimal"],
+        cwd=str(project),
+        check=True,
+    )
+    subprocess.run(
+        ["pdm", "add", "--quiet", "streamlit"],
+        cwd=str(project),
+        check=True,
+    )
+
+    assert (project / "pdm.lock").is_file(), "test setup error: pdm.lock missing"
+
+    pdm_venv = subprocess.check_output(
+        ["pdm", "venv", "--path", "in-project"],
+        cwd=str(project),
+        text=True,
+    ).strip()
+
+    result = run_discover(cwd=project)
+    assert_resolves_bundled(result, "pdm", inside=Path(pdm_venv))
+
+
+# --- git-root .venv detection ----------------------------------------------
+
+
+def test_git_root_dotvenv(tmp_path: Path) -> None:
+    """`.venv` at the git repo root is found from a deep subdirectory.
+
+    Helpful for monorepos: agent's --project-dir points deep, but the venv
+    lives at repo root. The walk-up to .git + check-for-.venv covers this.
+    """
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    (repo_root / ".git").mkdir()  # bare marker — we don't need a real git repo
+    venv_root = repo_root / ".venv"
+    make_venv(venv_root, packages=["streamlit"])
+
+    # cwd is two levels deep — beyond what ./.venv and ../.venv can reach.
+    deep = repo_root / "packages" / "feature"
+    deep.mkdir(parents=True)
+
+    result = run_discover(cwd=deep)
+    assert_resolves_bundled(result, "git_root_dotvenv", inside=venv_root)
 
 
 # --- uv branch disambiguation ----------------------------------------------
