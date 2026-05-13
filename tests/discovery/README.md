@@ -56,7 +56,7 @@ miniconda) before running the suite, so coverage is identical across OSes.
 ## What this does NOT catch
 
 - LLM misinterpretation of `SKILL.md` prose (Tier 2 / cold-start eval — out of scope).
-- Bugs in the bundled sub-skills themselves (upstream repo's concern).
+- Bugs in the bundled skills themselves (upstream repo's concern).
 - Environment shapes we don't document: poetry-without-`.venv`, hatch-managed envs without activation, `pyenv-virtualenv` without activation.
 
 ## Adding a test
