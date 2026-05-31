@@ -1,10 +1,14 @@
 ---
 name: displaying-streamlit-data
-description: Displaying charts, dataframes, and metrics in Streamlit. Use when visualizing data, configuring dataframe columns, or adding sparklines to metrics. Covers native charts, Altair, and column configuration.
+description: Displaying charts, dataframes, and metrics in Streamlit. Use when visualizing data, configuring dataframe columns, sizing a table to full width, building a selectable table, capturing row/column/cell selections, or adding sparklines to metrics. Covers native charts, Altair, column configuration, the width vs use_container_width deprecation, on_select selections, and Styler-vs-column_config formatting.
 license: Apache-2.0
 ---
 
 # Streamlit charts & data
+
+> **Never pass `use_container_width` to `st.dataframe` (or `st.table`/charts/`st.image`).** It is
+> deprecated. `width="stretch"` is the default, so for a full-width table just call
+> `st.dataframe(df)`. Use `width="content"` to size to content, or `width=<px>` for a fixed width.
 
 Present data clearly.
 
@@ -96,7 +100,9 @@ st.dataframe(
 )
 ```
 
-**Note on hiding columns:** Setting a column to `None` hides it from the UI, but the data is still sent to the frontend. For truly sensitive data, pre-filter the DataFrame before displaying.
+**Note on hiding columns:** Setting a column to `None` hides it from the UI, but the data is still sent to the frontend, and users can re-reveal hidden columns from the toolbar's column-visibility menu. For truly sensitive data, drop the column from the DataFrame before displaying (`df.drop(columns=["ssn"])`)—hidden is not the same as withheld.
+
+**Formatting vs. color:** Use `column_config` for *formatting* (numbers, dates, percentages)—it is fast and overrides any Styler `.format()`. Reserve a pandas `Styler` for *colors only* (e.g. `df.style.background_gradient(...)`); Styler `.format()` is slow on large frames and gets overridden anyway. You can pass a Styler and `column_config` together—color via Styler, format via config.
 
 **Dataframe best practices:**
 - **Hide useless index:** `hide_index=True`
@@ -136,6 +142,32 @@ st.dataframe(
     hide_index=True,
 )
 ```
+
+## Dataframe selection & state
+
+To let users pick rows/columns/cells, `st.dataframe` *is* the right tool—do **not** reach for
+`st.data_editor` with a `CheckboxColumn`, or a `st.selectbox` over row labels. Set `on_select="rerun"`
+and a stable `key`; the call then returns a selection event instead of a delta generator.
+
+```python
+# GOOD: selectable table via st.dataframe
+event = st.dataframe(df, on_select="rerun", selection_mode="single-row", key="tbl")
+picked = df.iloc[event.selection.rows]   # also: st.session_state["tbl"]["selection"]["rows"]
+st.write(picked)
+```
+
+```python
+# BAD: wrong tool for selection-only use cases
+edited = st.data_editor(df, column_config={"pick": st.column_config.CheckboxColumn()})
+```
+
+- `selection_mode` accepts `"single-row"`, `"single-row-required"`, `"multi-row"` (default),
+  `"single-column"`, `"multi-column"`, `"single-cell"`, `"multi-cell"`, or an iterable. When column
+  selection is enabled, column sorting is disabled.
+- Preset a selection with `selection_default={"selection": {"rows": [0]}}`.
+- **Sort order and scroll position are not persisted across reruns**—there is no `persist`/`preserve_sort`
+  parameter. Only *selection* survives, and only when wired through `key` + `on_select`.
+- Other params: `row_height=<px>` and `placeholder=<text for missing values>`.
 
 ## Data editor
 
