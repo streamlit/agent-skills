@@ -27,7 +27,23 @@ Because discovery happens dynamically against whichever interpreter is active, a
 
 This repository contains a single meta-skill (`developing-with-streamlit`). **Install it once at the user level** — the meta-skill resolves the bundled skills dynamically from whichever Python interpreter is active, so one global install works across every project and every Streamlit version you use.
 
-### Cross-agent: `npx skills` (recommended)
+### Streamlit 1.58+: `streamlit skills` (recommended)
+
+If your project uses **Streamlit 1.58 or newer**, you don't need this meta-skill at all — Streamlit installs its bundled skills directly. From your project directory, run:
+
+```bash
+streamlit skills
+```
+
+This installs the bundled `developing-with-streamlit` skills into your project as symlinks (under `.agents/skills/`, plus `.claude/skills/` when Claude Code is detected), so they always stay in sync with the active Streamlit version. The command is idempotent — safe to run multiple times. Add `--yes` to skip the interactive prompt (e.g. in CI or scripts):
+
+```bash
+streamlit skills --yes
+```
+
+For earlier Streamlit versions (1.57), or to install once at the user level so it works across every project and Streamlit version, use one of the methods below.
+
+### Cross-agent: `npx skills`
 
 [`skills`](https://github.com/vercel-labs/skills) ([docs](https://skills.sh)) is a Vercel-published cross-agent installer that supports Claude Code, Cursor, Copilot, Gemini CLI, Codex, and others — one command, all agents:
 
