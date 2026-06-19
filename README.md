@@ -25,9 +25,32 @@ Because discovery happens dynamically against whichever interpreter is active, a
 
 ## Installation
 
-This repository contains a single meta-skill (`developing-with-streamlit`). **Install it once at the user level** — the meta-skill resolves the bundled skills dynamically from whichever Python interpreter is active, so one global install works across every project and every Streamlit version you use.
+### Recommended: `streamlit skills` (Streamlit 1.58+)
 
-### Cross-agent: `npx skills` (recommended)
+If your project uses **Streamlit 1.58 or newer**, the easiest way to install the skills — at either project or user level — is the built-in command:
+
+```bash
+streamlit skills
+```
+
+The interactive CLI lets you choose where to install:
+
+- **Project level** — the bundled skills are symlinked into the current project (under `.agents/skills/`, plus `.claude/skills/` when Claude Code is detected) from the active Streamlit package, so they stay in sync with the installed Streamlit version.
+- **User/global level** — installs **this repo's meta-skill** for your user account, so it works across every project on your machine and resolves the bundled skills dynamically against whichever Streamlit version each project uses.
+
+The command is idempotent — safe to run multiple times. Add `--yes` to skip the interactive prompt (e.g. in CI or scripts):
+
+```bash
+streamlit skills --yes
+```
+
+### Installing the meta-skill manually (Streamlit 1.57, or other agents)
+
+The user/global option above installs the same meta-skill this repository contains (`developing-with-streamlit`). Install it manually if you're on **Streamlit 1.57** (before `streamlit skills` existed), or if you'd rather manage it through your agent's own skill installer (`npx skills`, `gh skill`, etc.).
+
+**Install it once at the user level** — the meta-skill resolves the bundled skills dynamically from whichever Python interpreter is active, so one global install works across every project and every Streamlit version you use (1.57+). Use one of the per-agent methods below.
+
+### Cross-agent: `npx skills`
 
 [`skills`](https://github.com/vercel-labs/skills) ([docs](https://skills.sh)) is a Vercel-published cross-agent installer that supports Claude Code, Cursor, Copilot, Gemini CLI, Codex, and others — one command, all agents:
 
