@@ -1,5 +1,14 @@
 # Agent Skills for Streamlit Development
 
+> [!WARNING]
+> **This repository is deprecated and is being archived.**
+>
+> The `developing-with-streamlit` **meta-skill now lives in and ships with Streamlit itself** — [**`streamlit/streamlit`**](https://github.com/streamlit/streamlit) is the canonical source of truth. As of Streamlit **1.60+** the meta-skill is bundled in the pip package at [`lib/streamlit/.agents/meta-skill/developing-with-streamlit`](https://github.com/streamlit/streamlit/tree/develop/lib/streamlit/.agents/meta-skill/developing-with-streamlit), and `streamlit skills` installs it from your local install — no download from this repo.
+>
+> - **Recommended:** `pip install --upgrade streamlit` (1.60+), then `streamlit skills`.
+> - **Existing installs keep working.** This repo stays public and its `v1` tag is preserved, so `npx skills` / `gh skill` / `git clone` installs continue to resolve; `discover.py` runs entirely locally, so archiving does not affect it.
+> - **New development and fixes to the meta-skill happen in [`streamlit/streamlit`](https://github.com/streamlit/streamlit), not here.**
+
 A lightweight **meta-skill** that teaches AI coding assistants (Claude Code, Cursor, and others) how to discover and load the Streamlit development skills bundled inside the Streamlit pip package (1.57+).
 
 ## What are Agent Skills?
@@ -77,7 +86,7 @@ If you prefer project-scoped install, copy to `.claude/skills/` in your repo roo
 gh skill install streamlit/agent-skills developing-with-streamlit --scope user
 ```
 
-Available via the GitHub CLI (`gh`) as of April 2026. Drop `--scope user` to install to the current repo only, or pin a version with `developing-with-streamlit@v1.0.0`. See the [Copilot agent skills docs](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/add-skills).
+Available via the GitHub CLI (`gh`) as of April 2026. Drop `--scope user` to install to the current repo only, or pin a version with `developing-with-streamlit@v1`. See the [Copilot agent skills docs](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/add-skills).
 
 ### Cursor
 
